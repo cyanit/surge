@@ -160,7 +160,7 @@ private:
    int FMmode;
    float noisegenL[2], noisegenR[2];
 
-   std::unique_ptr<Oscillator> osc[3];
+   std::unique_ptr<Oscillator> osc[n_oscs];
 
    std::array<ModulationSource*, n_modsources> modsources;
 

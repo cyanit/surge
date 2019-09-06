@@ -5,8 +5,9 @@
 #include "vstcontrols.h"
 #include "SurgeBitmaps.h"
 #include "SurgeParamConfig.h"
+#include "SliderKnobInterface.h"
 
-class CSurgeSlider : public CCursorHidingControl
+class CSurgeSlider : public CCursorHidingControl, public virtual Surge::SliderKnobInterface
 {
 public:
    CSurgeSlider(const VSTGUI::CPoint& loc,
@@ -30,6 +31,11 @@ public:
 
    virtual double getMouseDeltaScaling(VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons);
    virtual void onMouseMoveDelta(VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons, double dx, double dy);
+
+   virtual void setDefaultValue(float val)
+   {
+      CCursorHidingControl::setDefaultValue(val);
+   }
 
    virtual void setLabel(const char* txt);
    virtual void setModValue(float val);

@@ -1,0 +1,228 @@
+<!-- XML document for a surge layout -->
+
+<surge-skin version="1">
+  <defaults fontfamily="Lato" fontsize="9"/>
+
+  <strings default="en">
+    <!-- right now this isn't quite supported but I want the data model to allow internationalization -->
+    <stringmap language="en">
+      <string name="oscillator" value="Oscillator"/>
+      <string name="single" value="Single"/>
+      <string name="dual" value="Dual"/>
+      <string name="split" value="Split"/>
+    </stringmap>
+
+    <stringmap language="fr">
+      <!-- I don't speak french ... this is just so I can test -->
+      <string name="oscillator" value="Oscillateur"/>
+      <string name="single" value="Un"/>
+      <string name="dual" value="Deux"/>
+      <string name="split" value="LeSplit"/>
+    </stringmap>
+    
+  </strings>
+
+  
+  <colormaps default="default">
+    <colormap name="default">
+      <color name="osc.wavbg" value="#000000"/>
+      <color name="osc.wavfg" value="#ff9B10"/>
+      <color name="osc.wavrule" value="#ccccaa"/>
+      <color name="osc.wavsectionbg" value="#000000"/>
+      <color name="osc.ctrlsectionbg" value="#eeeedd"/>
+      <color name="osc.ctrlsectionfg" value="#222233"/>
+
+      <color name="ctrl.bg" value="#ccccdd"/>
+      <color name="ctrl.fg" value="#000000"/>
+
+      <color name="mixenv.bg" value="#333344"/>
+      <color name="mixenv.fg" value="#ffaa44"/>
+
+      <color name="route.bg" value="#aaaaff"/>
+      <color name="route.fg" value="#000000"/>
+
+      <color name="mod.bg" value="#ff9000"/>
+      <color name="mod.fg" value="#000000"/>
+
+      <color name="patch.bg" value="#eeeeee"/>
+      <color name="patch.fg" value="#000000"/>
+
+      <color name="roundedmulti.bg" value="#ddddee"/>
+      <color name="roundedmulti.font" value="#000000"/>
+      <color name="roundedmulti.select" value="#ff9000"/>
+      <color name="roundedmulti.border" value="#228822"/>
+
+      <color name="darkmulti.bg" value="#000000"/>
+      <color name="darkmulti.depress" value="#331100"/>
+      <color name="darkmulti.font" value="#ff9000"/>
+      <color name="darkmulti.select" value="#ff9000"/>
+      <color name="darkmulti.selectfont" value="#000000"/>
+      <color name="darkmulti.border" value="#331100"/>
+
+
+    </colormap>
+  </colormaps>
+
+  <components>
+    <component name="hslider" class="CSurgeSlider" width="133" height="18">
+    </component>
+    <component name="vslider" class="CSurgeSlider">
+    </component>
+    <component name="knob.medium" class="CSurgeKnob" width="50" height="50">
+    </component>
+
+    <component name="roundedmultiswitch" class="CStringMultiSwitch">
+      <componentproperties border="rounded"
+                           fontsize="10"
+                           bgcolor="$roundedmulti.bg"
+                           fontcolor="$roundedmulti.font"
+                           selectfontcolor="$roundedmulti.selectfont"
+                           selectcolor="$roundedmulti.select"
+                           depresscolor="$roundedmulti.depress"
+                           hovercolor="$roundedmulti.hover"
+                           bordercolor="$roundedmulti.border"/>
+    </component>
+
+    <component name="darkmultiswitch" class="CStringMultiSwitch">
+      <componentproperties border="rounded"
+                           fontsize="10"
+                           bgcolor="$darkmulti.bg"
+                           fontcolor="$darkmulti.font"
+                           selectfontcolor="$darkmulti.selectfont"
+                           selectcolor="$darkmulti.select"
+                           depresscolor="$darkmulti.depress"
+                           hovercolor="$darkmulti.hover"
+                           bordercolor="$darkmulti.border"/>
+    </component>
+
+    <component name="Plus Minus" class="CHSwitch2" width="37" height="12">
+      <componentproperties subPixmaps="2"
+                           heightOfOneImage="12"
+                           rows="1"
+                           cols="2"
+                           svg="SVG/PlusMinus_00149.svg"
+                           useMouseWheel="false"
+                           />
+    </component>
+    <component name="Menu Button" class="CHSwitch2" width="37" height="12">
+      <componentproperties subPixmaps="2"
+                           heightOfOneImage="12"
+                           rows="1"
+                           cols="1"
+                           svg="SVG/Menu_00164.svg"
+                           useMouseWheel="false"
+                           />
+    </component>
+    <component name="OSC Display" class="COscillatorDisplay" width="200" height="120">
+      <componentproperties fg="$osc.wavefg" bg="$osc.wavebg" rulecolor="$osc.waverule"/>
+    </component>
+  </components>
+
+  <layout style="debug" mode="hlist" bgcolor="#eeeeff" label="root" width="2148" height="842"> <!-- 904x542 is surge orign -->
+    <layout xoff="0" yoff="0" width="1000" height="-1" mode="vlist" label="side" bgcolor="#449944">
+      <layout height="60" mode="hlist" width="-1" style="blank" label="top">
+        <layout width="100" height="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Scene">
+          <node guiid="scene.AB" component="roundedmultiswitch" width="90" height="50" xoff="5" yoff="5">
+            <nodeproperties rows="2" cols="1" fontsize="24"
+                            choices="A|B"/>
+          </node>
+        </layout>
+        <layout width="50" height="-1"  style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="ScMod">
+          <node guiid="scene.mode" component="roundedmultiswitch" width="40" height="50" xoff="5" yoff="5">
+            <nodeproperties rows="1" cols="3"
+                            choices="$single|$dual|$split"/>
+          </node>
+        </layout>
+        <layout width="50" height="-1"  style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Splt"/>
+        <layout width="600" height="-1" style="labelblock" bgcolor="$patch.bg" fgcolor="$patch.fg" label="Patch">
+          <node component="Plus Minus" guiid="patch.categoryjog" xoff="10" yoff="30"/>
+          <node component="Plus Minus" guiid="patch.patchjog" xoff="50" yoff="30"/>
+        </layout>
+        <layout width="50" height="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Status"/>
+        <layout width="-1" height="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="FX Bypass"/>
+      </layout>
+      
+      <layout xoff="0" mode="hlist" width="-1" height="500" style="debug" bgcolor="#ffff33" label="voice">
+        <layout width="250" height="-1" style="blank" mode="vlist" label="oparent">
+          <layout width="-1" height="-1" label="oscparent" mode="hlist" style="blank">
+            <layout width="-1" height="-1" label="OSEL" mode="hlist" style="labelblock" fgcolor="$osc.wavsectionfg" bgcolor="$osc.wavsectionbg">
+              <node guiid="osc.switch" component="darkmultiswitch" width="-1" height="-1">
+                <nodeproperties rows="1" cols="6" fontsize="24"
+                                choices="1|2|3|4|5|6"/>
+
+              </node>
+            </layout>
+            <layout width="200" height="-1" label="osc" mode="vlist">
+              <layout yoff="0" width="-1" height="160" mode="vlist" style="fill" bgcolor="$osc.wavsectionbg" label="osc.wave">
+                <layout mode="hlist" yoff="0" width="-1" height="20" style="blank" label="osc.label">
+                  <!-- Labels are trannsparent by default and use the default font unless otherwise specified -->
+                  <label string="$oscillator" valign="left" halign="top" fgcolor="$osc.wavfg" width="-1" height="-1"/> 
+                </layout>
+                <node component="OSC Display" guiid="osc.display" xoff="0" yoff="20"/>
+              </layout>
+              
+              <layout width="-1" height="-1" mode="vlist" style="fill" bgcolor="$osc.ctrlsectionbg" label="osc.controls">
+                <node component="hslider" guiid="osc.pitch"/><!-- Surge::ParamConfig::kHorizontal | kSemitone | sceasy));-->
+                <node component="hslider" guiid="osc.param0"/>
+                <node component="hslider" guiid="osc.param1"/>
+                <node component="hslider" guiid="osc.param2"/>
+                <node component="hslider" guiid="osc.param3"/>
+                <node component="hslider" guiid="osc.param4"/>
+                <node component="hslider" guiid="osc.param5"/>
+                <node component="hslider" guiid="osc.param6"/>
+                <node component="hslider" guiid="osc.param7"/>
+                <!--                                                         Surge::ParamConfig::kHorizontal | ((i < 6) ? sceasy : 0))); -->
+              </layout>
+            </layout>
+          </layout>
+        </layout>
+        
+        
+        <layout width="200" height="-1" mode="vlist" style="blank" label="mixparent">
+          <layout width="-1" height="200" label="Poly" style="labelblock" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg"/>
+          <layout width="-1" height="-1"  label="Scene" style="labelblock" fgcolor="$ctrl.fg" bgcolor="$ctrl.bg">
+            <node component="hslider" guiid="global.pitch"/> <!-- Surge::ParamConfig::kHorizontal | kSemitone | sceasy -->
+          </layout>
+          <layout width="-1" height="200" label="Mixer" style="labelblock" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg"/>
+        </layout>
+
+        <layout width="-1" height="-1" mode="vlist" style="blank" label="midparent">
+          <layout height="150" width="-1" mode="hlist" style="blank" label="ofoparent">
+            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="FM"/>
+            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Filter Cfg"/>
+            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Output"/>
+          </layout>
+          <layout height="100" width="-1" mode="hlist" style="blank" label="filtparent">
+            <layout height="-1" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 1"/>
+            <layout height="-1" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt Mix"/>
+            <layout height="-1" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 2"/>
+          </layout>
+          <layout height="-1" width="-1" mode="hlist" style="blank" label="envparent">
+            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="KeyTrack"/>
+            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="FEG"/>
+            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="AEG"/>
+          </layout>
+        </layout>
+        
+
+      </layout>
+      <layout height="120" width="-1" style="labelblock" bgcolor="$route.bg" fgcolor="$route.fg" label="Routing">
+      </layout>
+      <layout height="-1" width="-1" style="labelblock" bgcolor="$mod.bg" fgcolor="$mod.fg" label="Modulator">
+      </layout>
+    </layout>
+    <layout yoff="0" width="-1" height="-1" mode="vlist" style="blank" bgcolor="#ccccaa" label="fxoutparent">
+      <layout height="100" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Output"/>
+      <layout height="-1" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="FX"/>
+      <layout height="50" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Menu">
+        <node component="Menu Button" guiid="global.menubutton" xoff="2" yoff="2"/>
+      </layout>
+    </layout>
+
+
+    <layout width="944" height="582" label="orig" mode="free" bgcolor="#ff0000">
+      <layout xoff="20" yoff="20" width="904" height="542" label="legacy" bgcolor="#aaaa99">
+      </layout>
+    </layout>
+  </layout>
+</surge-skin>

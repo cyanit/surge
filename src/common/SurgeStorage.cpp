@@ -146,7 +146,7 @@ SurgeStorage::SurgeStorage(std::string suppliedDataPath)
        // or kUserDomain
        FSRefMakePath(&foundRef, (UInt8*)path, 1024);
        datapath = path;
-       datapath += "/Surge/";
+       datapath += "/SurgePlusPlus/";
 
        auto cxmlpath = datapath + "configuration.xml";
        // check if the directory exist in the user domain (if it doesn't, fall back to the local domain)
