@@ -179,9 +179,9 @@ SurgeStorage::SurgeStorage(std::string suppliedDataPath)
    {
        const char* xdgDataPath = getenv("XDG_DATA_HOME");
        if (xdgDataPath)
-           datapath = std::string(xdgDataPath) + "/Surge/";
+           datapath = std::string(xdgDataPath) + "/SurgePlusPlus/";
        else
-           datapath = std::string(homePath) + "/.local/share/Surge/";
+           datapath = std::string(homePath) + "/.local/share/SurgePlusPlus/";
        
        /*
        ** If local directory doesn't exists - we probably came here through an installer -
@@ -189,7 +189,7 @@ SurgeStorage::SurgeStorage(std::string suppliedDataPath)
        */
        if (! fs::is_directory(datapath))
        {
-           datapath = "/usr/share/Surge/";
+           datapath = "/usr/share/SurgePlusPlus/";
        }
    }
    else
