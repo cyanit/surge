@@ -3,6 +3,7 @@
 //-------------------------------------------------------------------------------------------------------
 #pragma once
 #include "globals.h"
+#include <memory>
 #include <string>
 
 union pdata
