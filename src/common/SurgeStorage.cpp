@@ -236,7 +236,7 @@ SurgeStorage::SurgeStorage(std::string suppliedDataPath)
    if (!SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, &localAppData))
    {
       CHAR path[4096];
-      wsprintf(path, "%S\\Surge\\", localAppData);
+      wsprintf(path, "%S\\SurgePlusPlus\\", localAppData);
       datapath = path;
    }
 
