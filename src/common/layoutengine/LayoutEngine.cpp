@@ -199,13 +199,24 @@ void LayoutEngine::setupControlFactory()
       auto comp = components[p->component];
       point_t nopoint(0, 0);
       nopoint.offset(p->xoff, p->yoff);
-      auto res = new CSurgeSlider(nopoint, Surge::ParamConfig::Style::kHorizontal, // for now
+
+      auto pprops = p->properties;
+      auto props = Surge::mergeProperties(comp->properties, pprops);
+
+      auto orient = Surge::ParamConfig::Style::kHorizontal;
+      if( props["orientation"] == "vertical" )
+      {
+         orient = Surge::ParamConfig::Style::kVertical;
+      }
+
+      auto res = new CSurgeSlider(nopoint, orient,
                                   listener, tag, false, bitmapStore);
       /*
       ** SO MUCH to fix here; like horizontal and vertical; and like the bitmaps we choose and the
       *background.
       ** But this actually works.
       */
+
       return res;
    };
 

@@ -1,11 +1,18 @@
 Here's my sort of running todo as I think of it, in rough order
 
+* Rounded Rect Regions
+* Gradient Colormaps
+* Finish Mixer Section
+* Find and swap layouts
+  * LayoutDir to '.slo'
+  * Scan for Layouts in the userpath and factorypath
+  * Menu to swap layouts
+* Finish OSC Section
 * XML configured multi-switch rather than SVG configured multi-switch
   * properties for drawing and a few classes
   * MOve the other CHSwitch2s
   * Add a multi-text switch which encompasses toggle
 * Region SVG Backgrounds
-* Gradient Colormaps
 * Sublayouts maybe?
 * Finish positioning all the sliders with the XML
 * Move the rest of the CHSwitch2s over
@@ -13,11 +20,8 @@ Here's my sort of running todo as I think of it, in rough order
 * FX routing and FX section
 * Patch Browser
 * What's left in legacy?
+* Why's it coredump if layout is missing?
 
-* Find and swap layouts
-  * LayoutDIr to '.slo'
-  * Scan for Layouts in the userpath and factorypath
-  * Meny to swap layouts
 
 * Test Layouts
 

@@ -66,7 +66,8 @@
   <components>
     <component name="hslider" class="CSurgeSlider" width="133" height="18">
     </component>
-    <component name="vslider" class="CSurgeSlider">
+    <component name="vslider" class="CSurgeSlider" height="133" width="18">
+      <componentproperties orientation="vertical"/>
     </component>
     <component name="knob.medium" class="CSurgeKnob" width="50" height="50">
     </component>
@@ -183,7 +184,26 @@
           <layout width="-1" height="-1"  label="Scene" style="labelblock" fgcolor="$ctrl.fg" bgcolor="$ctrl.bg">
             <node component="hslider" guiid="global.pitch"/> <!-- Surge::ParamConfig::kHorizontal | kSemitone | sceasy -->
           </layout>
-          <layout width="-1" height="200" label="Mixer" style="labelblock" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg"/>
+          <layout width="-1" mode="hlist" height="200" label="Mixer" style="labelblock" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg">
+            <layout style="blank" width="30" height="-1" layout="vlist">
+              <node guiid="mix.osc0.level" component="vslider"/>
+            </layout>
+            <layout style="blank"  width="30" height="-1" layout="vlist">
+              <node guiid="mix.osc1.level" component="vslider"/>
+            </layout>
+            <layout style="blank"  width="30" height="-1" layout="vlist">
+              <node guiid="mix.osc2.level" component="vslider"/>
+            </layout>
+            <layout style="blank"  width="30" height="-1" layout="vlist">
+              <node guiid="mix.osc3.level" component="vslider"/>
+            </layout>
+            <layout style="blank"  width="30" height="-1" layout="vlist">
+              <node guiid="mix.osc4.level" component="vslider"/>
+            </layout>
+            <layout style="blank"  width="30" height="-1" layout="vlist">
+              <node guiid="mix.osc5.level" component="vslider"/>
+            </layout>
+          </layout>
         </layout>
 
         <layout width="-1" height="-1" mode="vlist" style="blank" label="midparent">
