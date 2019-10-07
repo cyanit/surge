@@ -146,6 +146,8 @@ public:
    float xoff = 0;
    float yoff = 0;
 
+   float marginx = 0, marginy = 0;
+   
    int depth = -1;
 
    LayoutElement* parent = nullptr;

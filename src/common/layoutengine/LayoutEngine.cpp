@@ -535,6 +535,14 @@ LayoutElement* LayoutElement::fromXML(TiXmlElement* el, LayoutElement* parent, L
       }
    }
 
+   // OK so now set up margins for some custom types
+   if( res->type == Layout && ( res->style == "roundedblock" || res->style == "roundedlabel" ) )
+   {
+      // FIXME we probably want this as a parameter
+      res->marginx = 5;
+      res->marginy = 5;
+   }
+   
    // If I'm have a component:
    if (res->component != "")
    {
@@ -628,15 +636,19 @@ std::string LayoutElement::toString(bool recurse)
       switch (mode)
       {
       case Free:
-         oss << "(free) ";
+         oss << "(free|";
          break;
       case Hlist:
-         oss << "(hlist) ";
+         oss << "(hlist|";
          break;
       case Vlist:
-         oss << "(vlist) ";
+         oss << "(vlist|";
          break;
       }
+      if( style == "" )
+         oss << "default) ";
+      else
+         oss << style << ") ";
       break;
    case Node:
       oss << "node guiid='" << guiid << "' ";
@@ -788,6 +800,8 @@ void LayoutElement::setupChildSizes()
       {
          // FIXME do better than this. Like check for invalid states and stuff
          kid->setupChildSizes();
+         kid->xoff += marginx;
+         kid->yoff += marginy;
       }
       break;
    }
@@ -796,7 +810,6 @@ void LayoutElement::setupChildSizes()
       // So basically the yOff is the running width
       // if the height is -1 it is my height
       // if width is -1 it is fill the box along with other -1s evenly
-      float kid_xoff = 0;
       float given_width = 0;
       int free_widths = 0;
       for (auto kid : children)
@@ -809,8 +822,9 @@ void LayoutElement::setupChildSizes()
 
       float default_width = 0;
       if (free_widths)
-         default_width = (width - given_width) / free_widths;
+         default_width = (width - 2 * marginx - given_width) / free_widths;
 
+      float kid_xoff = marginx;
       for (auto kid : children)
       {
          if (kid->height == -1)
@@ -818,6 +832,7 @@ void LayoutElement::setupChildSizes()
          if (kid->width == -1)
             kid->width = default_width;
          kid->xoff = kid_xoff;
+         kid->yoff = marginy;
          kid_xoff += kid->width;
          kid->setupChildSizes();
       }
@@ -825,7 +840,6 @@ void LayoutElement::setupChildSizes()
    }
    case Vlist:
       // Copy and Paste with x<->y and w<->h. What could go wrong?
-      float kid_yoff = 0;
       float given_height = 0;
       int free_heights = 0;
       for (auto kid : children)
@@ -838,19 +852,20 @@ void LayoutElement::setupChildSizes()
 
       float default_height = 0;
       if (free_heights)
-         default_height = (height - given_height) / free_heights;
+         default_height = (height - marginy - given_height) / free_heights;
 
+      float kid_yoff = marginy;
       for (auto kid : children)
       {
          if (kid->height == -1)
             kid->height = default_height;
          if (kid->width == -1)
             kid->width = width;
+         kid->xoff = marginx;
          kid->yoff = kid_yoff;
          kid_yoff += kid->height;
          kid->setupChildSizes();
       }
-      break;
       break;
    }
 }

@@ -36,7 +36,7 @@
       <color name="ctrl.fg" value="#000000"/>
 
       <color name="mixenv.bg" value="#333344"/>
-      <color name="mixenv.fg" value="#ffaa44"/>
+      <color name="mixenv.fg" value="#ff9000"/>
 
       <color name="route.bg" value="#aaaaff"/>
       <color name="route.fg" value="#000000"/>
@@ -119,8 +119,8 @@
     </component>
   </components>
 
-  <layout style="debug" mode="hlist" bgcolor="#eeeeff" label="root" width="2148" height="842"> <!-- 904x542 is surge orign -->
-    <layout xoff="0" yoff="0" width="1000" height="-1" mode="vlist" label="side" bgcolor="#449944">
+  <layout style="fill" mode="hlist" bgcolor="#9999aa" label="root" width="2148" height="842"> <!-- 904x542 is surge orign -->
+    <layout xoff="0" yoff="0" width="1000" height="-1" mode="vlist" label="side" style="blank">
       <layout height="60" mode="hlist" width="-1" style="blank" label="top">
         <layout width="100" height="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Scene">
           <node guiid="scene.AB" component="roundedmultiswitch" width="90" height="50" xoff="5" yoff="5">
@@ -143,7 +143,7 @@
         <layout width="-1" height="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="FX Bypass"/>
       </layout>
       
-      <layout xoff="0" mode="hlist" width="-1" height="500" style="debug" bgcolor="#ffff33" label="voice">
+      <layout xoff="0" mode="hlist" width="-1" height="500" style="blank" label="voice">
         <layout width="250" height="-1" style="blank" mode="vlist" label="oparent">
           <layout width="-1" height="-1" label="oscparent" mode="hlist" style="blank">
             <layout width="-1" height="-1" label="OSEL" mode="hlist" style="labelblock" fgcolor="$osc.wavsectionfg" bgcolor="$osc.wavsectionbg">
@@ -180,11 +180,11 @@
         
         
         <layout width="200" height="-1" mode="vlist" style="blank" label="mixparent">
-          <layout width="-1" height="200" label="Poly" style="labelblock" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg"/>
-          <layout width="-1" height="-1"  label="Scene" style="labelblock" fgcolor="$ctrl.fg" bgcolor="$ctrl.bg">
+          <layout width="-1" height="200" label="Poly" style="roundedlabel" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg"/>
+          <layout width="-1" height="-1"  label="Scene" style="roundedlabel" fgcolor="$ctrl.fg" bgcolor="$ctrl.bg">
             <node component="hslider" guiid="global.pitch"/> <!-- Surge::ParamConfig::kHorizontal | kSemitone | sceasy -->
           </layout>
-          <layout width="-1" mode="hlist" height="200" label="Mixer" style="labelblock" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg">
+          <layout width="-1" mode="hlist" height="200" label="Mixer" style="roundedblock" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg">
             <layout style="blank" width="30" height="-1" layout="vlist">
               <node guiid="mix.osc0.level" component="vslider"/>
             </layout>
@@ -208,33 +208,33 @@
 
         <layout width="-1" height="-1" mode="vlist" style="blank" label="midparent">
           <layout height="150" width="-1" mode="hlist" style="blank" label="ofoparent">
-            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="FM"/>
-            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Filter Cfg"/>
-            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Output"/>
+            <layout height="-1" width="-1" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="FM"/>
+            <layout height="-1" width="-1" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Filter Cfg"/>
+            <layout height="-1" width="-1" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Output"/>
           </layout>
           <layout height="100" width="-1" mode="hlist" style="blank" label="filtparent">
-            <layout height="-1" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 1"/>
-            <layout height="-1" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt Mix"/>
-            <layout height="-1" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 2"/>
+            <layout height="-1" width="-1" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 1"/>
+            <layout height="-1" width="-1" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt Mix"/>
+            <layout height="-1" width="-1" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 2"/>
           </layout>
           <layout height="-1" width="-1" mode="hlist" style="blank" label="envparent">
-            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="KeyTrack"/>
-            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="FEG"/>
-            <layout height="-1" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="AEG"/>
+            <layout height="-1" width="-1" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="KeyTrack"/>
+            <layout height="-1" width="-1" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="FEG"/>
+            <layout height="-1" width="-1" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="AEG"/>
           </layout>
         </layout>
         
 
       </layout>
-      <layout height="120" width="-1" style="labelblock" bgcolor="$route.bg" fgcolor="$route.fg" label="Routing">
+      <layout height="120" width="-1" style="roundedlabel" bgcolor="$route.bg" fgcolor="$route.fg" label="Routing">
       </layout>
-      <layout height="-1" width="-1" style="labelblock" bgcolor="$mod.bg" fgcolor="$mod.fg" label="Modulator">
+      <layout height="-1" width="-1" style="roundedlabel" bgcolor="$mod.bg" fgcolor="$mod.fg" label="Modulator">
       </layout>
     </layout>
-    <layout yoff="0" width="-1" height="-1" mode="vlist" style="blank" bgcolor="#ccccaa" label="fxoutparent">
-      <layout height="100" width="-1" style="labelblock" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Output"/>
-      <layout height="-1" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="FX"/>
-      <layout height="50" width="-1" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Menu">
+    <layout yoff="0" width="-1" height="-1" mode="vlist" style="blank" label="fxoutparent">
+      <layout height="100" width="-1" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Output"/>
+      <layout height="-1" width="-1" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="FX"/>
+      <layout height="50" width="-1" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Menu">
         <node component="Menu Button" guiid="global.menubutton" xoff="2" yoff="2"/>
       </layout>
     </layout>
