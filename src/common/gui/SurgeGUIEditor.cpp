@@ -86,10 +86,11 @@ enum special_tags
 SurgeGUIEditor::SurgeGUIEditor(void* effect, SurgeSynthesizer* synth, void* userdata) : super(effect)
 {
    // First things first, make a LayoutEngine
+   Surge::LayoutLibrary::initialize(&(synth->storage));
    layout.reset(new Surge::LayoutEngine());
    // FIXME - improve this of course to search
    layout->layoutRoot = synth->storage.datapath + "/layouts/";
-   layout->particularLayout = "original/";
+   layout->particularLayout = "original.layout/";
    layout->parseLayout();
 
    // Now get our global sizes
@@ -701,10 +702,6 @@ void SurgeGUIEditor::openOrRecreateEditor()
    frame->addView(layoutRoot);
 
    auto* legacy = layout->getSubContainerByLabel("legacy");
-   if (legacy == nullptr)
-   {
-      legacy = frame;
-   }
 
    CPoint nopoint(0, 0);
 
@@ -727,7 +724,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
       }
       fc->set_bypass(synth->storage.getPatch().fx_bypass.val.i);
       fc->set_disable(synth->storage.getPatch().fx_disable.val.i);
-      legacy->addView(fc);
+      if(legacy != nullptr) legacy->addView(fc);
    }
 
    int rws = 15;
@@ -761,7 +758,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
       {
          ((CModulationSourceButton*)gui_modsrc[ms])->setlabel(modsource_abberations_button[ms]);
       }
-      legacy->addView(gui_modsrc[ms]);
+      if(legacy != nullptr) legacy->addView(gui_modsrc[ms]);
    }
 
    /*// Comments
@@ -772,7 +769,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
            Comments->setTransparency(true);
            Comments->setFont(displayFont);
            Comments->setHoriAlign(kMultiLineCenterText);
-           legacy->addView(Comments);
+           if(legacy != nullptr) legacy->addView(Comments);
    }*/
 
    // main vu-meter
@@ -780,7 +777,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
    vurect.offset(0, 14);
    vu[0] = new CSurgeVuMeter(vurect);
    ((CSurgeVuMeter*)vu[0])->setType(vut_vu_stereo);
-   legacy->addView(vu[0]);
+   if(legacy != nullptr) legacy->addView(vu[0]);
 
    // fx vu-meters & labels
 
@@ -797,7 +794,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             vr.offset(0, 7);
             vu[i + 1] = new CSurgeVuMeter(vr);
             ((CSurgeVuMeter*)vu[i + 1])->setType(t);
-            legacy->addView(vu[i + 1]);
+            if(legacy != nullptr) legacy->addView(vu[i + 1]);
          }
          else
             vu[i + 1] = 0;
@@ -812,7 +809,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             vr.offset(0, yofs * synth->fx[current_fx]->group_label_ypos(i));
             CEffectLabel* lb = new CEffectLabel(vr);
             lb->setLabel(label);
-            legacy->addView(lb);
+            if(legacy != nullptr) legacy->addView(lb);
          }
       }
    }
@@ -826,7 +823,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
    ((CPatchBrowser*)patchname)->setCategory(synth->storage.getPatch().category);
    ((CPatchBrowser*)patchname)->setIDs(synth->current_category_id, synth->patchid);
    ((CPatchBrowser*)patchname)->setAuthor(synth->storage.getPatch().author);
-   legacy->addView(patchname);
+   if(legacy != nullptr) legacy->addView(patchname);
 
    statuspanel = new CStatusPanel(CRect( 560, 1, 595, 54 ), this, tag_statuspanel, &synth->storage);
    {
@@ -836,14 +833,14 @@ void SurgeGUIEditor::openOrRecreateEditor()
        pb->setEditor(this);
    }
 
-   legacy->addView(statuspanel);
+   if(legacy != nullptr) legacy->addView(statuspanel);
 
    layout->addLayoutControl("patch.categoryjog", this, tag_mp_category, this);
    layout->addLayoutControl("patch.patchjog", this, tag_mp_patch, this);
 
    CHSwitch2* b_store = new CHSwitch2(CRect(547 - 37, 41, 547, 41 + 12), this, tag_store, 1, 12, 1,
                                       1, bitmapStore->getBitmap(IDB_BUTTON_STORE), nopoint, false);
-   legacy->addView(b_store);
+   if(legacy != nullptr) legacy->addView(b_store);
 
    memset(param, 0, 1024 * sizeof(void*)); // see the correct size in SurgeGUIEditor.h
    memset(nonmod_param, 0, 1024 * sizeof(void*));
@@ -887,7 +884,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             rect.offset(p->posx, p->posy);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -909,7 +906,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             rect.offset(p->posx + 129, p->posy + 1);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
 
             if (p->ctrlgroup_entry == 1)
             {
@@ -930,7 +927,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             CControl* hsw = new CSwitchControl(rect, this, p->id + start_paramtags,
                                                bitmapStore->getBitmap(IDB_SWITCH_KTRK));
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -941,21 +938,22 @@ void SurgeGUIEditor::openOrRecreateEditor()
             CControl* hsw = new CSwitchControl(rect, this, p->id + start_paramtags,
                                                bitmapStore->getBitmap(IDB_SWITCH_RETRIGGER));
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
-         case ct_oscroute:
+/*         case ct_oscroute:
          {
             CRect rect(0, 0, 22, 15);
             rect.offset(p->posx, p->posy);
             CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 3, 15, 1, 3,
                                           bitmapStore->getBitmap(IDB_OSCROUTE), nopoint, true);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
+         8?*/
          case ct_envshape:
          {
             bool hasShape = synth->storage.getPatch()
@@ -975,7 +973,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                else if (p->name[0] == 'r')
                   hsw->imgoffset = 6;
 
-               legacy->addView(hsw);
+               if(legacy != nullptr) legacy->addView(hsw);
                nonmod_param[i] = hsw;
             }
          }
@@ -988,7 +986,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                                            bitmapStore->getBitmap(IDB_ENVMODE), nopoint, false);
             hsw->setValue(p->get_value_f01());
 
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -999,29 +997,21 @@ void SurgeGUIEditor::openOrRecreateEditor()
             CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 3, 39, 3, 1,
                                           bitmapStore->getBitmap(IDB_LFOTRIGGER), nopoint, true);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
          case ct_bool_mute:
-         {
-            CRect rect(0, 0, 22, 15);
-            rect.offset(p->posx, p->posy);
-            CControl* hsw = new CSwitchControl(rect, this, p->id + start_paramtags,
-                                               bitmapStore->getBitmap(IDB_SWITCH_MUTE));
-            hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
-            nonmod_param[i] = hsw;
-         }
-         break;
          case ct_bool_solo:
+         case ct_oscroute:
          {
-            CRect rect(0, 0, 22, 15);
-            rect.offset(p->posx, p->posy);
-            CControl* hsw = new CSwitchControl(rect, this, p->id + start_paramtags,
-                                               bitmapStore->getBitmap(IDB_SWITCH_SOLO));
-            hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            CControl *hsw = nullptr;
+            if( p->hasLayoutEngineID )
+            {
+               hsw = layout->addLayoutControl(p->layoutEngineID, this, p->id + start_paramtags, this);
+               if( hsw )
+                  hsw->setValue(p->get_value_f01());
+            }
             nonmod_param[i] = hsw;
          }
          break;
@@ -1032,7 +1022,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             CControl* hsw = new CSwitchControl(rect, this, p->id + start_paramtags,
                                                bitmapStore->getBitmap(IDB_UNIPOLAR));
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -1046,7 +1036,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             rect.offset(p->posx + 129, p->posy + 5);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
          }
          break;
          case ct_bool_link_switch:
@@ -1059,7 +1049,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             rect.offset(p->posx + 129, p->posy + 5);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
          }
          break;
          case ct_osctype:
@@ -1070,7 +1060,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                 rect, this, tag_osc_menu, &synth->storage,
                 &synth->storage.getPatch().scene[current_scene].osc[current_osc], bitmapStore);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
          }
          break;
          case ct_fxtype:
@@ -1083,7 +1073,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                                       &synth->storage.getPatch().fx[current_fx],
                                       &synth->fxsync[current_fx], current_fx);
             m->setValue(p->get_value_f01());
-            legacy->addView(m);
+            if(legacy != nullptr) legacy->addView(m);
          }
          break;
          case ct_wstype:
@@ -1096,7 +1086,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             rect.offset(p->posx, p->posy);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -1110,7 +1100,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             rect.offset(p->posx, p->posy);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -1125,7 +1115,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             rect.offset(p->posx, p->posy);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -1139,7 +1129,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             rect.offset(p->posx, p->posy);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -1150,7 +1140,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 8, 52, 1, 8,
                                           bitmapStore->getBitmap(IDB_FBCONFIG), nopoint, true);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
             filterblock_tag = p->id + start_paramtags;
          }
@@ -1162,7 +1152,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 4, 52, 1, 4,
                                           bitmapStore->getBitmap(IDB_FMCONFIG), nopoint, true);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -1188,7 +1178,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                    &synth->storage.getPatch().scene[current_scene].lfo[lfo_id], &synth->storage,
                    &synth->storage.getPatch().stepsequences[current_scene][lfo_id]);
                lfodisplay = slfo;
-               legacy->addView(slfo);
+               if(legacy != nullptr) legacy->addView(slfo);
                nonmod_param[i] = slfo;
             }
          }
@@ -1210,7 +1200,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             rect(1, 1, 50, 26);
             rect.offset(p->posx, p->posy);
             sceneswitch->setMouseableArea(rect);
-            legacy->addView(sceneswitch);
+            if(legacy != nullptr) legacy->addView(sceneswitch);
             */
             
          }
@@ -1222,7 +1212,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 3, 12, 1, 3,
                                           bitmapStore->getBitmap(IDB_CHARACTER), nopoint, true);
             hsw->setValue(p->get_value_f01());
-            legacy->addView(hsw);
+            if(legacy != nullptr) legacy->addView(hsw);
             nonmod_param[i] = hsw;
          }
          break;
@@ -1234,7 +1224,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             key->setControlMode(cm_notename);
             // key->altlook = true;
             key->setValue(p->get_value_f01());
-            legacy->addView(key);
+            if(legacy != nullptr) legacy->addView(key);
             nonmod_param[i] = key;
          }
          break;
@@ -1246,7 +1236,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             pbd->altlook = true;
             pbd->setControlMode(cm_pbdepth);
             pbd->setValue(p->get_value_f01());
-            legacy->addView(pbd);
+            if(legacy != nullptr) legacy->addView(pbd);
          }
          break;
          case ct_polylimit:
@@ -1258,7 +1248,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             // key->setLabel("POLY");
             // key->setLabelPlacement(lp_below);
             key->setValue(p->get_value_f01());
-            legacy->addView(key);
+            if(legacy != nullptr) legacy->addView(key);
             polydisp = key;
          }
          break;
@@ -1311,7 +1301,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                   hs->setValue(p->get_value_f01());
                   hs->setLabel(p->get_name());
                   hs->setMoveRate(p->moverate);
-                  legacy->addView(hs);
+                  if(legacy != nullptr) legacy->addView(hs);
                   param[i] = hs;
                }
                else
@@ -1323,7 +1313,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                   hs->setDefaultValue(p->get_default_value_f01());
                   hs->setLabel(p->get_name());
                   hs->setMoveRate(p->moverate);
-                  legacy->addView(hs);
+                  if(legacy != nullptr) legacy->addView(hs);
                   param[i] = hs;
                }
             }

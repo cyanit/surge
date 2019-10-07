@@ -73,7 +73,7 @@ public:
    float getWidth();
    float getHeight();
 
-   void parseLayout();
+   bool parseLayout();
    void buildNodeMapFrom(LayoutElement*);
    void setupControlFactory();
 
@@ -175,4 +175,12 @@ public:
    static LayoutComponent* fromXML(TiXmlElement* e);
 };
 
+
+class LayoutLibrary
+{
+public:
+   static void initialize(SurgeStorage *);
+   static std::vector<std::string> availbleLayouts;
+};
+   
 } // namespace Surge

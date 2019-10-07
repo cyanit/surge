@@ -33,7 +33,7 @@ void LayoutEngineContainer::drawBackgroundRect(VSTGUI::CDrawContext* dc, const V
       dc->setFont(labelFont);
       dc->setFontColor(fgcolor);
 
-      auto stringR = ud;
+      auto stringR = getViewSize(); stringR.top = 0; stringR.left = 0;
       stringR.top = ud.getHeight() / 2 - 10;
       stringR.bottom = ud.getHeight() / 2 + 10;
       dc->drawString(label.c_str(), stringR, VSTGUI::kCenterText, true);
@@ -42,8 +42,11 @@ void LayoutEngineContainer::drawBackgroundRect(VSTGUI::CDrawContext* dc, const V
    }
    else if (style == "roundedblock" || style == "roundedlabel" )
    {
-      auto rr = ud;
+      auto rr =  getViewSize();
+      auto t = rr.top;
+      rr.offset( -rr.left, -rr.top );
       rr.inset(2,2);
+      dc->setClipRect(ud);
       auto rp = dc->createRoundRectGraphicsPath( rr, 7 );
       dc->setDrawMode(VSTGUI::kAntiAliasing);
       dc->setFillColor(bgcolor);

@@ -279,44 +279,45 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
          px += gui_vfader_dist;
       }
 
-      a->push_back(scene[sc].level_ring_12.assign(
-          p_id.next(), id_s++, "level_ring12", "Ring Level 1x2", ct_amplitude, px, py, sc_id,
-          cg_MIX, 0, true, Surge::ParamConfig::kVertical | kWhite | sceasy));
-      a->push_back(scene[sc].mute_ring_12.assign(p_id.next(), id_s++, "mute_ring12",
-                                                 "Ring Mute 1x2", ct_bool_mute, px, py + mof, sc_id,
-                                                 cg_MIX, 0, false));
-      a->push_back(scene[sc].solo_ring_12.assign(p_id.next(), id_s++, "solo_ring12",
-                                                 "Ring Solo 1x2", ct_bool_solo, px, py + sof, sc_id,
-                                                 cg_MIX, 0, false, kMeta));
-      a->push_back(scene[sc].route_ring_12.assign(p_id.next(), id_s++, "route_ring12",
-                                                  "Ring Route 1x2", ct_oscroute, px, py + rof,
-                                                  sc_id, cg_MIX, 0, false));
+      a->push_back(scene[sc].level_ring_12.assign(p_id.next(), id_s++,
+                                                  "level_ring12", "Ring Level 1x2", "mix.ring12.level",
+                                                  ct_amplitude, sc_id, cg_MIX, 0, true ));
+      a->push_back(scene[sc].mute_ring_12.assign(p_id.next(), id_s++,
+                                                 "mute_ring12", "Ring Mute 1x2", "mix.ring12.mute",
+                                                 ct_bool_mute, sc_id, cg_MIX, 0, false));
+      a->push_back(scene[sc].solo_ring_12.assign(p_id.next(), id_s++,
+                                                 "solo_ring12", "Ring Solo 1x2", "mix.ring12.solo",
+                                                 ct_bool_solo,  sc_id, cg_MIX, 0, false )); // FIXME /* , kMeta */));
+      a->push_back(scene[sc].route_ring_12.assign(p_id.next(), id_s++,
+                                                  "route_ring12", "Ring Route 1x2", "mix.ring12.route",
+                                                  ct_oscroute,  sc_id, cg_MIX, 0, false));
       px += gui_vfader_dist;
-      a->push_back(scene[sc].level_ring_23.assign(
-          p_id.next(), id_s++, "level_ring23", "Ring Level 2x3", ct_amplitude, px, py, sc_id,
-          cg_MIX, 0, true, Surge::ParamConfig::kVertical | kWhite | sceasy));
-      a->push_back(scene[sc].mute_ring_23.assign(p_id.next(), id_s++, "mute_ring23",
-                                                 "Ring Mute 2x3", ct_bool_mute, px, py + mof, sc_id,
-                                                 cg_MIX, 0, false));
-      a->push_back(scene[sc].solo_ring_23.assign(p_id.next(), id_s++, "solo_ring23",
-                                                 "Ring Solo 2x3", ct_bool_solo, px, py + sof, sc_id,
-                                                 cg_MIX, 0, false, kMeta));
-      a->push_back(scene[sc].route_ring_23.assign(p_id.next(), id_s++, "route_ring23",
-                                                  "Ring Route 2x3", ct_oscroute, px, py + rof,
-                                                  sc_id, cg_MIX, 0, false));
+      a->push_back(scene[sc].level_ring_23.assign(p_id.next(), id_s++,
+                                                  "level_ring23", "Ring Level 2x3", "mix.ring23.level",
+                                                  ct_amplitude, sc_id, cg_MIX, 0, true ));
+      a->push_back(scene[sc].mute_ring_23.assign(p_id.next(), id_s++,
+                                                 "mute_ring23", "Ring Mute 2x3", "mix.ring23.mute",
+                                                 ct_bool_mute, sc_id, cg_MIX, 0, false));
+      a->push_back(scene[sc].solo_ring_23.assign(p_id.next(), id_s++,
+                                                 "solo_ring23", "Ring Solo 2x3", "mix.ring23.solo",
+                                                 ct_bool_solo, sc_id, cg_MIX, 0, false )); // FIXME , kMeta));
+      a->push_back(scene[sc].route_ring_23.assign(p_id.next(), id_s++,
+                                                  "route_ring23", "Ring Route 2x3", "mix.ring23.route",
+                                                  ct_oscroute, sc_id, cg_MIX, 0, false));
       px += gui_vfader_dist;
-      a->push_back(scene[sc].level_noise.assign(p_id.next(), id_s++, "level_noise", "Noise Level",
-                                                ct_amplitude, px, py, sc_id, cg_MIX, 0, true,
-                                                Surge::ParamConfig::kVertical | kWhite | sceasy));
-      a->push_back(scene[sc].mute_noise.assign(p_id.next(), id_s++, "mute_noise", "Noise Mute",
-                                               ct_bool_mute, px, py + mof, sc_id, cg_MIX, 0,
-                                               false));
-      a->push_back(scene[sc].solo_noise.assign(p_id.next(), id_s++, "solo_noise", "Noise Solo",
-                                               ct_bool_solo, px, py + sof, sc_id, cg_MIX, 0, false,
-                                               kMeta));
-      a->push_back(scene[sc].route_noise.assign(p_id.next(), id_s++, "route_noise", "Noise Route",
-                                                ct_oscroute, px, py + rof, sc_id, cg_MIX, 0,
-                                                false));
+      a->push_back(scene[sc].level_noise.assign(p_id.next(), id_s++,
+                                                "level_noise", "Noise Level", "mix.noise.level",
+                                                ct_amplitude, sc_id, cg_MIX, 0, true ));
+      a->push_back(scene[sc].mute_noise.assign(p_id.next(), id_s++,
+                                               "mute_noise", "Noise Mute", "mix.noise.mute",
+                                               ct_bool_mute, sc_id, cg_MIX, 0, false));
+      a->push_back(scene[sc].solo_noise.assign(p_id.next(), id_s++,
+                                               "solo_noise", "Noise Solo", "mix.noise.solo",
+                                               ct_bool_solo, sc_id, cg_MIX, 0, false )); // FIXME kMeta
+      a->push_back(scene[sc].route_noise.assign(p_id.next(), id_s++,
+                                                "route_noise", "Noise Route", "mix.noise.route",
+                                                ct_oscroute, sc_id, cg_MIX, 0, false));
+                   
       px += gui_vfader_dist;
       a->push_back(scene[sc].level_pfg.assign(p_id.next(), id_s++, "level_pfg", "Pre-Filter Gain",
                                               ct_decibel, px, py, sc_id, cg_MIX, 0, true,

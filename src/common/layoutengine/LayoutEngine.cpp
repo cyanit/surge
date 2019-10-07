@@ -6,11 +6,30 @@
 #include "CScalableBitmap.h"
 #include "CSurgeSlider.h"
 #include "CSurgeKnob.h"
+#include "CSwitchControl.h"
 #include "CStringMultiSwitch.h"
 #include "LayoutEngineContainer.h"
 #include "LayoutLog.h"
 #include <strstream>
 #include <fstream>
+
+#include "UserInteractions.h"
+
+#if LINUX 
+#include <experimental/filesystem>
+#elif MAC || (WINDOWS && TARGET_RACK)
+#include <filesystem.h>
+#else
+#include <filesystem>
+#endif
+
+namespace fs = std::experimental::filesystem;
+
+#define DUMPR(r)                                                                                   \
+   "(x=" << r.getTopLeft().x << ",y=" << r.getTopLeft().y << ")+(w=" << r.getWidth()               \
+         << ",h=" << r.getHeight() << ")"
+
+
 
 #if !defined(TINYXML_SAFE_TO_ELEMENT)
 #define TINYXML_SAFE_TO_ELEMENT(expr) ((expr) ? (expr)->ToElement() : NULL)
@@ -57,7 +76,7 @@ LayoutEngine::~LayoutEngine()
    LayoutLog::info() << "Destroying a Layout Engine" << std::endl;
 }
 
-void LayoutEngine::parseLayout()
+bool LayoutEngine::parseLayout()
 {
    TiXmlDocument doc;
    // Obviously fix this
@@ -65,6 +84,15 @@ void LayoutEngine::parseLayout()
 
    doc.LoadFile(layoutResource("layout.xml"));
    TiXmlElement* surgeskin = TINYXML_SAFE_TO_ELEMENT(doc.FirstChild("surge-skin"));
+
+   if( surgeskin == nullptr )
+   {
+      // FIXME - better error message here
+      Surge::UserInteractions::promptError( "layout.xml didn't contain surge-skin.",
+                                     "Layout Error" );
+      return false;
+   }
+   
    const char* vers = surgeskin->Attribute("version");
    if (vers && strcmp(vers, "1") == 0)
    {
@@ -108,6 +136,7 @@ void LayoutEngine::parseLayout()
    buildNodeMapFrom(rootLayoutElement.get());
 
    LayoutLog::info() << "Layout dump\n" << rootLayoutElement->toString() << std::endl;
+   return true;
 }
 
 void LayoutEngine::buildNodeMapFrom(LayoutElement* here)
@@ -180,6 +209,39 @@ void LayoutEngine::setupControlFactory()
 
       auto res = new CHSwitch2(rect, listener, tag, sbp, h1i, rows, cols,
                                bitmapStore->getLayoutBitmap(this->layoutId, svg), nopoint);
+      return res;
+   };
+
+   controlFactory["CSwitchControl"] = [this](const guiid_t& guiid, VSTGUI::IControlListener* listener,
+                                             long tag, SurgeGUIEditor* unused, LayoutElement* p) {
+      auto comp = components[p->component];
+      auto pprops = p->properties;
+      auto props = Surge::mergeProperties(comp->properties, pprops);
+
+      rect_t rect(0, 0, p->width, p->height);
+      rect.offset(p->xoff, p->yoff);
+
+      auto svg = props["svg"];
+
+      if (!bitmapStore->containsLayoutBitmap(this->layoutId, svg))
+      {
+         auto svgf = layoutResource(svg);
+         std::ifstream t(svgf.c_str());
+         if( ! t.is_open() )
+         {
+            LayoutLog::error() << "Unable to open SVG " << svg << std::endl;
+            return (CSwitchControl *)nullptr;
+         }
+         else
+         {
+            std::stringstream buffer;
+            buffer << t.rdbuf();
+            bitmapStore->storeLayoutBitmap(this->layoutId, svg, buffer.str(), this->frame);
+         }
+      }
+
+      auto res = new CSwitchControl(rect, listener, tag, 
+                                    bitmapStore->getLayoutBitmap(this->layoutId, svg));
       return res;
    };
 
@@ -896,4 +958,65 @@ LayoutComponent* LayoutComponent::fromXML(TiXmlElement* e)
 
    return res;
 }
+
+void LayoutLibrary::initialize(SurgeStorage *storage)
+{
+   // FIXME - implement this somewhat tedious code
+   return;
+   LayoutLog::info() << "Initializing LayoutLibrary" << std::endl;
+   LayoutLog::info() << "  dp=" << storage->datapath << std::endl;
+   LayoutLog::info() << "  up=" << storage->userDataPath << std::endl;
+
+   std::vector<std::string> paths = { storage->datapath, storage->userDataPath };
+
+   for( auto sourceS : paths )
+   {
+      fs::path source(sourceS);
+      std::vector<fs::path> candidates;
+   
+      std::vector<fs::path> alldirs;
+      std::deque<fs::path> workStack;
+      workStack.push_back( source );
+      while (!workStack.empty())
+      {
+         auto top = workStack.front();
+         workStack.pop_front();
+         for (auto &d : fs::directory_iterator( top ))
+         {
+            if (fs::is_directory(d))
+            {
+               alldirs.push_back(d);
+               workStack.push_back(d);
+            }
+         }
+      }
+
+
+      int sourceSubstrLength= source.generic_string().size() + 1;
+      if (source.generic_string().back() == '/' || source.generic_string().back() == '\\')
+       sourceSubstrLength --;
+
+      for( auto &d : fs::directory_iterator(source))
+      {
+         if( fs::is_directory(d) )
+         {
+            std::string name;
+#if WINDOWS && ! TARGET_RACK
+            /*
+            ** Windows filesystem names are properly wstrings which, if we want them to 
+            ** display properly in vstgui, need to be converted to UTF8 using the 
+            ** windows widechar API. Linux and Mac do not require this.
+            */
+            std::wstring str = d.path().wstring().substr(sourceSubstrLength);
+            name = Surge::Storage::wstringToUTF8(str);
+#else
+            name = d.path().generic_string().substr(sourceSubstrLength);
+#endif
+         }
+      }
+   }
+}
+
+std::vector<std::string> LayoutLibrary::availbleLayouts;
+
 } // namespace Surge

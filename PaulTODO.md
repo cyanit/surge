@@ -1,12 +1,15 @@
 Here's my sort of running todo as I think of it, in rough order
 
-* Gradient Colormaps
-* Finish Mixer Section
+* Why don't those mixer labels show up?
+* Finish the Scene and Patch section
+  * What to do about the patch browser
 * Find and swap layouts
   * LayoutDir to '.slo'
   * Scan for Layouts in the userpath and factorypath
   * Menu to swap layouts
 * Finish OSC Section
+  * Especially the rounded rects
+* Gradient Colormaps
 * XML configured multi-switch rather than SVG configured multi-switch
   * properties for drawing and a few classes
   * MOve the other CHSwitch2s
