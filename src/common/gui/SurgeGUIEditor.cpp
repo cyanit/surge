@@ -728,7 +728,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
    }
 
    int rws = 15;
-   for (int k = 1; k < n_modsources; k++)
+   for (int k = 1; /* k < n_modsources */ k <= ms_timbre; k++)
    {
       modsources ms = (modsources)k;
       CRect r = positionForModulationGrid(ms);

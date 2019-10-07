@@ -1,10 +1,11 @@
 Here's my sort of running todo as I think of it, in rough order
 
-* Why don't those mixer labels show up?
+* Move the Modulation Buttons over
+* Move the LFO section over
 * Finish the Scene and Patch section
   * What to do about the patch browser
 * Find and swap layouts
-  * LayoutDir to '.slo'
+  * LayoutDir to '.layout'
   * Scan for Layouts in the userpath and factorypath
   * Menu to swap layouts
 * Finish OSC Section
@@ -18,7 +19,6 @@ Here's my sort of running todo as I think of it, in rough order
 * Sublayouts maybe?
 * Finish positioning all the sliders with the XML
 * Move the rest of the CHSwitch2s over
-* Move the LFO section over
 * FX routing and FX section
 * Patch Browser
 * What's left in legacy?
@@ -38,9 +38,11 @@ Here's my sort of running todo as I think of it, in rough order
 * Where to put menus? How to specify menus in the layout?
 
 * VST2 as well as 3 and AU
-* Installer -> SurgeTwo nomenclature mac
-* Windows
-* Linux
+* Installer -> Surge++ nomenclature mac
+* Installer Windows
+* Installer Linux
 * Pipeline in BaconPaul land
+
+* Unleash the hounds
 
 

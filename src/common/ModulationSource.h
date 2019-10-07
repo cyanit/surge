@@ -45,6 +45,19 @@ enum modsources
    ms_slfo6,
    // ms_arpeggiator,
    ms_timbre,
+
+   // These go here to not break old patches
+   ms_velocity_release,
+   ms_lfo7,
+   ms_lfo8,
+   ms_lfo9,
+   ms_lfo10,
+   ms_lfo11,
+   ms_lfo12,
+
+   ms_slfo7,
+   ms_slfo8,
+   
    n_modsources,
    /*ms_stepseq1,
    ms_stepseq2,
@@ -60,7 +73,10 @@ const char modsource_abberations_button[n_modsources][32] = {
     "Off",       "Velocity", "Keytrack", "Poly AT", "Channel AT", "Pitchbend", "Modwheel", "Ctrl 1",
     "Ctrl 2",    "Ctrl 3",   "Ctrl 4",   "Ctrl 5",  "Ctrl 6",   "Ctrl 7",    "Ctrl 8",   "Amp EG",
     "Filter EG", "LFO 1",    "LFO 2",    "LFO 3",   "LFO 4",    "LFO 5",     "LFO 6",    "SLFO 1",
-    "SLFO 2",    "SLFO 3",   "SLFO 4",   "SLFO 5",  "SLFO 6",   "Timbre" /*,"Arpeggio"*/};
+    "SLFO 2",    "SLFO 3",   "SLFO 4",   "SLFO 5",  "SLFO 6",   "Timbre",
+    "RelVel",
+    "LFO 7",    "LFO 8",    "LFO 9",   "LFO 10",    "LFO 11",     "LFO 12",    "SLFO 7", "SLFO 8"
+};
 
 const char modsource_abberations[n_modsources][32] = {"Off",
                                                       "Velocity",
@@ -91,13 +107,25 @@ const char modsource_abberations[n_modsources][32] = {"Off",
                                                       "Scene LFO 4",
                                                       "Scene LFO 5",
                                                       "Scene LFO 6",
-                                                      "Timbre" /*,"Arpeggio"*/};
+                                                      "Timbre",
+                                                      "Release Velocity",
+                                                      "Voice LFO 7",
+                                                      "Voice LFO 8",
+                                                      "Voice LFO 9",
+                                                      "Voice LFO 10",
+                                                      "Voice LFO 11",
+                                                      "Voice LFO 12",
+                                                      "Scene LFO 7",
+                                                      "Scene LFO 8",
+                                                      
+};
 
 const char modsource_abberations_short[n_modsources][32] = {
     "off",   "velocity", "keytrack", "Poly AT", "Ch. AT", "Pitch Bend", "Modwheel", "CTRL1",
     "CTRL2", "CTRL3",    "CTRL4",    "CTRL5",   "CTRL6",  "CTRL7",      "CTRL8",    "AEG",
     "FEG",   "LFO1",     "LFO2",     "LFO3",    "LFO4",   "LFO5",       "LFO6",     "SLFO1",
-    "SLFO2", "SLFO3",    "SLFO4",    "SLFO5",   "SLFO6",  "TIMBR" /*,"Arpeggio"*/};
+    "SLFO2", "SLFO3",    "SLFO4",    "SLFO5",   "SLFO6",  "TIMBR",
+    "RELEASE", "LFO7", "LFO8", "LFO9", "LFO10", "LFO11", "LFO12", "SLFO7", "SLFO8" };
 
 const int modsource_grid_xy[n_modsources][2] = {
     {0, 0}, {0, 0}, {1, 0}, {2, 0},  {3, 0}, {4, 0}, {5, 0},          // vel -> mw
@@ -110,7 +138,7 @@ const int modsource_grid_xy[n_modsources][2] = {
 
 inline bool isScenelevel(modsources ms)
 {
-   return ((ms <= ms_ctrl8) || ((ms >= ms_slfo1) && (ms <= ms_slfo6))) && (ms != ms_velocity) &&
+   return ((ms <= ms_ctrl8) || ((ms >= ms_slfo1) && (ms <= ms_slfo6))) && (ms != ms_velocity) && ( ms != ms_velocity_release ) && 
           (ms != ms_keytrack) && (ms != ms_polyaftertouch) && (ms != ms_timbre);
 }
 
@@ -131,7 +159,7 @@ inline bool isEnvelope(modsources ms)
 
 inline bool isLFO(modsources ms)
 {
-   return (ms >= ms_lfo1) && (ms <= ms_slfo6);
+   return ( (ms >= ms_lfo1) && (ms <= ms_slfo6) ) || ( ( ms >= ms_lfo7 ) && ( ms < ms_slfo8 ) );
 }
 
 inline bool canModulateModulators(modsources ms)
@@ -142,7 +170,7 @@ inline bool canModulateModulators(modsources ms)
 
 inline bool isVoiceModulator(modsources ms)
 {
-   return !((ms >= ms_slfo1) && (ms <= ms_slfo6));
+   return !((ms >= ms_slfo1) && (ms <= ms_slfo6)) && ms != ms_slfo7 && ms != ms_slfo8;
 }
 
 inline bool canModulateVoiceModulators(modsources ms)

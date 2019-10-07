@@ -65,9 +65,9 @@
   </colormaps>
 
   <components>
-    <component name="hslider" class="CSurgeSlider" width="133" height="18">
+    <component name="hslider" class="CSurgeSlider" width="140" height="26">
     </component>
-    <component name="vslider" class="CSurgeSlider" height="133" width="18">
+    <component name="vslider" class="CSurgeSlider" height="84" width="22">
       <componentproperties orientation="vertical"/>
     </component>
     <component name="knob.medium" class="CSurgeKnob" width="50" height="50">
@@ -211,63 +211,63 @@
               <node guiid="mix.osc0.solo" component="Solo Switch"/>
               <node guiid="mix.osc0.route" component="OSC Route"/>
               <node guiid="mix.osc0.level" component="vslider"/>
-              <label string="1" valign="center" halign="top" fgcolor="$mixenv.label" width="-1" height="-1"/> 
+              <label string="1" halign="center" fgcolor="$mixenv.label" width="-1" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="-1" mode="vlist">
               <node guiid="mix.osc1.mute" component="Mute Switch"/>
               <node guiid="mix.osc1.solo" component="Solo Switch"/>
               <node guiid="mix.osc1.route" component="OSC Route"/>
               <node guiid="mix.osc1.level" component="vslider"/>
-              <label string="2" valign="center" halign="top" fgcolor="$mixenv.label" width="-1" height="-1"/> 
+              <label string="2" halign="center" fgcolor="$mixenv.label" width="-1" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="-1" mode="vlist">
               <node guiid="mix.osc2.mute" component="Mute Switch"/>
               <node guiid="mix.osc2.solo" component="Solo Switch"/>
               <node guiid="mix.osc2.route" component="OSC Route"/>
               <node guiid="mix.osc2.level" component="vslider"/>
-              <label string="3" valign="center" halign="top" fgcolor="$mixenv.label" width="-1" height="-1"/> 
+              <label string="3" halign="center" fgcolor="$mixenv.label" width="-1" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="-1" mode="vlist">
               <node guiid="mix.osc3.mute" component="Mute Switch"/>
               <node guiid="mix.osc3.solo" component="Solo Switch"/>
               <node guiid="mix.osc3.route" component="OSC Route"/>
               <node guiid="mix.osc3.level" component="vslider"/>
-              <label string="4" valign="center" halign="top" fgcolor="$mixenv.label" width="-1" height="-1"/> 
+              <label string="4" halign="center" fgcolor="$mixenv.label" width="-1" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="-1" mode="vlist">
               <node guiid="mix.osc4.mute" component="Mute Switch"/>
               <node guiid="mix.osc4.solo" component="Solo Switch"/>
               <node guiid="mix.osc4.route" component="OSC Route"/>
               <node guiid="mix.osc4.level" component="vslider"/>
-              <label string="5" valign="center" halign="top" fgcolor="$mixenv.label" width="-1" height="-1"/> 
+              <label string="5" halign="center" fgcolor="$mixenv.label" width="-1" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="-1" mode="vlist">
               <node guiid="mix.osc5.mute" component="Mute Switch"/>
               <node guiid="mix.osc5.solo" component="Solo Switch"/>
               <node guiid="mix.osc5.route" component="OSC Route"/>
               <node guiid="mix.osc5.level" component="vslider"/>
-              <label string="6" valign="center" halign="top" fgcolor="$mixenv.label" width="-1" height="-1"/> 
+              <label string="6" halign="center" fgcolor="$mixenv.label" width="-1" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="-1" mode="vlist">
               <node guiid="mix.ring12.mute" component="Mute Switch"/>
               <node guiid="mix.ring12.solo" component="Solo Switch"/>
               <node guiid="mix.ring12.route" component="OSC Route"/>
               <node guiid="mix.ring12.level" component="vslider"/>
-              <label string="r12" valign="center" halign="top" fgcolor="$mixenv.label" width="-1" height="-1"/> 
+              <label string="r12" halign="center" fgcolor="$mixenv.label" width="-1" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="-1" mode="vlist">
               <node guiid="mix.ring23.mute" component="Mute Switch"/>
               <node guiid="mix.ring23.solo" component="Solo Switch"/>
               <node guiid="mix.ring23.route" component="OSC Route"/>
               <node guiid="mix.ring23.level" component="vslider"/>
-              <label string="r23" valign="center" halign="top" fgcolor="$mixenv.label" width="-1" height="-1"/> 
+              <label string="r23" halign="center" fgcolor="$mixenv.label" width="-1" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="-1" mode="vlist">
               <node guiid="mix.noise.mute" component="Mute Switch"/>
               <node guiid="mix.noise.solo" component="Solo Switch"/>
               <node guiid="mix.noise.route" component="OSC Route"/>
               <node guiid="mix.noise.level" component="vslider"/>
-              <label string="N" valign="center" halign="top" fgcolor="$mixenv.label" width="-1" height="-1"/> 
+              <label string="N" halign="center" fgcolor="$mixenv.label" width="-1" height="9"/> 
             </layout>
           </layout>
         </layout>

@@ -742,13 +742,14 @@ void LayoutElement::generateLayoutControl(LayoutEngine* eng, bool recurse)
    {
       if (!parent || !parent->associatedContainer)
       {
-         std::cout << "But I need a parent for that" << std::endl;
+         LayoutLog::error() << "Label has either a missing or invalid parent. Software error" << std::endl;
          return;
       }
-      VSTGUI::CRect pos(xoff, yoff, width, height);
+      VSTGUI::CRect pos(xoff, yoff, xoff + width, yoff + height);
 
       auto label = new LayoutEngineLabel(pos, "");
-
+      label->setTransparency(true);
+      
       auto getprop = [this](std::string s, std::string d) -> std::string {
          auto pnode = this->properties.find(s);
          auto p = std::string(d);
@@ -767,9 +768,13 @@ void LayoutElement::generateLayoutControl(LayoutEngine* eng, bool recurse)
 
       auto fg = getprop("fgcolor", "#ffffff");
       label->setFontColor(eng->colorFromColorMap(fg, "#ff00ff"));
+      auto c = label->getFontColor();
 
       auto txt = getprop("string", "error");
-      label->setText(eng->stringFromStringMap(txt).c_str());
+      if( txt[0] == '$' )
+         txt = eng->stringFromStringMap(txt);
+
+      label->setText(txt.c_str());
 
       parent->associatedContainer->addView(label);
       associatedControl = label;
@@ -890,7 +895,7 @@ void LayoutElement::setupChildSizes()
       for (auto kid : children)
       {
          if (kid->height == -1)
-            kid->height = height;
+            kid->height = height - 2 * marginy;
          if (kid->width == -1)
             kid->width = default_width;
          kid->xoff = kid_xoff;
@@ -914,7 +919,7 @@ void LayoutElement::setupChildSizes()
 
       float default_height = 0;
       if (free_heights)
-         default_height = (height - marginy - given_height) / free_heights;
+         default_height = (height - 2 * marginy - given_height) / free_heights;
 
       float kid_yoff = marginy;
       for (auto kid : children)
@@ -922,7 +927,7 @@ void LayoutElement::setupChildSizes()
          if (kid->height == -1)
             kid->height = default_height;
          if (kid->width == -1)
-            kid->width = width;
+            kid->width = width - 2 * marginy;
          kid->xoff = marginx;
          kid->yoff = kid_yoff;
          kid_yoff += kid->height;
