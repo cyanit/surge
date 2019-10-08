@@ -73,6 +73,12 @@
     <component name="knob.medium" class="CSurgeKnob" width="50" height="50">
     </component>
 
+    <component name="mod.button.voice" class="CModulationSourceButton">
+    </component>
+
+    <component name="mod.button.scene" class="CModulationSourceButton">
+    </component>
+
     <component name="roundedmultiswitch" class="CStringMultiSwitch">
       <componentproperties border="rounded"
                            fontsize="10"
@@ -292,7 +298,58 @@
         
 
       </layout>
-      <layout height="120" width="-1" style="roundedlabel" bgcolor="$route.bg" fgcolor="$route.fg" label="Routing">
+      <layout height="120" width="-1" mode="hlist" style="roundedlabel" bgcolor="$route.bg" fgcolor="$route.fg" label="Routing">
+        <layout height="-1" width="320" mode="grid" style="blank" rows="4" cols="8">
+          <node component="mod.button.voice" guiid="modsource.velocity"/>
+          <node component="mod.button.voice" guiid="modsource.velocity_release"/>
+          <node component="mod.button.voice" guiid="modsource.keytrack"/>
+          <node component="mod.button.voice" guiid="modsource.polyaftertouch"/>
+          <node component="mod.button.voice" guiid="modsource.timbre"/>
+          <node component="mod.button.scene" guiid="modsource.aftertouch"/>
+          <node component="mod.button.scene" guiid="modsource.pitchbend"/>
+          <node component="mod.button.scene" guiid="modsource.modwheel"/>
+
+          <node component="mod.button.voice" guiid="modsource.lfo1"/>
+          <node component="mod.button.voice" guiid="modsource.lfo2"/>
+          <node component="mod.button.voice" guiid="modsource.lfo3"/>
+          <node component="mod.button.voice" guiid="modsource.lfo4"/>
+          <node component="mod.button.voice" guiid="modsource.lfo5"/>
+          <node component="mod.button.voice" guiid="modsource.lfo6"/>
+          <node component="mod.button.voice" guiid="modsource.lfo7"/>
+          <node component="mod.button.voice" guiid="modsource.ampeg"/>
+
+          <node component="mod.button.voice" guiid="modsource.lfo8"/>
+          <node component="mod.button.voice" guiid="modsource.lfo9"/>
+          <node component="mod.button.voice" guiid="modsource.lfo10"/>
+          <node component="mod.button.voice" guiid="modsource.lfo11"/>
+          <node component="mod.button.voice" guiid="modsource.lfo12"/>
+          <node component="mod.button.voice" guiid="modsource.lfo13"/>
+          <node component="mod.button.voice" guiid="modsource.lfo14"/>
+          <node component="mod.button.voice" guiid="modsource.filtereg"/>
+
+          <node component="mod.button.scene" guiid="modsource.slfo1"/>
+          <node component="mod.button.scene" guiid="modsource.slfo2"/>
+          <node component="mod.button.scene" guiid="modsource.slfo3"/>
+          <node component="mod.button.scene" guiid="modsource.slfo4"/>
+          <node component="mod.button.scene" guiid="modsource.slfo5"/>
+          <node component="mod.button.scene" guiid="modsource.slfo6"/>
+          <node component="mod.button.scene" guiid="modsource.slfo7"/>
+          <node component="mod.button.scene" guiid="modsource.slfo8"/>
+
+        </layout>
+
+        <layout height="-1" width="200" mode="grid" style="blank" rows="2" cols="4">
+          <node component="mod.button.scene" guiid="modsource.ctrl1"/>
+          <node component="mod.button.scene" guiid="modsource.ctrl2"/>
+          <node component="mod.button.scene" guiid="modsource.ctrl3"/>
+          <node component="mod.button.scene" guiid="modsource.ctrl4"/>
+
+          <node component="mod.button.scene" guiid="modsource.ctrl5"/>
+          <node component="mod.button.scene" guiid="modsource.ctrl6"/>
+          <node component="mod.button.scene" guiid="modsource.ctrl7"/>
+          <node component="mod.button.scene" guiid="modsource.ctrl8"/>
+        </layout>
+
       </layout>
       <layout height="-1" width="-1" style="roundedlabel" bgcolor="$mod.bg" fgcolor="$mod.fg" label="Modulator">
       </layout>

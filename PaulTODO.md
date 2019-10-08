@@ -1,13 +1,16 @@
 Here's my sort of running todo as I think of it, in rough order
 
 * Move the Modulation Buttons over
-* Move the LFO section over
-* Finish the Scene and Patch section
-  * What to do about the patch browser
 * Find and swap layouts
   * LayoutDir to '.layout'
   * Scan for Layouts in the userpath and factorypath
   * Menu to swap layouts
+* Slider Parameterization
+  * Handle and BG SVGs
+* Alternate switch SVG Mode (non-stacked)
+* Move the LFO section over
+* Finish the Scene and Patch section
+  * What to do about the patch browser
 * Finish OSC Section
   * Especially the rounded rects
 * Gradient Colormaps
@@ -23,7 +26,7 @@ Here's my sort of running todo as I think of it, in rough order
 * Patch Browser
 * What's left in legacy?
 * Why's it coredump if layout is missing?
-
+* Font Controls
 
 * Test Layouts
 

@@ -8,6 +8,7 @@
 #include "CSurgeKnob.h"
 #include "CSwitchControl.h"
 #include "CStringMultiSwitch.h"
+#include "CModulationSourceButton.h"
 #include "LayoutEngineContainer.h"
 #include "LayoutLog.h"
 #include <strstream>
@@ -256,6 +257,21 @@ void LayoutEngine::setupControlFactory()
       return res;
    };
 
+   controlFactory["CModulationSourceButton"] = [this](const guiid_t& guiid, VSTGUI::IControlListener* listener,
+                                                      long tag, SurgeGUIEditor* editor, LayoutElement* p) {
+      auto pprops = p->properties;
+      auto comp = components[p->component];
+      auto props = Surge::mergeProperties(comp->properties, pprops);
+
+      point_t nopoint(0, 0);
+      rect_t rect(0, 0, p->width, p->height);
+
+      rect.offset(p->xoff, p->yoff);
+
+      auto res = new CModulationSourceButton(rect, listener, tag, 0, 0, bitmapStore);
+      return res;
+   };
+
    controlFactory["CSurgeSlider"] = [this](const guiid_t& guiid, VSTGUI::IControlListener* listener,
                                            long tag, SurgeGUIEditor* editor, LayoutElement* p) {
       auto comp = components[p->component];
@@ -403,7 +419,7 @@ LayoutEngine::control_t* LayoutEngine::addLayoutControl(const guiid_t& guiid,
       FAIL_IF(!p->parent, "Component is not parented");
       FAIL_IF(!p->parent->associatedContainer, "Component has no associated container");
       FAIL_IF(components.find(p->component) == components.end(),
-              "Component type is not mapped for type " + p->component);
+              "Component type is not mapped for type '" + p->component + "'");
       auto comp = components[p->component];
 
       FAIL_IF(controlFactory.find(comp->classN) == controlFactory.end(),
@@ -590,6 +606,8 @@ LayoutElement* LayoutElement::fromXML(TiXmlElement* el, LayoutElement* parent, L
          res->mode = Hlist;
       else if (strcmp(s, "vlist") == 0)
          res->mode = Vlist;
+      else if (strcmp(s, "grid") == 0)
+         res->mode = Grid;
       else
       {
          LayoutLog::error() << "Unknown layout mode '" << s << "' at line " << el->Row()
@@ -705,6 +723,9 @@ std::string LayoutElement::toString(bool recurse)
          break;
       case Vlist:
          oss << "(vlist|";
+         break;
+      case Grid:
+         oss << "(grid " << properties["cols"] << "x" << properties["rows"] << "|";
          break;
       }
       if( style == "" )
@@ -906,6 +927,7 @@ void LayoutElement::setupChildSizes()
       break;
    }
    case Vlist:
+   {
       // Copy and Paste with x<->y and w<->h. What could go wrong?
       float given_height = 0;
       int free_heights = 0;
@@ -934,6 +956,33 @@ void LayoutElement::setupChildSizes()
          kid->setupChildSizes();
       }
       break;
+   }
+   case Grid:
+   {
+      int rows = std::max(1,std::atoi(properties["rows"].c_str()));
+      int cols = std::max(1,std::atoi(properties["cols"].c_str()));
+
+      float dc = width * 1.0 / cols;
+      float dr = height * 1.0 / rows;
+
+      int cr=0, cc=0;
+
+      for( auto kid : children )
+      {
+         kid->xoff = cc * dc + marginx;
+         kid->yoff = cr * dr + marginy;
+         kid->width = dc;
+         kid->height = dr;
+         cc++;
+         if( cc == cols )
+         {
+            cc = 0;
+            cr++;
+         }
+      }
+      
+      break;
+   }
    }
 }
 

@@ -731,34 +731,61 @@ void SurgeGUIEditor::openOrRecreateEditor()
    for (int k = 1; /* k < n_modsources */ k <= ms_timbre; k++)
    {
       modsources ms = (modsources)k;
-      CRect r = positionForModulationGrid(ms);
 
-      int state = 0;
-      if (ms == modsource)
-         state = mod_editor ? 2 : 1;
-      if (ms == modsource_editor)
-         state |= 4;
-
-      gui_modsrc[ms] =
-          new CModulationSourceButton(r, this, tag_mod_source0 + ms, state, ms, bitmapStore);
-      ((CModulationSourceButton*)gui_modsrc[ms])
-          ->update_rt_vals(false, 0, synth->isModsourceUsed(ms));
-      if ((ms >= ms_ctrl1) && (ms <= ms_ctrl8))
+      /*
+      ** OK so here's what we do
+      ** 1. Initialize and get the guiid name "modsource.(id)" eg "modsource.slfo1"
+      ** 2. Ask the layout engine for the guiid name
+      */
+      std::string guiid = std::string("modsource.") + modsource_enum_names[ms];
+      // FixMe: probably a dynamic cast here for safety
+      gui_modsrc[ms] = layout->addLayoutControl(guiid, this, tag_mod_source0 + ms, this);
+      auto msp = dynamic_cast<CModulationSourceButton *>(gui_modsrc[ms]);
+      
+      if( msp )
       {
-         ((CModulationSourceButton*)gui_modsrc[ms])
-             ->setlabel(synth->storage.getPatch().CustomControllerLabel[ms - ms_ctrl1]);
-         ((CModulationSourceButton*)gui_modsrc[ms])->set_ismeta(true);
-         ((CModulationSourceButton*)gui_modsrc[ms])
-             ->setBipolar(synth->storage.getPatch().scene[0].modsources[ms]->is_bipolar());
-         gui_modsrc[ms]->setValue(
-             ((ControllerModulationSource*)synth->storage.getPatch().scene[0].modsources[ms])
-                 ->get_target01());
+         int state = 0;
+         if (ms == modsource)
+            state = mod_editor ? 2 : 1;
+         if (ms == modsource_editor)
+            state |= 4;
+         msp->state = state;
+         msp->msid = ms;
       }
       else
       {
-         ((CModulationSourceButton*)gui_modsrc[ms])->setlabel(modsource_abberations_button[ms]);
+         if( gui_modsrc[ms] )
+            std::cout << "SOFTWARE ERROR IN DYNCAST" << std::endl;
+         
+         CRect r = positionForModulationGrid(ms);
+         
+         int state = 0;
+         if (ms == modsource)
+            state = mod_editor ? 2 : 1;
+         if (ms == modsource_editor)
+            state |= 4;
+         
+         gui_modsrc[ms] =
+            new CModulationSourceButton(r, this, tag_mod_source0 + ms, state, ms, bitmapStore);
+         ((CModulationSourceButton*)gui_modsrc[ms])
+            ->update_rt_vals(false, 0, synth->isModsourceUsed(ms));
+         if ((ms >= ms_ctrl1) && (ms <= ms_ctrl8))
+         {
+            ((CModulationSourceButton*)gui_modsrc[ms])
+               ->setlabel(synth->storage.getPatch().CustomControllerLabel[ms - ms_ctrl1]);
+            ((CModulationSourceButton*)gui_modsrc[ms])->set_ismeta(true);
+            ((CModulationSourceButton*)gui_modsrc[ms])
+               ->setBipolar(synth->storage.getPatch().scene[0].modsources[ms]->is_bipolar());
+            gui_modsrc[ms]->setValue(
+               ((ControllerModulationSource*)synth->storage.getPatch().scene[0].modsources[ms])
+               ->get_target01());
+         }
+         else
+         {
+            ((CModulationSourceButton*)gui_modsrc[ms])->setlabel(modsource_abberations_button[ms]);
+         }
+         if(legacy != nullptr) legacy->addView(gui_modsrc[ms]);
       }
-      if(legacy != nullptr) legacy->addView(gui_modsrc[ms]);
    }
 
    /*// Comments

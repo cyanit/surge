@@ -107,7 +107,8 @@ public:
    {
       Free,
       Hlist,
-      Vlist
+      Vlist,
+      Grid
    } LayoutMode;
    LayoutMode mode = Free;
 
