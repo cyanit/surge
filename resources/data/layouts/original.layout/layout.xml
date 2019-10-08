@@ -298,8 +298,8 @@
         
 
       </layout>
-      <layout height="120" width="-1" mode="hlist" style="roundedlabel" bgcolor="$route.bg" fgcolor="$route.fg" label="Routing">
-        <layout height="-1" width="320" mode="grid" style="blank" rows="4" cols="8">
+      <layout height="80" width="-1" mode="hlist" style="roundedlabel" bgcolor="$route.bg" fgcolor="$route.fg" label="Routing">
+        <layout height="-1" width="400" mode="grid" style="blank" rows="4" cols="8">
           <node component="mod.button.voice" guiid="modsource.velocity"/>
           <node component="mod.button.voice" guiid="modsource.velocity_release"/>
           <node component="mod.button.voice" guiid="modsource.keytrack"/>

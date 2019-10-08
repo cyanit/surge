@@ -1,12 +1,14 @@
 Here's my sort of running todo as I think of it, in rough order
 
-* Move the Modulation Buttons over
+* Slider Parameterization and Work
+  * Modulation mode
+  * Bipolar and Ticks
+  * Handle and BG SVGs
+* Modulation Button Properties for Colors exposed
 * Find and swap layouts
   * LayoutDir to '.layout'
   * Scan for Layouts in the userpath and factorypath
   * Menu to swap layouts
-* Slider Parameterization
-  * Handle and BG SVGs
 * Alternate switch SVG Mode (non-stacked)
 * Move the LFO section over
 * Finish the Scene and Patch section
