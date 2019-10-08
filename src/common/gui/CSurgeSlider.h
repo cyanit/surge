@@ -86,6 +86,17 @@ public:
 
    static MoveRateState sliderMoveRateState;
 
+   
+   virtual void setStyle(int i ) 
+   {
+      style = i;
+      invalid();
+   }
+
+   virtual int getStyle() 
+   {
+      return style;
+   }
 private:
    VSTGUI::CBitmap *pHandle, *pTray, *pModHandle;
    VSTGUI::CRect handle_rect, handle_rect_orig;

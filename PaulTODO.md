@@ -1,8 +1,6 @@
 Here's my sort of running todo as I think of it, in rough order
 
 * Slider Parameterization and Work
-  * Modulation mode
-  * Bipolar and Ticks
   * Handle and BG SVGs
 * Modulation Button Properties for Colors exposed
 * Find and swap layouts

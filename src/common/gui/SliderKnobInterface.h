@@ -14,5 +14,7 @@ public:
    virtual void setLabel(const char*) = 0;
    virtual void setMoveRate(float) = 0;
    virtual void setDefaultValue(float) = 0;
+   virtual void setStyle(int) = 0;
+   virtual int  getStyle() = 0;
 };
 }; // namespace Surge

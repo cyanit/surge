@@ -56,4 +56,15 @@ public:
    {
       std::cerr << "FIXME " << __func__ << std::endl;
    }
+
+   virtual void setStyle(int i ) 
+   {
+      std::cerr << "FIXME " << __func__ << std::endl;
+   }
+
+   virtual int getStyle() 
+   {
+      std::cerr << "FIXME " << __func__ << std::endl;
+      return 0;
+   }
 };

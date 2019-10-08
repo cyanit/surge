@@ -1286,6 +1286,26 @@ void SurgeGUIEditor::openOrRecreateEditor()
                }
                else
                {
+                  switch (p->ctrltype)
+                  {
+                  case ct_decibel:
+                  case ct_decibel_narrow:
+                  case ct_decibel_extra_narrow:
+                  case ct_decibel_extendable:
+                  case ct_freq_mod:
+                  case ct_percent_bidirectional:
+                  case ct_freq_shift:
+                     sk->setStyle( sk->getStyle() | kBipolar );
+                     break;
+                  };
+
+                  switch (p->ctrltype)
+                  {
+                  case ct_pitch_semi7bp:
+                  case ct_pitch_semi7bp_absolutable:
+                     sk->setStyle( sk->getStyle() | kSemitone );
+                  }
+
                   if (synth->isValidModulation(p->id, modsource))
                   {
                      sk->setModMode(mod_editor ? 1 : 0);
