@@ -106,6 +106,15 @@ TEST_CASE( "Simple Single Oscillator is Constant", "[dsp]" )
    rms = sqrt(rms);
    REQUIRE( rms > 0.1 );
    REQUIRE( rms < 0.101 );
+
+
+   int zeroCrossings = 0;
+   for( int i=0; i<nSamples * nChannels - 2 ; i += 2 )
+   {
+      if( data[i] > 0 && data[i+2] < 0 )
+         zeroCrossings ++;
+   }
+   REQUIRE( zeroCrossings == 138 );
    
    if (data)
       delete[] data;
