@@ -288,7 +288,7 @@ void LayoutEngine::setupControlFactory()
       }
 
       auto res = new CSurgeSlider(nopoint, orient,
-                                  listener, tag, false, bitmapStore);
+                                  listener, tag, true, bitmapStore);
       /*
       ** SO MUCH to fix here; like horizontal and vertical; and like the bitmaps we choose and the
       *background.

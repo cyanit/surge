@@ -561,7 +561,7 @@ void SurgeGUIEditor::toggle_mod_editing()
 void SurgeGUIEditor::refresh_mod()
 {
    synth->storage.CS_ModRouting.enter();
-   for (int i = 0; i < 512; i++)
+   for (int i = 0; i < 512; i++) // 512??
    {
       if (param[i])
       {
@@ -1295,6 +1295,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                      sk->setValue(p->get_value_f01());
                      sk->setLabel(p->get_name());
                      sk->setMoveRate(p->moverate);
+                     sk->setIsMod(true);
                   }
                   else
                   {
@@ -1302,6 +1303,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                      sk->setDefaultValue(p->get_default_value_f01());
                      sk->setLabel(p->get_name());
                      sk->setMoveRate(p->moverate);
+                     sk->setIsMod(false);
                   }
                }
             }

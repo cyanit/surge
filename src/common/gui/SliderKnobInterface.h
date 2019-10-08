@@ -5,6 +5,7 @@ namespace Surge
 class SliderKnobInterface
 {
 public:
+   virtual void setIsMod(bool) = 0;
    virtual void setModMode(int) = 0;
    virtual void setModValue(float) = 0;
    virtual void setModPresent(bool) = 0;

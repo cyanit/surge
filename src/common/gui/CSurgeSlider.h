@@ -39,6 +39,7 @@ public:
 
    virtual void setLabel(const char* txt);
    virtual void setModValue(float val);
+   virtual void setIsMod( bool b ) { is_mod = b; }
    virtual float getModValue()
    {
       return modval;

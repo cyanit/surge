@@ -961,7 +961,6 @@ unsigned int SurgePatch::save_patch(void** data)
    {
       for (int osc = 0; osc < n_oscs; osc++)
       {
-         std::cout << "SC=" << sc << "  OSC=" << osc << " hws=" << header.wtsize[sc][osc] << std::endl;
          if (header.wtsize[sc][osc])
          {
             size_t wtsize = vt_read_int32LE(header.wtsize[sc][osc]);

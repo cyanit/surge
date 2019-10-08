@@ -28,6 +28,10 @@ public:
    {
       std::cerr << "FIXME " << __func__ << std::endl;
    }
+   virtual void setIsMod(bool f)
+   {
+      std::cerr << "FIXME " << __func__ << std::endl;
+   }
    virtual void setModCurrent(bool f)
    {
       std::cerr << "FIXME " << __func__ << std::endl;
