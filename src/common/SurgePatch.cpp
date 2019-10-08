@@ -547,7 +547,7 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
    scene_start[0] = scene_start_promise[0]->value;
    scene_start[1] = scene_start_promise[1]->value;
    scene_size = scene_start[1] - scene_start[0];
-   std::cout << "scene_size " << scene_size << " " << n_scene_params << std::endl;
+   // std::cout << "scene_size " << scene_size << " " << n_scene_params << std::endl;
    assert(scene_size == n_scene_params);
    assert(globparams_promise->value == n_global_params);
    init_default_values();

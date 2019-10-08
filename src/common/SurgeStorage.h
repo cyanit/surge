@@ -39,8 +39,14 @@ namespace fs = std::experimental::filesystem;
 
 /* PATCH layer			*/
 
-// This is the 1.6 value const int n_oscs = 3;
+#define SIX_OSC 0
+
+#if SIX_OSC
 const int n_oscs = 6;
+#else
+// This is the 1.6 value const int n_oscs = 3;
+const int n_oscs = 3;
+#endif
 const int n_lfos_voice = 6;
 const int n_lfos_scene = 6;
 const int n_lfos = n_lfos_voice + n_lfos_scene;
@@ -64,13 +70,16 @@ extern float samplerate, samplerate_inv;
 extern double dsamplerate, dsamplerate_inv;
 extern double dsamplerate_os, dsamplerate_os_inv;
 
-// const int n_scene_params = 271; This is the 1.6 value
+#if !SIX_OSC
+const int n_scene_params = 271;// This is the 1.6 value
+#else
 // 1.6               271
 // 3 -> 6 osc - each osc has type, octave, pitch, n_osc_params params, keytrack, retrigger - so 12 params
 //                  + ( 3 * 12 ) = 307
 // 3 -> 6 osc - each mixer gets a level, route, solo, and mute
 //                  + ( 3 * 4 ) = 319
 const int n_scene_params = 319;
+#endif
 
 const int n_global_params = 113;
 const int n_global_postparams = 1;

@@ -1665,7 +1665,7 @@ int32_t SurgeGUIEditor::controlModifierClicked(CControl* control, CButtonState b
          frame->localToFrame(where);
 
          /* FIXTHIS 3 */
-         int n_osc_per_scene = 6;
+         int n_osc_per_scene = n_oscs;
          int a = limit_range((int)((n_osc_per_scene * (where.x - r.left)) / r.getWidth()), 0, 2);
          menuRect.offset(where.x, where.y);
 
