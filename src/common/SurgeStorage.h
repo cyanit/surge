@@ -39,7 +39,7 @@ namespace fs = std::experimental::filesystem;
 
 /* PATCH layer			*/
 
-#define SIX_OSC 0
+#define SIX_OSC 1
 
 #if SIX_OSC
 const int n_oscs = 6;

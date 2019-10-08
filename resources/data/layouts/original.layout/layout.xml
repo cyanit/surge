@@ -169,8 +169,8 @@
           <layout width="-1" height="-1" label="oscparent" mode="hlist" style="blank">
             <layout width="-1" height="-1" label="OSEL" mode="hlist" style="labelblock" fgcolor="$osc.wavsectionfg" bgcolor="$osc.wavsectionbg">
               <node guiid="osc.switch" component="darkmultiswitch" width="-1" height="-1">
-                <nodeproperties rows="1" cols="3" fontsize="24"
-                                choices="1|2|3"/>
+                <nodeproperties rows="1" cols="6" fontsize="24"
+                                choices="1|2|3|4|5|6"/>
 
               </node>
             </layout>
