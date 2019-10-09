@@ -95,7 +95,7 @@ bool SurgeBitmaps::containsLayoutBitmap(int layoutid, std::string key)
    return layoutBitmapRegistry.find(k) != layoutBitmapRegistry.end();
 }
 
-void SurgeBitmaps::storeLayoutBitmap(int layoutid,
+CScalableBitmap* SurgeBitmaps::storeLayoutBitmap(int layoutid,
                                      std::string key,
                                      std::string svgContents,
                                      VSTGUI::CFrame* f)
@@ -103,6 +103,7 @@ void SurgeBitmaps::storeLayoutBitmap(int layoutid,
    auto k = std::make_pair(layoutid, key);
    CScalableBitmap* bitmap = new CScalableBitmap(svgContents, f);
    layoutBitmapRegistry[k] = bitmap;
+   return bitmap;
 }
 
 CScalableBitmap* SurgeBitmaps::getLayoutBitmap(int layoutid, std::string key)

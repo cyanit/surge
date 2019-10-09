@@ -5,9 +5,9 @@
 #include "vstcontrols.h"
 #include "SurgeBitmaps.h"
 #include "SurgeParamConfig.h"
-#include "SliderKnobInterface.h"
+#include "ISliderKnobInterface.h"
 
-class CSurgeSlider : public CCursorHidingControl, public virtual Surge::SliderKnobInterface
+class CSurgeSlider : public CCursorHidingControl, public virtual Surge::ISliderKnobInterface
 {
 public:
    CSurgeSlider(const VSTGUI::CPoint& loc,
@@ -97,13 +97,6 @@ public:
       return style;
    }
 
-
-   enum BitmapMode {
-      BitmapContainsMultitudes,
-      BitmapPerState
-   };
-
-   BitmapMode bitmapMode = BitmapContainsMultitudes;
 
    enum BitmapIdentities {
       bmap_Handle,

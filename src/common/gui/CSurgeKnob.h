@@ -1,9 +1,9 @@
 #pragma once
 
 #include "vstgui/lib/controls/cknob.h"
-#include "SliderKnobInterface.h"
+#include "ISliderKnobInterface.h"
 
-class CSurgeKnob : public VSTGUI::CKnob, public virtual Surge::SliderKnobInterface
+class CSurgeKnob : public VSTGUI::CKnob, public virtual Surge::ISliderKnobInterface
 {
 public:
    CSurgeKnob(VSTGUI::CRect& size, VSTGUI::IControlListener* listener, int32_t tag)

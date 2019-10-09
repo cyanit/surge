@@ -133,6 +133,13 @@
                            svg="SVG/MuteSwitch_00134.svg"
                            />
     </component>
+    <component name="Mute Emoji Switch" class="CSwitchControl" width="22" height="22">
+      <componentproperties subPixmaps="2"
+                           svgPerState="true"
+                           svgstate0="SVG/loudspeaker-1f50a.svg"
+                           svgstate1="SVG/hear-no-monkey-1f649.svg"
+                           />
+    </component>
     <component name="Solo Switch" class="CSwitchControl" width="22" height="15">
       <componentproperties subPixmaps="2"
                            svg="SVG/SoloSwitch_00132.svg"
@@ -242,7 +249,7 @@
               <label string="1" halign="center" fgcolor="$mixenv.label" width="auto" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="auto" mode="vlist">
-              <node guiid="mix.osc1.mute" component="Mute Switch"/>
+              <node guiid="mix.osc1.mute" component="Mute Emoji Switch"/>
               <node guiid="mix.osc1.solo" component="Solo Switch"/>
               <node guiid="mix.osc1.route" component="OSC Route"/>
               <node guiid="mix.osc1.level" component="vslider"/>

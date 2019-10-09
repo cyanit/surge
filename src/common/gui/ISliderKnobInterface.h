@@ -2,7 +2,7 @@
 
 namespace Surge
 {
-class SliderKnobInterface
+class ISliderKnobInterface
 {
 public:
    virtual void setIsMod(bool) = 0;

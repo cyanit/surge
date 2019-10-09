@@ -36,9 +36,13 @@ Here's my sort of running todo as I think of it, in rough order
 * Why's it coredump if layout is missing?
 * Font Controls
 * Second layout with stupid pet tricks
+* About Screen 
+  * Lets do proper git ID at make time also
 
 * Knobs glorious knobs
 * Strings file
+  * Layout strings to a saprate file
+  * Engine Strings
 * Multi-OSC view (thumbnails!)
 * Add 3 more oscillators and have the parameters not break (use the parameter defered chaning)
 

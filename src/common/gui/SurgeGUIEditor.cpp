@@ -915,7 +915,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
             CControl* hsw = new CSwitchControl(rect, this, p->id + start_paramtags,
                                                bitmapStore->getBitmap(IDB_FILTERSUBTYPE));
             rect(1, 1, 9, 14);
-            ((CSwitchControl*)hsw)->is_itype = true;
+            ((CSwitchControl*)hsw)->isMultiValued = true;
             ((CSwitchControl*)hsw)->imax = 3;
             ((CSwitchControl*)hsw)->ivalue = p->val.i + 1;
             if (fut_subcount[synth->storage.getPatch()
@@ -1238,10 +1238,11 @@ void SurgeGUIEditor::openOrRecreateEditor()
                auto c =
                    layout->addLayoutControl(p->layoutEngineID, this, p->id + start_paramtags, this);
                param[i] = c;
-               Surge::SliderKnobInterface* sk = dynamic_cast<Surge::SliderKnobInterface*>(c);
+               Surge::ISliderKnobInterface* sk = dynamic_cast<Surge::ISliderKnobInterface*>(c);
                if (!sk)
                {
-                  std::cout << "Control is not a SliderKnobInterface" << endl;
+                  // FIXME
+                  std::cout << "Control is not a ISliderKnobInterface" << endl;
                }
                else
                {

@@ -201,14 +201,9 @@ void LayoutEngine::setupControlFactory()
       auto cols = atoi(props["cols"].c_str());
 
       auto svg = props["svg"];
-
-      if (!bitmapStore->containsLayoutBitmap(this->layoutId, svg))
+      if( ! this->loadSVGToBitmapStore(svg) )
       {
-         auto svgf = layoutResource(svg);
-         std::ifstream t(svgf.c_str());
-         std::stringstream buffer;
-         buffer << t.rdbuf();
-         bitmapStore->storeLayoutBitmap(this->layoutId, svg, buffer.str(), this->frame);
+         return (CHSwitch2*)nullptr;
       }
 
       auto res = new CHSwitch2(rect, listener, tag, sbp, h1i, rows, cols,
@@ -225,28 +220,34 @@ void LayoutEngine::setupControlFactory()
       rect_t rect(0, 0, p->width, p->height);
       rect.offset(p->xoff, p->yoff);
 
-      auto svg = props["svg"];
-
-      if (!bitmapStore->containsLayoutBitmap(this->layoutId, svg))
+      if( props["svgPerState"] == "true" )
       {
-         auto svgf = layoutResource(svg);
-         std::ifstream t(svgf.c_str());
-         if( ! t.is_open() )
+         auto res = new CSwitchControl(rect, listener, tag, nullptr );
+         auto pm = std::max(2, std::atoi(props["subPixmaps"].c_str()));
+         for( int i=0; i<pm; ++i )
          {
-            LayoutLog::error() << "Unable to open SVG " << svg << std::endl;
-            return (CSwitchControl *)nullptr;
+            std::ostringstream oss;
+            oss << "svgstate" << i;
+            auto svg = props[oss.str()];
+            if( ! this->loadSVGToBitmapStore(svg, p->width, p->height) )
+               return (CSwitchControl*)nullptr;
+            res->setBitmapForState(i, bitmapStore->getLayoutBitmap(this->layoutId, svg));
          }
-         else
-         {
-            std::stringstream buffer;
-            buffer << t.rdbuf();
-            bitmapStore->storeLayoutBitmap(this->layoutId, svg, buffer.str(), this->frame);
-         }
+         return res;
       }
-
-      auto res = new CSwitchControl(rect, listener, tag, 
-                                    bitmapStore->getLayoutBitmap(this->layoutId, svg));
-      return res;
+      else
+      {
+         auto svg = props["svg"];
+         if( ! this->loadSVGToBitmapStore(svg) )
+         {
+            return (CSwitchControl*)nullptr;
+         }
+         
+         auto res = new CSwitchControl(rect, listener, tag, 
+                                       bitmapStore->getLayoutBitmap(this->layoutId, svg));
+         return res;
+      }
+      return (CSwitchControl *)nullptr;
    };
 
    controlFactory["CSurgeKnob"] = [this](const guiid_t& guiid, VSTGUI::IControlListener* listener,
@@ -394,6 +395,31 @@ void LayoutEngine::setupControlFactory()
 
       return res;
    };
+}
+
+bool LayoutEngine::loadSVGToBitmapStore(std::string svg, float w, float h)
+{
+   if (!bitmapStore->containsLayoutBitmap(this->layoutId, svg))
+   {
+      auto svgf = layoutResource(svg);
+      std::ifstream t(svgf.c_str());
+      if( ! t.is_open() )
+      {
+         LayoutLog::error() << "Unable to open SVG " << svg << std::endl;
+         return false;
+      }
+      else
+      {
+         std::stringstream buffer;
+         buffer << t.rdbuf();
+         auto bm = bitmapStore->storeLayoutBitmap(this->layoutId, svg, buffer.str(), this->frame);
+         if( w > 0 && h > 0 )
+         {
+            bm->setInherentScaleForSize(w,h);
+         }
+      }
+   }
+   return true;
 }
 
 LayoutEngine::control_t* LayoutEngine::addLayoutControl(const guiid_t& guiid,

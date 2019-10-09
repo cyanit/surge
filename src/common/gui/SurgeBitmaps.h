@@ -18,8 +18,7 @@ public:
    CScalableBitmap* getBitmap(int id);
 
    bool containsLayoutBitmap(int layoutid, std::string key);
-   void
-   storeLayoutBitmap(int layoutid, std::string key, std::string svgContents, VSTGUI::CFrame* f);
+   CScalableBitmap *storeLayoutBitmap(int layoutid, std::string key, std::string svgContents, VSTGUI::CFrame* f);
    CScalableBitmap* getLayoutBitmap(int layoutid, std::string key);
 
 protected:

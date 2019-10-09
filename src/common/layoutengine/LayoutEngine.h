@@ -90,6 +90,8 @@ public:
    std::unordered_map<std::string, stringmap_t> strings;
    stringmap_t active_stringmap;
    void parseStringmaps(TiXmlElement* s);
+
+   bool loadSVGToBitmapStore(std::string svg, float w=0, float h=0);
 };
 
 class LayoutElement

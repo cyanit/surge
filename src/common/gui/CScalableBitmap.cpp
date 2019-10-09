@@ -172,9 +172,10 @@ CScalableBitmap::CScalableBitmap(std::string svgContents, VSTGUI::CFrame* f)
 {
    svgImage = nsvgParse((char*)(svgContents.c_str()), "px", 96);
 
+   
    if (!svgImage)
    {
-      std::cout << "Unable to load SVG Image from memory" << std::endl;
+      std::cout << "Unable to load SVG Image from string contents" << std::endl;
    }
 
    extraScaleFactor = 100;
@@ -248,7 +249,7 @@ void CScalableBitmap::draw (CDrawContext* context, const CRect& rect, const CPoi
        */
        int exs = (extraScaleFactor<100?100:extraScaleFactor);
        CGraphicsTransform xtf =
-           CGraphicsTransform().scale(exs / 100.0, exs / 100.0);
+           CGraphicsTransform().scale( exs / 100.0, exs / 100.0);
        CGraphicsTransform itf = tf.inverse();
        CGraphicsTransform ixtf = xtf.inverse();
 
@@ -269,6 +270,10 @@ void CScalableBitmap::draw (CDrawContext* context, const CRect& rect, const CPoi
              CDrawContext::Transform trsf(*offscreen, tf);
              CDrawContext::Transform xtrsf(*offscreen, ixtf);
 
+             auto inherent = CGraphicsTransform().scale( inherentScaleFactor, inherentScaleFactor );
+             inherent.inverse().transform(newRect);
+             CDrawContext::Transform isf( *offscreen, inherent );
+             
              drawSVG(offscreen, newRect, offset, alpha);
 
              offscreen->endDraw();
@@ -472,4 +477,14 @@ VSTGUI::CColor CScalableBitmap::svgColorToCColor(int svgColor, float opacity)
    int g = (svgColor & 0x0000FF00) >> 8;
    int r = (svgColor & 0x000000FF);
    return VSTGUI::CColor(r, g, b, a);
+}
+
+void CScalableBitmap::setInherentScaleForSize(float w, float h)
+{
+   if( svgImage )
+   {
+      float impz = std::min( w / svgImage->width, h / svgImage->height );
+      inherentScaleFactor = impz;
+      lastSeenZoom = -1;
+   }
 }

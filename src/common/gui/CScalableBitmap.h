@@ -48,6 +48,11 @@ public:
       extraScaleFactor = a;
    }
 
+   /*
+   ** If I really want to be w x h, set an inherent scale to get best I can while preserving aspect ratio
+   */
+   void setInherentScaleForSize( float w, float h );
+   
 private:
    struct CPointCompare
    {
@@ -62,6 +67,7 @@ private:
    std::map<VSTGUI::CPoint, VSTGUI::CBitmap*, CPointCompare> offscreenCache;
 
    int lastSeenZoom, bestFitScaleGroup;
+   float inherentScaleFactor = 1;
    int extraScaleFactor;
    int resourceID;
 
