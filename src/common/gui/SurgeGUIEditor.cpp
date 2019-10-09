@@ -1025,6 +1025,8 @@ void SurgeGUIEditor::openOrRecreateEditor()
          case ct_bool_solo:
          case ct_oscroute:
          case ct_polymode:
+         case ct_scenesel:
+         case ct_scenemode:
          {
             CControl *hsw = nullptr;
             if( p->hasLayoutEngineID )
@@ -1032,6 +1034,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                hsw = layout->addLayoutControl(p->layoutEngineID, this, p->id + start_paramtags, this);
                if( hsw )
                   hsw->setValue(p->get_value_f01());
+               // hsw->setMouseableArea(rect);
                // SetMouseableArea??
             }
             nonmod_param[i] = hsw;
@@ -1164,16 +1167,6 @@ void SurgeGUIEditor::openOrRecreateEditor()
             nonmod_param[i] = hsw;
          }
          break;
-         case ct_scenemode:
-         {
-            auto sceneswitch = layout->addLayoutControl("scene.mode", this, p->id + start_paramtags, this);
-            if( sceneswitch )
-            {
-               sceneswitch->setValue(p->get_value_f01());
-            }
-            nonmod_param[i] = sceneswitch;
-         }
-         break;
          case ct_lfoshape:
          {
             CRect rect(0, 0, 359, 85);
@@ -1189,28 +1182,6 @@ void SurgeGUIEditor::openOrRecreateEditor()
                if(legacy != nullptr) legacy->addView(slfo);
                nonmod_param[i] = slfo;
             }
-         }
-         break;
-         case ct_scenesel:
-         {
-            auto sceneswitch = layout->addLayoutControl("scene.AB", this, tag_scene_select, this);
-            if( sceneswitch )
-            {
-               sceneswitch->setValue(p->get_value_f01());
-            }
-
-            /*
-            CRect rect(0, 0, 51, 27);
-            rect.offset(p->posx, p->posy);
-            CControl* sceneswitch = new CHSwitch2(rect, this, tag_scene_select, 2, 27, 1, 2,
-                                                  bitmapStore->getBitmap(IDB_SCENESWITCH), nopoint);
-            sceneswitch->setValue(p->get_value_f01());
-            rect(1, 1, 50, 26);
-            rect.offset(p->posx, p->posy);
-            sceneswitch->setMouseableArea(rect);
-            if(legacy != nullptr) legacy->addView(sceneswitch);
-            */
-            
          }
          break;
          case ct_character:

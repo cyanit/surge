@@ -284,13 +284,17 @@ void LayoutEngine::setupControlFactory()
       auto pprops = p->properties;
       auto props = Surge::mergeProperties(comp->properties, pprops);
 
-      auto orient = Surge::ParamConfig::Style::kHorizontal;
+      int style = Surge::ParamConfig::Style::kHorizontal;
       if( props["orientation"] == "vertical" )
       {
-         orient = Surge::ParamConfig::Style::kVertical;
+         style = Surge::ParamConfig::Style::kVertical;
+      }
+      if( props["white"] == "true" )
+      {
+         style |= kWhite;
       }
 
-      auto res = new CSurgeSlider(nopoint, orient,
+      auto res = new CSurgeSlider(nopoint, style,
                                   listener, tag, true, bitmapStore);
       /*
       ** SO MUCH to fix here; like horizontal and vertical; and like the bitmaps we choose and the
@@ -619,7 +623,7 @@ LayoutElement* LayoutElement::fromXML(TiXmlElement* el, LayoutElement* parent, L
    }
 
    // OK so now set up margins for some custom types
-   if( res->type == Layout && ( res->style == "roundedblock" || res->style == "roundedlabel" ) )
+   if( res->type == Layout && ( res->style == "roundedblock" || res->style == "roundedlabel" ) && res->mode != Free )
    {
       // FIXME we probably want this as a parameter
       res->marginx = 5;
@@ -645,15 +649,35 @@ LayoutElement* LayoutElement::fromXML(TiXmlElement* el, LayoutElement* parent, L
       }
    }
 
-   double d;
-   if (el->QueryDoubleAttribute("width", &d) == TIXML_SUCCESS)
-      res->width = d;
-   if (el->QueryDoubleAttribute("height", &d) == TIXML_SUCCESS)
-      res->height = d;
-   if (el->QueryDoubleAttribute("xoff", &d) == TIXML_SUCCESS)
-      res->xoff = d;
-   if (el->QueryDoubleAttribute("yoff", &d) == TIXML_SUCCESS)
-      res->yoff = d;
+   s = el->Attribute("width");
+   if( s )
+   {
+      if( strcmp(s,"auto")== 0 ) res->width = kAutomaticSize;
+      else res->width=std::atof(s);
+   }
+   s = el->Attribute("height");
+   if( s )
+   {
+      if( strcmp(s,"auto")== 0 ) res->height = kAutomaticSize;
+      else res->height=std::atof(s);
+   }
+
+   s = el->Attribute("xoff");
+   if( s )
+   {
+      if( strcmp(s,"left")==0 ) res->xoff = kOffLeft;
+      else if( strcmp(s, "center") == 0 ) res->xoff= kOffCenter;
+      else if( strcmp(s, "right") == 0 ) res->xoff = kOffRight;
+      else res->xoff = std::atof(s);
+   }
+   s = el->Attribute("yoff");
+   if( s )
+   {
+      if( strcmp(s,"left")==0 ) res->yoff = kOffLeft;
+      else if( strcmp(s, "center") == 0 ) res->yoff= kOffCenter;
+      else if( strcmp(s, "right") == 0 ) res->yoff = kOffRight;
+      else res->yoff = std::atof(s);
+   }
 
    // Grab all the attributes into a map
    for (auto a = el->FirstAttribute(); a; a = a->Next())
@@ -891,21 +915,30 @@ void LayoutElement::setupChildSizes()
       {
          // FIXME do better than this. Like check for invalid states and stuff
          kid->setupChildSizes();
-         kid->xoff += marginx;
-         kid->yoff += marginy;
+         
+         if( kid->xoff == kOffLeft ) kid->xoff = marginx;
+         else if( kid->xoff == kOffRight ) kid->xoff = width - kid->width - marginx;
+         else if( kid->xoff == kOffCenter ) kid->xoff = (width - kid->width ) / 2;
+         else kid->xoff += marginx;
+
+      
+         if( kid->yoff == kOffLeft ) kid->yoff = marginy;
+         else if( kid->yoff == kOffRight ) kid->yoff = height - kid->height - marginy;
+         else if( kid->yoff == kOffCenter ) kid->yoff = (height - kid->height ) / 2;
+         else kid->yoff += marginy;
       }
       break;
    }
    case Hlist:
    {
       // So basically the yOff is the running width
-      // if the height is -1 it is my height
-      // if width is -1 it is fill the box along with other -1s evenly
+      // if the height is kAutomaticSize it is my height
+      // if width is kAutomaticSize it is fill the box along with other -1s evenly
       float given_width = 0;
       int free_widths = 0;
       for (auto kid : children)
       {
-         if (kid->width > 0)
+         if (kid->width > kAutomaticSize )
             given_width += kid->width;
          else
             free_widths++;
@@ -918,14 +951,18 @@ void LayoutElement::setupChildSizes()
       float kid_xoff = marginx;
       for (auto kid : children)
       {
-         if (kid->height == -1)
+         if (kid->height == kAutomaticSize)
             kid->height = height - 2 * marginy;
-         if (kid->width == -1)
+         if (kid->width == kAutomaticSize)
             kid->width = default_width;
          kid->xoff = kid_xoff;
-         kid->yoff = marginy;
          kid_xoff += kid->width;
          kid->setupChildSizes();
+         
+         if( kid->yoff == kOffLeft ) kid->yoff = marginy;
+         else if( kid->yoff == kOffRight ) kid->yoff = height - kid->width - marginy;
+         else if( kid->yoff == kOffCenter ) kid->yoff = (height - kid->width ) / 2;
+         else kid->yoff = marginy;
       }
       break;
    }
@@ -936,7 +973,7 @@ void LayoutElement::setupChildSizes()
       int free_heights = 0;
       for (auto kid : children)
       {
-         if (kid->height > 0)
+         if (kid->height > kAutomaticSize)
             given_height += kid->height;
          else
             free_heights++;
@@ -949,14 +986,18 @@ void LayoutElement::setupChildSizes()
       float kid_yoff = marginy;
       for (auto kid : children)
       {
-         if (kid->height == -1)
+         if (kid->height == kAutomaticSize)
             kid->height = default_height;
-         if (kid->width == -1)
+         if (kid->width == kAutomaticSize)
             kid->width = width - 2 * marginy;
-         kid->xoff = marginx;
          kid->yoff = kid_yoff;
          kid_yoff += kid->height;
+
          kid->setupChildSizes();
+         if( kid->xoff == kOffLeft ) kid->xoff = marginx;
+         else if( kid->xoff == kOffRight ) kid->xoff = width - kid->width - marginx;
+         else if( kid->xoff == kOffCenter ) kid->xoff = (width - kid->width ) / 2;
+         else kid->xoff += marginx;
       }
       break;
    }

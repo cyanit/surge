@@ -78,12 +78,10 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
                                         gui_mid_topbar_y + 12, 0, cg_GLOBAL, 0, true,
                                         Surge::ParamConfig::kHorizontal | kEasy));
    }
-   param_ptr.push_back(scene_active.assign(p_id.next(), 0, "scene_active", "Active Scene",
-                                           ct_scenesel, 7, gui_mid_topbar_y - 2, 0, cg_GLOBAL, 0,
-                                           false, Surge::ParamConfig::kHorizontal));
-   param_ptr.push_back(scenemode.assign(p_id.next(), 0, "scenemode", "Scene Mode", ct_scenemode,
-                                        8 + 51 + 3, gui_mid_topbar_y - 2, 0, cg_GLOBAL, 0, false,
-                                        Surge::ParamConfig::kHorizontal | kNoPopup));
+   param_ptr.push_back(scene_active.assign(p_id.next(), 0, "scene_active", "Active Scene", "scene.AB",
+                                           ct_scenesel, 0, cg_GLOBAL, 0, false)); // FIXME kNoPopup
+   param_ptr.push_back(scenemode.assign(p_id.next(), 0, "scenemode", "Scene Mode", "scene.mode",
+                                        ct_scenemode, 0, cg_GLOBAL, 0, false )); // FIXME kNoPopup
    // param_ptr.push_back(scenemorph.assign(p_id.next(),0,"scenemorph","scenemorph",ct_percent,hmargin+gui_sec_width,gui_mid_topbar_y,0,0,0,false,Surge::ParamConfig::kHorizontal));
 
    param_ptr.push_back(splitkey.assign(p_id.next(), 0, "splitkey", "Split Key", ct_midikey, 8 + 91,
@@ -200,7 +198,7 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
          }*/
       }
       a->push_back(scene[sc].polymode.assign(p_id.next(), id_s++,
-                                             "polymode", "Polymode", "poly.polymode",
+                                             "polymode", "Polymode", "scene.polymode",
                                              ct_polymode, sc_id, cg_GLOBAL, 0, false )); // FIXME kWhite kNoPopup
       a->push_back(scene[sc].fm_switch.assign(p_id.next(), id_s++, "fm_switch", "FM Routing",
                                               ct_fmconfig, gui_col3_x + 3, gui_topbar + 25, sc_id,
@@ -210,14 +208,10 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
           gui_uppersec_y + gui_hfader_dist * 4, sc_id, cg_GLOBAL, 0, true,
           Surge::ParamConfig::kHorizontal | kWhite | sceasy));
 
-      a->push_back(scene[sc].drift.assign(p_id.next(), id_s++, "drift", "Osc Drift", ct_percent,
-                                          gui_col2_x, gui_uppersec_y + gui_hfader_dist * 3, sc_id,
-                                          cg_GLOBAL, 0, true,
-                                          Surge::ParamConfig::kHorizontal | kWhite));
-      a->push_back(scene[sc].noise_colour.assign(
-          p_id.next(), id_s++, "noisecol", "Noise Color", ct_percent_bidirectional, gui_col2_x,
-          gui_uppersec_y + gui_hfader_dist * 4, sc_id, cg_GLOBAL, 0, true,
-          Surge::ParamConfig::kHorizontal | kWhite | sceasy));
+      a->push_back(scene[sc].drift.assign(p_id.next(), id_s++, "drift", "Osc Drift", "scene.oscdrift",
+                                          ct_percent, sc_id, cg_GLOBAL, 0, true ));
+      a->push_back(scene[sc].noise_colour.assign(p_id.next(), id_s++, "noisecol", "Noise Color", "scene.noisecolor",
+                                                 ct_percent_bidirectional, sc_id, cg_GLOBAL, 0, true )); // scEasy
       a->push_back(scene[sc].keytrack_root.assign(
           p_id.next(), id_s++, "ktrkroot", "Keytrack Root Key", ct_midikey, 180 + 127,
           gui_topbar + 78 + 106 + 24, sc_id, cg_GLOBAL, 0, false));

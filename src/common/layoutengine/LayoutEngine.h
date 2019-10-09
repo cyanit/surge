@@ -112,6 +112,11 @@ public:
    } LayoutMode;
    LayoutMode mode = Free;
 
+   static const int kAutomaticSize = -100000,
+      kOffCenter = kAutomaticSize - 1,
+      kOffLeft = kAutomaticSize - 2,
+      kOffRight = kAutomaticSize - 3;
+   
    LayoutElement()
    {}
    ~LayoutElement()
@@ -175,7 +180,6 @@ public:
 
    static LayoutComponent* fromXML(TiXmlElement* e);
 };
-
 
 class LayoutLibrary
 {

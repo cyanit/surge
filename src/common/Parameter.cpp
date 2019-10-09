@@ -109,6 +109,7 @@ Parameter* Parameter::assign(ParameterIDCounter::promise_t id_promise,
                              bool modulateable,
                              int ctrlstyle)
 {
+   // std::cout << "Assign with old-style no layout ID for " << name << " / " << dispname << std::endl;
    this->id = -1;
    this->id_promise = id_promise;
    this->param_id_in_scene = pid;
