@@ -199,10 +199,9 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
          + 1.0) * M_PI * x);
          }*/
       }
-      a->push_back(scene[sc].polymode.assign(p_id.next(), id_s++, "polymode", "Polymode",
-                                             ct_polymode, gui_col2_x + 83, gui_uppersec_y + 9,
-                                             sc_id, cg_GLOBAL, 0, false,
-                                             Surge::ParamConfig::kVertical | kWhite | kNoPopup));
+      a->push_back(scene[sc].polymode.assign(p_id.next(), id_s++,
+                                             "polymode", "Polymode", "poly.polymode",
+                                             ct_polymode, sc_id, cg_GLOBAL, 0, false )); // FIXME kWhite kNoPopup
       a->push_back(scene[sc].fm_switch.assign(p_id.next(), id_s++, "fm_switch", "FM Routing",
                                               ct_fmconfig, gui_col3_x + 3, gui_topbar + 25, sc_id,
                                               cg_GLOBAL, 0, false));

@@ -103,6 +103,9 @@
                            bordercolor="$darkmulti.border"/>
     </component>
 
+    <component name="Single CHS2" class="CHSwitch2">
+    </component>
+    
     <component name="Plus Minus" class="CHSwitch2" width="37" height="12">
       <componentproperties subPixmaps="2"
                            heightOfOneImage="12"
@@ -207,7 +210,16 @@
         
         
         <layout width="225" height="-1" mode="vlist" style="blank" label="mixparent">
-          <layout width="-1" height="200" label="Poly" style="roundedlabel" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg"/>
+          <layout width="-1" height="200" label="Poly" style="roundedlabel" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg">
+            <node guiid="poly.polymode" xoff="125" yoff="10" width="50" height="47" component="Single CHS2">
+              <nodeproperties subPixmaps="6"
+                              heightOfOneImage="47"
+                              rows="6"
+                              cols="1"
+                              svg="SVG/PolyMode_00123.svg"
+                              />
+            </node>
+          </layout>
           <layout width="-1" height="-1"  label="Scene" style="roundedlabel" fgcolor="$ctrl.fg" bgcolor="$ctrl.bg">
             <node component="hslider" guiid="global.pitch"/> <!-- Surge::ParamConfig::kHorizontal | kSemitone | sceasy -->
           </layout>

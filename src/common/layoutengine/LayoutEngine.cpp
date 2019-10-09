@@ -186,18 +186,21 @@ void LayoutEngine::setupControlFactory()
    controlFactory["CHSwitch2"] = [this](const guiid_t& guiid, VSTGUI::IControlListener* listener,
                                         long tag, SurgeGUIEditor* unused, LayoutElement* p) {
       auto comp = components[p->component];
+      auto pprops = p->properties;
+      auto props = Surge::mergeProperties(comp->properties, pprops);
+      
       point_t nopoint(0, 0);
       rect_t rect(0, 0, p->width, p->height);
 
       rect.offset(p->xoff, p->yoff);
 
-      auto sbp = atoi(comp->properties["subPixmaps"].c_str());
-      auto h1i = atoi(comp->properties["heightOfOneImage"].c_str());
+      auto sbp = atoi(props["subPixmaps"].c_str());
+      auto h1i = atoi(props["heightOfOneImage"].c_str());
 
-      auto rows = atoi(comp->properties["rows"].c_str());
-      auto cols = atoi(comp->properties["cols"].c_str());
+      auto rows = atoi(props["rows"].c_str());
+      auto cols = atoi(props["cols"].c_str());
 
-      auto svg = comp->properties["svg"];
+      auto svg = props["svg"];
 
       if (!bitmapStore->containsLayoutBitmap(this->layoutId, svg))
       {

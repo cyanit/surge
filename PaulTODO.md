@@ -1,5 +1,9 @@
 Here's my sort of running todo as I think of it, in rough order
 
+* Move the CHSwitch2s
+* XML configured multi-switch rather than SVG configured multi-switch
+  * properties for drawing and a few classes
+  * Add a multi-text switch which encompasses toggle
 * Slider Parameterization and Work
   * Handle and BG SVGs
 * Modulation Button Properties for Colors exposed
@@ -14,10 +18,6 @@ Here's my sort of running todo as I think of it, in rough order
 * Finish OSC Section
   * Especially the rounded rects
 * Gradient Colormaps
-* XML configured multi-switch rather than SVG configured multi-switch
-  * properties for drawing and a few classes
-  * MOve the other CHSwitch2s
-  * Add a multi-text switch which encompasses toggle
 * Region SVG Backgrounds
 * Sublayouts maybe?
 * Finish positioning all the sliders with the XML

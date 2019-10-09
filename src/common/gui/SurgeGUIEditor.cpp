@@ -1024,6 +1024,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
          case ct_bool_mute:
          case ct_bool_solo:
          case ct_oscroute:
+         case ct_polymode:
          {
             CControl *hsw = nullptr;
             if( p->hasLayoutEngineID )
@@ -1031,6 +1032,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
                hsw = layout->addLayoutControl(p->layoutEngineID, this, p->id + start_paramtags, this);
                if( hsw )
                   hsw->setValue(p->get_value_f01());
+               // SetMouseableArea??
             }
             nonmod_param[i] = hsw;
          }
@@ -1103,20 +1105,6 @@ void SurgeGUIEditor::openOrRecreateEditor()
             CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 6, 47, 6, 1,
                                           bitmapStore->getBitmap(IDB_WAVESHAPER), nopoint, true);
             rect(0, 0, 28, 47);
-            rect.offset(p->posx, p->posy);
-            hsw->setMouseableArea(rect);
-            hsw->setValue(p->get_value_f01());
-            if(legacy != nullptr) legacy->addView(hsw);
-            nonmod_param[i] = hsw;
-         }
-         break;
-         case ct_polymode:
-         {
-            CRect rect(0, 0, 50, 47);
-            rect.offset(p->posx, p->posy);
-            CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 6, 47, 6, 1,
-                                          bitmapStore->getBitmap(IDB_POLYMODE), nopoint, true);
-            rect(0, 0, 50, 47);
             rect.offset(p->posx, p->posy);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());

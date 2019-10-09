@@ -86,7 +86,6 @@ public:
 
    static MoveRateState sliderMoveRateState;
 
-   
    virtual void setStyle(int i ) 
    {
       style = i;
@@ -97,8 +96,37 @@ public:
    {
       return style;
    }
+
+
+   enum BitmapMode {
+      BitmapContainsMultitudes,
+      BitmapPerState
+   };
+
+   BitmapMode bitmapMode = BitmapContainsMultitudes;
+
+   enum BitmapIdentities {
+      bmap_Handle,
+      bmap_ModHandle,
+      bmap_Tray,
+      bmap_BipolarTray,
+      bmap_BipolarTickTray,
+      bmap_ModTray,
+      bmap_ModBipolarTray,
+      bmap_ModBipolarTickTray,
+      n_bitmaps
+   };
+
+   void setBitmapForIdentity(BitmapIdentities identity, VSTGUI::CBitmap *bm) {
+      stateBitmaps[identity] = bm;
+   }
+   
 private:
+   // For ContainsMultitudes mode
    VSTGUI::CBitmap *pHandle, *pTray, *pModHandle;
+
+   // For BitmapPerState mode
+   VSTGUI::CBitmap *stateBitmaps[n_bitmaps];
    VSTGUI::CRect handle_rect, handle_rect_orig;
    VSTGUI::CPoint offsetHandle;
    int range;
