@@ -1,5 +1,6 @@
 Here's my sort of running todo as I think of it, in rough order
 
+* Labels and Fonts
 * Region SVG Backgrounds (both direct and rounded)
 * Rounded Region DropShadow
 * Gradient Colormaps

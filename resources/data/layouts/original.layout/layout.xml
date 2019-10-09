@@ -1,8 +1,6 @@
 <!-- XML document for a surge layout -->
 
 <surge-skin version="1">
-  <defaults fontfamily="Lato" fontsize="9"/>
-
   <strings default="en">
     <!-- right now this isn't quite supported but I want the data model to allow internationalization -->
     <stringmap language="en">
