@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "SurgeStorage.h"
 #include "vstgui/vstgui.h"
 #include "SurgeBitmaps.h"
 #include "tinyxml.h"

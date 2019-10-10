@@ -476,6 +476,11 @@ VSTGUI::CColor CScalableBitmap::svgColorToCColor(int svgColor, float opacity)
    int b = (svgColor & 0x00FF0000) >> 16;
    int g = (svgColor & 0x0000FF00) >> 8;
    int r = (svgColor & 0x000000FF);
+
+   if( glyphMode && r == 0 && g == 0 && b == 0 )
+   {
+      return glyphColor;
+   }
    return VSTGUI::CColor(r, g, b, a);
 }
 
@@ -486,5 +491,21 @@ void CScalableBitmap::setInherentScaleForSize(float w, float h)
       float impz = std::min( w / svgImage->width, h / svgImage->height );
       inherentScaleFactor = impz;
       lastSeenZoom = -1;
+   }
+}
+
+void CScalableBitmap::updateWithGlyphColor( VSTGUI::CColor c )
+{
+   if( c != glyphColor )
+   {
+      glyphColor = c;
+
+      for (auto const& pair : offscreenCache)
+      {
+         auto val = pair.second;
+         if (val)
+            val->forget();
+      }
+      offscreenCache.clear();
    }
 }

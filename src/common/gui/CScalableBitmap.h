@@ -52,6 +52,18 @@ public:
    ** If I really want to be w x h, set an inherent scale to get best I can while preserving aspect ratio
    */
    void setInherentScaleForSize( float w, float h );
+
+   /*
+   ** In "glyph" mode I remap colors. This doesn't really change except at construction time.
+   */
+   bool setGlyphMode( bool b ) {
+      glyphMode = b;
+   }
+   
+   /*
+   ** For "glyph" drawing I replace #000000 with this color when painting
+   */
+   void updateWithGlyphColor(VSTGUI::CColor col);
    
 private:
    struct CPointCompare
@@ -72,7 +84,9 @@ private:
    int resourceID;
 
    VSTGUI::CFrame* frame;
-
+   VSTGUI::CColor glyphColor = VSTGUI::kBlackCColor;
+   bool glyphMode = false;
+   
    NSVGimage* svgImage;
    void drawSVG(VSTGUI::CDrawContext* context,
                 const VSTGUI::CRect& rect,

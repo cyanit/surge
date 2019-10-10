@@ -222,6 +222,7 @@ function plugincommon()
         "src/common/gui/SurgeBitmaps.cpp",
         "src/common/gui/SurgeGUIEditor.cpp",
         "src/common/layoutengine/LayoutEngine.cpp",
+        "src/common/layoutengine/LayoutEngineControlFactory.cpp",
         "src/common/layoutengine/LayoutEngineContainer.cpp",
         "src/common/thread/CriticalSection.cpp",
         "src/common/util/FpuState.cpp",

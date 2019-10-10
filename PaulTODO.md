@@ -1,7 +1,10 @@
 Here's my sort of running todo as I think of it, in rough order
 
 * Glyph Switch
-* Move those factories out of the main LayoutEngine
+  * Gradients
+  * SVG Backgrounds
+  * Text rather than Glyph
+* Multi-Glyph-Switch
 * Pitch Bend Area
 * Labels and Fonts
 * Region SVG Backgrounds (both direct and rounded)

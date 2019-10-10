@@ -1,6 +1,7 @@
 #pragma once
 
 #include "vstcontrols.h"
+#include "CScalableBitmap.h"
 
 /*
 ** A switch which paints its background and draws a glyph over the front.
@@ -38,7 +39,7 @@ public:
    };
    DrawState currentState = Off;
    
-   void setGlyphBitmap(VSTGUI::CBitmap *b) {
+   void setGlyphBitmap(CScalableBitmap *b) {
       if( glyph )
          glyph->forget();
       glyph = b;
@@ -62,9 +63,9 @@ public:
                                                      const VSTGUI::CButtonState &buttons) override;
    
 private:
-   VSTGUI::CBitmap *bgBitmap[n_drawstates];
+   CScalableBitmap *bgBitmap[n_drawstates];
    VSTGUI::CColor bgColor[n_drawstates], fgColor[n_drawstates];
-   VSTGUI::CBitmap *glyph = nullptr;
+   CScalableBitmap *glyph = nullptr;
 
    CLASS_METHODS( CGlyphSwitch, VSTGUI::CControl );
 };

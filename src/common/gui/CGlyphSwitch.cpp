@@ -23,43 +23,42 @@ void CGlyphSwitch::setValue(float f)
 void CGlyphSwitch::draw(VSTGUI::CDrawContext *dc)
 {
    auto size = getViewSize();
-   std::string tx;
-
+   auto fgColor = VSTGUI::kRedCColor;
+   
    switch( currentState )
    {
    case On:
       dc->setFillColor(VSTGUI::kGreenCColor);
-      tx = "On";
       break;
    case Off:
       dc->setFillColor(VSTGUI::kRedCColor);
-      tx = "Off";
+      fgColor = VSTGUI::kWhiteCColor;
       break;
    case HoverOn:
       dc->setFillColor(VSTGUI::kYellowCColor);
-      tx = "HOn";
+      fgColor = VSTGUI::kBlueCColor;
       break;
    case HoverOff:
       dc->setFillColor(VSTGUI::kGreyCColor);
-      tx = "Hoff";
+      fgColor = VSTGUI::kWhiteCColor;
       break;
    case PressOn:
       dc->setFillColor(VSTGUI::kBlueCColor);
-      tx = "Pon";
+      fgColor = VSTGUI::CColor(255,100,100);
       break;
    case PressOff:
       dc->setFillColor(VSTGUI::kWhiteCColor);
-      tx = "Poff";
+      fgColor = VSTGUI::kGreenCColor;
       break;
    }
 
    dc->drawRect(size, VSTGUI::kDrawFilled);
-
-   VSTGUI::SharedPointer<VSTGUI::CFontDesc> labelFont = new VSTGUI::CFontDesc("Lato", 10 );;
-   dc->setFont(labelFont);
-   dc->setFontColor(VSTGUI::kBlackCColor);
-   dc->drawString(tx.c_str(), getViewSize(), VSTGUI::kCenterText, true);
-
+   if( glyph )
+   {
+      glyph->updateWithGlyphColor(fgColor);
+      VSTGUI::CPoint where(0,0);
+      glyph->draw(dc, size, where, 0xff );
+   }
 }
 
 VSTGUI::CMouseEventResult CGlyphSwitch::onMouseDown (VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons)

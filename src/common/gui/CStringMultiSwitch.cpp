@@ -96,6 +96,5 @@ VSTGUI::CMouseEventResult CStringMultiSwitch::onMouseUp (VSTGUI::CPoint& where, 
 
 VSTGUI::CMouseEventResult CStringMultiSwitch::onMouseMoved (VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons)
 {
-   // std::cout << "onMouseMoved" << where.x << " " << where.y << std::endl;
    return VSTGUI::kMouseEventHandled;
 }
