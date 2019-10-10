@@ -1,5 +1,8 @@
 Here's my sort of running todo as I think of it, in rough order
 
+* Glyph Switch
+* Move those factories out of the main LayoutEngine
+* Pitch Bend Area
 * Labels and Fonts
 * Region SVG Backgrounds (both direct and rounded)
 * Rounded Region DropShadow

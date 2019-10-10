@@ -488,9 +488,8 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
                                                        cg_LFO, ms_lfo1 + l, false, kNoPopup));
          py += 44;
          sprintf(label, "lfo%i_unipolar", l);
-         a->push_back(scene[sc].lfo[l].unipolar.assign(p_id.next(), id_s++, label, "Unipolar",
-                                                       ct_bool_unipolar, px + 5, py - 4, sc_id,
-                                                       cg_LFO, ms_lfo1 + l, false));
+         a->push_back(scene[sc].lfo[l].unipolar.assign(p_id.next(), id_s++, label, "Unipolar", "lfo.unipolar",
+                                                       ct_bool_unipolar, sc_id, cg_LFO, ms_lfo1 + l, false));
 
          px += 3 * gui_sec_width + 8;
          py = gui_modsec_y + 5;

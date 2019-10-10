@@ -3,6 +3,7 @@
 #include <iostream>
 #include "CHSwitch2.h"
 #include "COscillatorDisplay.h"
+#include "CGlyphSwitch.h"
 #include "CScalableBitmap.h"
 #include "CSurgeSlider.h"
 #include "CSurgeKnob.h"
@@ -273,6 +274,21 @@ void LayoutEngine::setupControlFactory()
       rect.offset(p->xoff, p->yoff);
 
       auto res = new CModulationSourceButton(rect, listener, tag, 0, 0, bitmapStore);
+      return res;
+   };
+
+   controlFactory["CGlyphSwitch"] = [this](const guiid_t& guiid, VSTGUI::IControlListener* listener,
+                                           long tag, SurgeGUIEditor* editor, LayoutElement* p) {
+      auto pprops = p->properties;
+      auto comp = components[p->component];
+      auto props = Surge::mergeProperties(comp->properties, pprops);
+
+      point_t nopoint(0, 0);
+      rect_t rect(0, 0, p->width, p->height);
+
+      rect.offset(p->xoff, p->yoff);
+
+      auto res = new CGlyphSwitch(rect, listener, tag, 7);
       return res;
    };
 

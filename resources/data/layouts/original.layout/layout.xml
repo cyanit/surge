@@ -133,6 +133,8 @@
                            svg="SVG/MuteSwitch_00134.svg"
                            />
     </component>
+    <component name="Glyph Unconfigured" class="CGlyphSwitch"/>
+    
     <component name="Mute Emoji Switch" class="CSwitchControl" width="22" height="22">
       <componentproperties subPixmaps="2"
                            svgPerState="true"
@@ -233,6 +235,10 @@
                                 svg="SVG/PolyMode_00123.svg"
                                 />
               </node>
+              <layout xoff="10" yoff="10" width="40" height="40" style="fill" bgcolor="#00ff00">
+                <layout yoff="20" xoff="0" width="40" height="12" style="fill" fgcolor="#ff0000" bgcolor="#ff0000"/>
+              </layout>
+              <layout yoff="30" xoff="53" width="40" height="12" style="fill" fgcolor="#ff0000" bgcolor="#ff0000"/>
             </layout>
             <node guiid="scene.oscdrift" xoff="center"   yoff="98" component="hslider.light"/>
             <node guiid="scene.noisecolor" xoff="center" yoff="120" component="hslider.light"/>
@@ -249,7 +255,7 @@
               <label string="1" halign="center" fgcolor="$mixenv.label" width="auto" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="auto" mode="vlist">
-              <node guiid="mix.osc1.mute" component="Mute Emoji Switch"/>
+              <node guiid="mix.osc1.mute" component="Mute Switch"/>
               <node guiid="mix.osc1.solo" component="Solo Switch"/>
               <node guiid="mix.osc1.route" component="OSC Route"/>
               <node guiid="mix.osc1.level" component="vslider"/>
@@ -298,7 +304,7 @@
               <label string="r23" halign="center" fgcolor="$mixenv.label" width="auto" height="9"/> 
             </layout>
             <layout style="blank"  width="23" height="auto" mode="vlist">
-              <node guiid="mix.noise.mute" component="Mute Switch"/>
+              <node guiid="mix.noise.mute" component="Mute Emoji Switch"/>
               <node guiid="mix.noise.solo" component="Solo Switch"/>
               <node guiid="mix.noise.route" component="OSC Route"/>
               <node guiid="mix.noise.level" component="vslider"/>
@@ -381,6 +387,10 @@
 
       </layout>
       <layout height="auto" width="auto" style="roundedlabel" bgcolor="$mod.bg" fgcolor="$mod.fg" label="Modulator">
+        <node component="Glyph Unconfigured" xoff="20" yoff="20" width="60" height="60" guiid="lfo.unipolar">
+          <nodeproperties glyph="SVG/filter/4pole_high_pass.svg"
+                          />
+        </node>
       </layout>
     </layout>
     <layout yoff="0" width="auto" height="auto" mode="vlist" style="blank" label="fxoutparent">

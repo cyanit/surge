@@ -1027,6 +1027,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
          case ct_polymode:
          case ct_scenesel:
          case ct_scenemode:
+         case ct_bool_unipolar:
          {
             CControl *hsw = nullptr;
             if( p->hasLayoutEngineID )
@@ -1037,17 +1038,11 @@ void SurgeGUIEditor::openOrRecreateEditor()
                // hsw->setMouseableArea(rect);
                // SetMouseableArea??
             }
-            nonmod_param[i] = hsw;
-         }
-         break;
-         case ct_bool_unipolar:
-         {
-            CRect rect(0, 0, 51, 15);
-            rect.offset(p->posx, p->posy);
-            CControl* hsw = new CSwitchControl(rect, this, p->id + start_paramtags,
-                                               bitmapStore->getBitmap(IDB_UNIPOLAR));
-            hsw->setValue(p->get_value_f01());
-            if(legacy != nullptr) legacy->addView(hsw);
+            else
+            {
+               // FIXME - improve this
+               std::cout << "ERROR: No layoutEngineID for switch type " << std::endl;
+            }
             nonmod_param[i] = hsw;
          }
          break;

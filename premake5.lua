@@ -204,6 +204,7 @@ function plugincommon()
         "src/common/gui/CCursorHidingControl.cpp",
         "src/common/gui/CDIBitmap.cpp",
         "src/common/gui/CEffectSettings.cpp",
+        "src/common/gui/CGlyphSwitch.cpp",
         "src/common/gui/CHSwitch2.cpp",
         "src/common/gui/CLFOGui.cpp",
         "src/common/gui/CModulationSourceButton.cpp",
