@@ -8,6 +8,8 @@
       <string name="single" value="Single"/>
       <string name="dual" value="Dual"/>
       <string name="split" value="Split"/>
+      <string name="keytrack" value="KeyTrack"/>
+      <string name="retrigger" value="Re-Trigger"/>
     </stringmap>
 
     <stringmap language="fr">
@@ -208,6 +210,17 @@
               </layout>
               
               <layout width="auto" height="auto" mode="vlist" style="fill" bgcolor="$osc.ctrlsectionbg" label="osc.controls">
+                <layout width="auto" height="22" mode="hlist" style="blank">
+                  <node component="Glyph Unconfigured" width="60" height="20" guiid="osc.keytrack">
+                    <nodeproperties label="$keytrack"
+                                    />
+                  </node>
+                  <node component="Glyph Unconfigured" width="60" height="20" guiid="osc.retrigger">
+                    <nodeproperties label="$retrigger"
+                                    />
+                  </node>
+
+                </layout>
                 <node component="hslider" guiid="osc.pitch"/><!-- Surge::ParamConfig::kHorizontal | kSemitone | sceasy));-->
                 <node component="hslider" guiid="osc.param0"/>
                 <node component="hslider" guiid="osc.param1"/>

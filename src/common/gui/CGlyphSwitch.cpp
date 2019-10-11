@@ -53,12 +53,36 @@ void CGlyphSwitch::draw(VSTGUI::CDrawContext *dc)
    }
 
    dc->drawRect(size, VSTGUI::kDrawFilled);
-   if( glyph )
+   switch( fgMode )
    {
-      glyph->updateWithGlyphColor(fgColor);
-      VSTGUI::CPoint where(0,0);
-      glyph->draw(dc, size, where, 0xff );
+   case Glyph:
+   {
+      if( glyph != nullptr )
+      {
+         glyph->updateWithGlyphColor(fgColor);
+         VSTGUI::CPoint where(0,0);
+         glyph->draw(dc, size, where, 0xff );
+      }
    }
+   break;
+   case Text:
+   {
+      auto stringR = getViewSize(); 
+      dc->setFontColor(fgColor);
+      
+      VSTGUI::SharedPointer<VSTGUI::CFontDesc> labelFont = new VSTGUI::CFontDesc(fgFont.c_str(), fgFontSize);
+      dc->setFont(labelFont);
+      
+      dc->drawString(fgText.c_str(), stringR, VSTGUI::kCenterText, true);
+   }
+   break;
+   case None:
+   {
+      // Obviously do nothing
+   }
+   break;
+   };
+
 }
 
 VSTGUI::CMouseEventResult CGlyphSwitch::onMouseDown (VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons)

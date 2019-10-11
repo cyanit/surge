@@ -38,8 +38,29 @@ public:
       n_drawstates
    };
    DrawState currentState = Off;
+
+   enum FGMode {
+      None,
+      Glyph,
+      Text
+   };
+   FGMode fgMode = FGMode::None;
+   
+   void setGlyphText(std::string t) {
+      fgMode = Text;
+      if( glyph )
+         glyph->forget();
+      glyph = nullptr;
+      fgText = t;
+   }
+
+   void setGlyphTextFont( std::string fontName, int fontSize ) {
+      fgFont = fontName;
+      fgFontSize = fontSize;
+   }
    
    void setGlyphBitmap(CScalableBitmap *b) {
+      fgMode = Glyph;
       if( glyph )
          glyph->forget();
       glyph = b;
@@ -67,5 +88,8 @@ private:
    VSTGUI::CColor bgColor[n_drawstates], fgColor[n_drawstates];
    CScalableBitmap *glyph = nullptr;
 
+   std::string fgText = "", fgFont="Lato";
+   int fgFontSize=11;
+   
    CLASS_METHODS( CGlyphSwitch, VSTGUI::CControl );
 };

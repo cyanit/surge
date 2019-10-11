@@ -179,12 +179,10 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
             py += gui_hfader_dist;
          }
          py = gui_mainsec_y - 7;
-         a->push_back(scene[sc].osc[osc].keytrack.assign(
-             p_id.next(), id_s++, "keytrack", "Keytrack", ct_bool_keytrack, px + 2, py, sc_id,
-             cg_OSC, osc, false, Surge::ParamConfig::kHorizontal));
-         a->push_back(scene[sc].osc[osc].retrigger.assign(
-             p_id.next(), id_s++, "retrigger", "Retrigger", ct_bool_retrigger, px + 50, py, sc_id,
-             cg_OSC, osc, false, Surge::ParamConfig::kHorizontal));
+         a->push_back(scene[sc].osc[osc].keytrack.assign( p_id.next(), id_s++, "keytrack", "Keytrack", "osc.keytrack",
+                                                          ct_bool_keytrack, sc_id, cg_OSC, osc, false ));
+         a->push_back(scene[sc].osc[osc].retrigger.assign( p_id.next(), id_s++, "retrigger", "Retrigger", "osc.retrigger",
+                                                           ct_bool_retrigger, sc_id, cg_OSC, osc, false ));
          // a->push_back(scene[sc].osc[osc].startphase.assign(p_id.next(),id_s++,"startphase","start
          // phase",ct_none,0,0,sc_id,2,osc,false));
 

@@ -164,7 +164,7 @@ LayoutEngine::container_t* LayoutEngine::getSubContainerByLabel(std::string labe
    return recurse(label, rootLayoutElement.get());
 }
 
-bool LayoutEngine::loadSVGToBitmapStore(std::string svg, float w, float h)
+bool LayoutEngine::loadSVGToBitmapStore(std::string svg, std::string svgTag, float w, float h)
 {
    if (!bitmapStore->containsLayoutBitmap(this->layoutId, svg))
    {
@@ -179,7 +179,7 @@ bool LayoutEngine::loadSVGToBitmapStore(std::string svg, float w, float h)
       {
          std::stringstream buffer;
          buffer << t.rdbuf();
-         auto bm = bitmapStore->storeLayoutBitmap(this->layoutId, svg, buffer.str(), this->frame);
+         auto bm = bitmapStore->storeLayoutBitmap(this->layoutId, svgTag, buffer.str(), this->frame);
          if( w > 0 && h > 0 )
          {
             bm->setInherentScaleForSize(w,h);

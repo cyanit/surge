@@ -1,10 +1,11 @@
 Here's my sort of running todo as I think of it, in rough order
 
 * Glyph Switch
+  * All those colors exposed
+  * SVG Backgrounds per state
   * Gradients
-  * SVG Backgrounds
-  * Text rather than Glyph
 * Multi-Glyph-Switch
+* Do we keep the Multi-StringSwitch (like AB and OSC select) or combine? Probably combine.
 * Pitch Bend Area
 * Labels and Fonts
 * Region SVG Backgrounds (both direct and rounded)
@@ -42,6 +43,7 @@ Here's my sort of running todo as I think of it, in rough order
 * Why's it coredump if layout is missing?
 * Font Controls
 * Second layout with stupid pet tricks
+* Cleanup of bitmaps at close. Do they all get forgotten?
 * About Screen 
   * Lets do proper git ID at make time also
 

@@ -940,40 +940,6 @@ void SurgeGUIEditor::openOrRecreateEditor()
             }
          }
          break;
-         case ct_bool_keytrack:
-         {
-            CRect rect(0, 0, 43, 7);
-            rect.offset(p->posx, p->posy);
-            CControl* hsw = new CSwitchControl(rect, this, p->id + start_paramtags,
-                                               bitmapStore->getBitmap(IDB_SWITCH_KTRK));
-            hsw->setValue(p->get_value_f01());
-            if(legacy != nullptr) legacy->addView(hsw);
-            nonmod_param[i] = hsw;
-         }
-         break;
-         case ct_bool_retrigger:
-         {
-            CRect rect(0, 0, 43, 7);
-            rect.offset(p->posx, p->posy);
-            CControl* hsw = new CSwitchControl(rect, this, p->id + start_paramtags,
-                                               bitmapStore->getBitmap(IDB_SWITCH_RETRIGGER));
-            hsw->setValue(p->get_value_f01());
-            if(legacy != nullptr) legacy->addView(hsw);
-            nonmod_param[i] = hsw;
-         }
-         break;
-/*         case ct_oscroute:
-         {
-            CRect rect(0, 0, 22, 15);
-            rect.offset(p->posx, p->posy);
-            CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 3, 15, 1, 3,
-                                          bitmapStore->getBitmap(IDB_OSCROUTE), nopoint, true);
-            hsw->setValue(p->get_value_f01());
-            if(legacy != nullptr) legacy->addView(hsw);
-            nonmod_param[i] = hsw;
-         }
-         break;
-         8?*/
          case ct_envshape:
          {
             bool hasShape = synth->storage.getPatch()
@@ -1028,6 +994,8 @@ void SurgeGUIEditor::openOrRecreateEditor()
          case ct_scenesel:
          case ct_scenemode:
          case ct_bool_unipolar:
+         case ct_bool_retrigger:
+         case ct_bool_keytrack:
          {
             CControl *hsw = nullptr;
             if( p->hasLayoutEngineID )

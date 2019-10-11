@@ -139,11 +139,26 @@ void LayoutEngine::setupControlFactory()
       auto res = new CGlyphSwitch(rect, listener, tag, 7);
 
       auto glyph = props["glyph"];
-      if( glyph == "" || ! this->loadSVGToBitmapStore(glyph, p->width, p->height) )
-         return (CGlyphSwitch*)nullptr;
-
-      bitmapStore->getLayoutBitmap(this->layoutId, glyph)->setGlyphMode(true);
-      res->setGlyphBitmap(bitmapStore->getLayoutBitmap(this->layoutId, glyph));
+      if( glyph != "" )
+      {
+         auto glyphtag = glyph + "." + guiid;
+         if( ! this->loadSVGToBitmapStore(glyph, glyphtag, p->width, p->height) )
+            return (CGlyphSwitch*)nullptr;
+      
+         bitmapStore->getLayoutBitmap(this->layoutId, glyphtag)->setGlyphMode(true);
+         res->setGlyphBitmap(bitmapStore->getLayoutBitmap(this->layoutId, glyphtag));
+      }
+      else
+      {
+         auto label = props["label"];
+         if( label != "" )
+         {
+            if( label.c_str()[0] == '$' )
+               label = stringFromStringMap(label);
+            res->setGlyphText(label);
+         };
+         // FIXME - font and alignment stuff
+      }
 
       return res;
    };

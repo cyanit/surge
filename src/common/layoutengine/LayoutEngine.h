@@ -92,7 +92,10 @@ public:
    stringmap_t active_stringmap;
    void parseStringmaps(TiXmlElement* s);
 
-   bool loadSVGToBitmapStore(std::string svg, float w=0, float h=0);
+   bool loadSVGToBitmapStore(std::string svg, float w=0, float h=0) {
+      return loadSVGToBitmapStore(svg,svg,w,h);
+   }
+   bool loadSVGToBitmapStore(std::string svg, std::string svgtag, float w, float h);
 };
 
 class LayoutElement
