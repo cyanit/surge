@@ -160,6 +160,44 @@ void LayoutEngine::setupControlFactory()
          // FIXME - font and alignment stuff
       }
 
+      auto fgkeys = { "offfg", "onfg", "hoverofffg", "hoveronfg", "pressofffg", "pressonfg" };
+      int curr = CGlyphSwitch::Off;
+      for( auto k : fgkeys )
+      {
+         if( props[k] != "" )
+         {
+            res->setFGColor(curr, this->colorFromColorMap(props[k], "#ffffff" ));
+         }
+         curr++;
+      }
+      
+      auto bgkeys = { "offbg", "onbg", "hoveroffbg", "hoveronbg", "pressoffbg", "pressonbg" };
+      curr = CGlyphSwitch::Off;
+      for( auto k : bgkeys )
+      {
+         if( props[k] != "" )
+         {
+            res->setBGColor(curr, this->colorFromColorMap(props[k], "#ffffff" ));
+         }
+         curr++;
+      }
+
+      // Background Images in same order as DrawState
+      auto svgkeys = { "offsvg", "onsvg", "hoveroffsvg", "hoveronsvg", "pressoffsvg", "pressonsvg" };
+      curr = CGlyphSwitch::Off;
+      for( auto k : svgkeys )
+      {
+         if( props[k] != "" )
+         {
+            if( ! this->loadSVGToBitmapStore(props[k]) )
+            {
+               return (CGlyphSwitch*)nullptr;
+            }
+            res->setBGBitmap(curr, bitmapStore->getLayoutBitmap(this->layoutId, props[k]));
+         }
+         curr++;
+      }
+
       return res;
    };
 

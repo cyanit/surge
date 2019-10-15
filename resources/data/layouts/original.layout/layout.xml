@@ -9,7 +9,7 @@
       <string name="dual" value="Dual"/>
       <string name="split" value="Split"/>
       <string name="keytrack" value="KeyTrack"/>
-      <string name="retrigger" value="Re-Trigger"/>
+      <string name="retrigger" value="ReTrigger"/>
     </stringmap>
 
     <stringmap language="fr">
@@ -63,6 +63,8 @@
       <color name="darkmulti.selectfont" value="#000000"/>
       <color name="darkmulti.border" value="#331100"/>
 
+      <color name="switch.onfg" value="#ff9000"/>
+      <color name="switch.offfg" value="#aa9080"/>
 
     </colormap>
   </colormaps>
@@ -136,6 +138,24 @@
                            />
     </component>
     <component name="Glyph Unconfigured" class="CGlyphSwitch"/>
+    <component name="60x19 Switch" class="CGlyphSwitch" width="60" height="19">
+      <componentproperties
+          onfg="$switch.onfg"
+          offfg="$switch.offfg" 
+          hoveronfg="$switch.onfg"
+          hoverofffg="$switch.offfg" 
+          pressonfg="$switch.onfg"
+          pressofffg="$switch.offfg"
+          
+          offsvg="SVG/controlsbg/60x19_Switch_Off.svg"
+          hoveroffsvg="SVG/controlsbg/60x19_Switch_HoverOff.svg"
+          pressoffsvg="SVG/controlsbg/60x19_Switch_PressOff.svg"
+          onsvg="SVG/controlsbg/60x19_Switch_On.svg"
+          hoveronsvg="SVG/controlsbg/60x19_Switch_HoverOn.svg"
+          pressonsvg="SVG/controlsbg/60x19_Switch_PressOn.svg"/>
+
+      
+    </component>
     
     <component name="Mute Emoji Switch" class="CSwitchControl" width="22" height="22">
       <componentproperties subPixmaps="2"
@@ -211,11 +231,11 @@
               
               <layout width="auto" height="auto" mode="vlist" style="fill" bgcolor="$osc.ctrlsectionbg" label="osc.controls">
                 <layout width="auto" height="22" mode="hlist" style="blank">
-                  <node component="Glyph Unconfigured" width="60" height="20" guiid="osc.keytrack">
+                  <node component="60x19 Switch" guiid="osc.keytrack">
                     <nodeproperties label="$keytrack"
                                     />
                   </node>
-                  <node component="Glyph Unconfigured" width="60" height="20" guiid="osc.retrigger">
+                  <node component="60x19 Switch" guiid="osc.retrigger">
                     <nodeproperties label="$retrigger"
                                     />
                   </node>

@@ -45,6 +45,12 @@ public:
       Text
    };
    FGMode fgMode = FGMode::None;
+
+   enum BGMode {
+      Fill,
+      SVG
+   };
+   BGMode bgMode = BGMode::Fill;
    
    void setGlyphText(std::string t) {
       fgMode = Text;
@@ -67,6 +73,21 @@ public:
       glyph->remember();
    }
 
+   void setBGBitmap(int which, CScalableBitmap *b) {
+      bgMode = BGMode::SVG;
+      if(bgBitmap[which] != nullptr)
+         bgBitmap[which]->forget();
+      bgBitmap[which] = b;
+      bgBitmap[which]->remember();
+   }
+
+   void setFGColor(int which, VSTGUI::CColor c) {
+      fgColor[which] = c;
+   }
+   void setBGColor(int which, VSTGUI::CColor c) {
+      bgColor[which] = c;
+   }
+   
    virtual void setValue(float f) override;
    
    void setBackgroundColor(DrawState ds, VSTGUI::CColor c) { bgColor[ds] = c; };

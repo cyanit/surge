@@ -8,6 +8,14 @@ CGlyphSwitch::CGlyphSwitch( const VSTGUI::CRect &size,
                             int targetvalue )
    : VSTGUI::CControl( size, listener, tag )
 {
+   for( auto i=0; i<n_drawstates; ++i )
+      bgBitmap[i] = nullptr;
+
+   fgColor[On] = fgColor[HoverOn] = fgColor[PressOn] = VSTGUI::kWhiteCColor;
+   bgColor[On] = bgColor[HoverOn] = bgColor[PressOn] = VSTGUI::kBlackCColor;
+
+   fgColor[Off] = fgColor[HoverOff] = fgColor[PressOff] = VSTGUI::kBlackCColor;
+   bgColor[Off] = bgColor[HoverOff] = bgColor[PressOff] = VSTGUI::kWhiteCColor;
 }
 
 void CGlyphSwitch::setValue(float f)
@@ -23,43 +31,39 @@ void CGlyphSwitch::setValue(float f)
 void CGlyphSwitch::draw(VSTGUI::CDrawContext *dc)
 {
    auto size = getViewSize();
-   auto fgColor = VSTGUI::kRedCColor;
-   
-   switch( currentState )
+
+   switch( bgMode )
    {
-   case On:
-      dc->setFillColor(VSTGUI::kGreenCColor);
-      break;
-   case Off:
-      dc->setFillColor(VSTGUI::kRedCColor);
-      fgColor = VSTGUI::kWhiteCColor;
-      break;
-   case HoverOn:
-      dc->setFillColor(VSTGUI::kYellowCColor);
-      fgColor = VSTGUI::kBlueCColor;
-      break;
-   case HoverOff:
-      dc->setFillColor(VSTGUI::kGreyCColor);
-      fgColor = VSTGUI::kWhiteCColor;
-      break;
-   case PressOn:
-      dc->setFillColor(VSTGUI::kBlueCColor);
-      fgColor = VSTGUI::CColor(255,100,100);
-      break;
-   case PressOff:
-      dc->setFillColor(VSTGUI::kWhiteCColor);
-      fgColor = VSTGUI::kGreenCColor;
-      break;
+   case Fill:
+   {
+      dc->setFillColor(bgColor[currentState]);
+      dc->drawRect(size, VSTGUI::kDrawFilled);
+   }
+   break;
+   case SVG:
+   {
+      // FIXME that painful waterfall for nulls. For now assuem they are there
+      auto b = bgBitmap[currentState];
+      if( b != nullptr )
+      {
+         VSTGUI::CPoint where(0,0);
+         b->draw(dc, size, where, 0xff );
+      }
+      else
+      {
+         dc->setFillColor(VSTGUI::kRedCColor);
+         dc->drawRect(size, VSTGUI::kDrawFilled);
+      }
+   }
    }
 
-   dc->drawRect(size, VSTGUI::kDrawFilled);
    switch( fgMode )
    {
    case Glyph:
    {
       if( glyph != nullptr )
       {
-         glyph->updateWithGlyphColor(fgColor);
+         glyph->updateWithGlyphColor(fgColor[currentState]);
          VSTGUI::CPoint where(0,0);
          glyph->draw(dc, size, where, 0xff );
       }
@@ -68,7 +72,8 @@ void CGlyphSwitch::draw(VSTGUI::CDrawContext *dc)
    case Text:
    {
       auto stringR = getViewSize(); 
-      dc->setFontColor(fgColor);
+      // dc->setFontColor(fgColor);
+      dc->setFontColor(fgColor[currentState]);
       
       VSTGUI::SharedPointer<VSTGUI::CFontDesc> labelFont = new VSTGUI::CFontDesc(fgFont.c_str(), fgFontSize);
       dc->setFont(labelFont);

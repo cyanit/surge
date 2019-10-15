@@ -679,12 +679,12 @@ LayoutEngine::color_t LayoutEngine::colorFromColorMap(std::string name, std::str
       }
       else
       {
-         // std::cout << "Bad lookup: hexCol " << name << " -> " << mapCol << std::endl;
+         LayoutLog::warn() << "Requested invalid colormap entry '" << name << "'. Returning default of '" << hexDefault << "'" << std::endl;
       }
    }
    else
    {
-      // std::cout << "Don't know what to do with name '" << name << "'" << std::endl;
+      LayoutLog::error() << "Requested misformatted colormap entry '" << name << "'. Returning default of '" << hexDefault << "'" << std::endl;
    }
 
    int r, g, b;
