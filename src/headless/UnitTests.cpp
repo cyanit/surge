@@ -52,6 +52,24 @@ TEST_CASE( "We can read a collection of wavetables", "[wav]" )
    delete surge;
 }
 
+TEST_CASE( "All .wt and .wav factory assets load", "[wav]" )
+{
+   SurgeSynthesizer* surge = Surge::Headless::createSurge(44100);
+   REQUIRE( surge );
+   for( auto p : surge->storage.wt_list )
+   {
+      std::cout << p.name << " " << p.path.generic_string() << " " << std::endl;
+      auto wt = &(surge->storage.getPatch().scene[0].osc[0].wt);
+      wt->size = -1;
+      wt->n_tables = -1;
+      surge->storage.load_wt(p.path.generic_string(), wt );
+      REQUIRE( wt->size > 0 );
+      REQUIRE( wt->n_tables > 0 );
+   }
+   
+   delete surge;
+}
+
 TEST_CASE( "Retunr Surge to .scl files", "[tun]" )
 {
    SurgeSynthesizer* surge = Surge::Headless::createSurge(44100);
@@ -125,6 +143,12 @@ TEST_CASE( "Simple Single Oscillator is Constant", "[dsp]" )
    delete surge;
 
 }
+
+TEST_CASE( "All Patches are Loadable", "[patch]" )
+{
+}
+
+
 
 int runAllTests(int argc, char **argv)
 {
