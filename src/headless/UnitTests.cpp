@@ -58,7 +58,6 @@ TEST_CASE( "All .wt and .wav factory assets load", "[wav]" )
    REQUIRE( surge );
    for( auto p : surge->storage.wt_list )
    {
-      std::cout << p.name << " " << p.path.generic_string() << " " << std::endl;
       auto wt = &(surge->storage.getPatch().scene[0].osc[0].wt);
       wt->size = -1;
       wt->n_tables = -1;
@@ -70,7 +69,7 @@ TEST_CASE( "All .wt and .wav factory assets load", "[wav]" )
    delete surge;
 }
 
-TEST_CASE( "Retunr Surge to .scl files", "[tun]" )
+TEST_CASE( "Retune Surge to .scl files", "[tun]" )
 {
    SurgeSynthesizer* surge = Surge::Headless::createSurge(44100);
 
@@ -146,6 +145,20 @@ TEST_CASE( "Simple Single Oscillator is Constant", "[dsp]" )
 
 TEST_CASE( "All Patches are Loadable", "[patch]" )
 {
+#if 0
+   // FIXME - why doesn't this work?
+   SurgeSynthesizer* surge = Surge::Headless::createSurge(44100);
+   REQUIRE( surge );
+   int i=0;
+   for( auto p : surge->storage.patch_list )
+   {
+      std::cout << i << " " << p.name << " " << p.path.generic_string() << std::endl;
+      surge->loadPatch(i);
+      ++i;
+   }
+   
+   delete surge;
+#endif   
 }
 
 
