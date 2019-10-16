@@ -65,9 +65,9 @@ void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRe
    int currentDisplay = DrawDisplays::Off;
    if( isOn ) currentDisplay = DrawDisplays::On;
 
-   if( mouseState & DrawState::Press )
+   if( mouseState & DrawState::Press && r == mouseRow && c == mouseCol )
       currentDisplay += 4;
-   else if( mouseState & DrawState::Hover )
+   else if( mouseState & DrawState::Hover && r == mouseRow && c == mouseCol )
       currentDisplay += 2;
    
    switch( bgMode )
@@ -109,14 +109,21 @@ void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRe
    break;
    case Text:
    {
-      auto stringR = getViewSize(); 
+      auto stringR = size;
       // dc->setFontColor(fgColor);
       dc->setFontColor(fgColor[currentDisplay]);
       
       VSTGUI::SharedPointer<VSTGUI::CFontDesc> labelFont = new VSTGUI::CFontDesc(fgFont.c_str(), fgFontSize);
       dc->setFont(labelFont);
-      
-      dc->drawString(fgText.c_str(), stringR, VSTGUI::kCenterText, true);
+
+      if( isMulti() )
+      {
+         dc->drawString(choiceLabels[r + c * cols].c_str(), stringR, VSTGUI::kCenterText, true);
+      }
+      else
+      {
+         dc->drawString(fgText.c_str(), stringR, VSTGUI::kCenterText, true);
+      }
    }
    break;
    case None:

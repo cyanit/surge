@@ -68,6 +68,16 @@ public:
       fgText = t;
    }
 
+   void setChoiceLabel(int choice, std::string s) {
+      fgMode = Text;
+
+      if( choiceLabels.size() < std::max( rows * cols, choice ) )
+      {
+         choiceLabels.resize(std::max( rows * cols, choice ) );
+      }
+      choiceLabels[choice] = s;
+   }
+   
    void setGlyphTextFont( std::string fontName, int fontSize ) {
       fgFont = fontName;
       fgFontSize = fontSize;
@@ -127,7 +137,8 @@ private:
    CScalableBitmap *bgBitmap[n_drawstates];
    VSTGUI::CColor bgColor[n_drawstates], fgColor[n_drawstates];
    CScalableBitmap *glyph = nullptr;
-
+   std::vector<std::string> choiceLabels;
+   
    std::string fgText = "", fgFont="Lato";
    int fgFontSize=11;
 

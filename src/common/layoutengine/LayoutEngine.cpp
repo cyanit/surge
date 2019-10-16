@@ -34,18 +34,6 @@ namespace Surge
 
    
 swrap LayoutLog::i, LayoutLog::w, LayoutLog::e;
-template <typename T> swrap& operator<<(swrap& l, T const& value)
-{
-   l.log << value;
-   std::cout << value;
-   return l;
-}
-
-typedef std::ostream& (*ostream_manipulator)(std::ostream&);
-swrap& operator<<(swrap& os, ostream_manipulator pf)
-{
-   return operator<<<ostream_manipulator>(os, pf);
-}
 
 LayoutEngine::LayoutEngine()
 {

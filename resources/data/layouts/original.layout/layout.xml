@@ -214,7 +214,7 @@
           </node>
         </layout>
         <layout width="60" height="auto"  style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="ScMod">
-          <node guiid="scene.mode" component="60x19 Multi" width="60" height="57">
+          <node guiid="scene.mode" component="60x19 Multi" width="60" height="54">
             <nodeproperties rows="3" cols="1"
                             choices="$single|$dual|$split"
                             popup="false"

@@ -138,6 +138,15 @@ void LayoutEngine::setupControlFactory()
 
       auto res = new CGlyphSwitch(rect, listener, tag, 7);
 
+      auto rows = std::max(1,std::atoi(props["rows"].c_str()));
+      auto cols = std::max(1,std::atoi(props["cols"].c_str()));
+      if( rows != 1 || cols != 1 )
+      {
+         res->setRows(rows);
+         res->setCols(cols);
+      }
+      
+
       auto glyph = props["glyph"];
       if( glyph != "" )
       {
@@ -148,16 +157,43 @@ void LayoutEngine::setupControlFactory()
          bitmapStore->getLayoutBitmap(this->layoutId, glyphtag)->setGlyphMode(true);
          res->setGlyphBitmap(bitmapStore->getLayoutBitmap(this->layoutId, glyphtag));
       }
-      else
+      else if( props["label"] != "" )
       {
          auto label = props["label"];
-         if( label != "" )
+         if( label.c_str()[0] == '$' )
+            label = stringFromStringMap(label);
+         res->setGlyphText(label);
+      }
+      else if( props["choices"] != "" )
+      {
+         auto sl = props["choices"];
+         std::vector<std::string> ch;
+         int pos;
+         while( (pos = sl.find( "|" )) != std::string::npos )
          {
-            if( label.c_str()[0] == '$' )
-               label = stringFromStringMap(label);
-            res->setGlyphText(label);
-         };
-         // FIXME - font and alignment stuff
+            auto first = sl.substr(0,pos);
+            auto rest = sl.substr(pos+1);
+            ch.push_back(first);
+            sl = rest;
+         }
+         ch.push_back(sl);
+         int cn = 0;
+         for( auto q : ch )
+         {
+            if( q.c_str()[0] == '$' )
+            {
+               res->setChoiceLabel(cn, stringFromStringMap(q));
+            }
+            else
+            {
+               res->setChoiceLabel(cn, q);
+            }
+            cn++;
+         }
+      }
+      else
+      {
+         // LayoutLog::warn() << "No glyph, label, or choices for CGlyphSwitch '" << guiid << "'" << std::endl;
       }
 
       auto fgkeys = { "offfg", "onfg", "hoverofffg", "hoveronfg", "pressofffg", "pressonfg" };
@@ -198,14 +234,6 @@ void LayoutEngine::setupControlFactory()
          curr++;
       }
 
-      auto rows = std::max(1,std::atoi(props["rows"].c_str()));
-      auto cols = std::max(1,std::atoi(props["cols"].c_str()));
-      if( rows != 1 || cols != 1 )
-      {
-         res->setRows(rows);
-         res->setCols(cols);
-      }
-      
       return res;
    };
 
@@ -268,6 +296,8 @@ void LayoutEngine::setupControlFactory()
       auto comp = components[p->component];
       auto props = Surge::mergeProperties(comp->properties, pprops);
 
+      LayoutLog::error() << "Deprecated CStringMultiSwitch used for '" << guiid << "'" << std::endl;
+      
       point_t nopoint(0, 0);
       rect_t rect(0, 0, p->width, p->height);
 

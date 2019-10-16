@@ -45,4 +45,18 @@ public:
    {}
 };
 
+
+template <typename T> inline swrap& operator<<(swrap& l, T const& value)
+{
+   l.log << value;
+   std::cout << value;
+   return l;
+}
+
+typedef std::ostream& (*ostream_manipulator)(std::ostream&);
+inline swrap& operator<<(swrap& os, ostream_manipulator pf)
+{
+   return operator<<<ostream_manipulator>(os, pf);
+}
+
 } // namespace Surge
