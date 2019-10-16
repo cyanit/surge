@@ -21,11 +21,16 @@ CGlyphSwitch::CGlyphSwitch( const VSTGUI::CRect &size,
 void CGlyphSwitch::setValue(float f)
 {
    value = f;
-   if( value > 0 )
-      currentState = On;
-   else
-      currentState = Off;
+   auto scale = (rows > 1 ? rows - 1 : 1 ) * ( cols > 1 ? cols - 1 : 1 );
+   multiValue = std::round( f * scale );
    invalid();
+}
+
+void CGlyphSwitch::setMultiValue(int i)
+{
+   multiValue = i;
+   auto scale = (rows > 1 ? rows - 1 : 1 ) * ( cols > 1 ? cols - 1 : 1 );
+   setValue( i * 1.0 / scale );
 }
 
 void CGlyphSwitch::draw(VSTGUI::CDrawContext *dc)
@@ -54,20 +59,29 @@ void CGlyphSwitch::draw(VSTGUI::CDrawContext *dc)
    }
    
 }
-void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRect &size, int rEl, int cEl )
+void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRect &size, int r, int c )
 {
+   bool isOn = isMulti() ? ( r + c * cols == multiValue ) : value > 0.5;
+   int currentDisplay = DrawDisplays::Off;
+   if( isOn ) currentDisplay = DrawDisplays::On;
+
+   if( mouseState & DrawState::Press )
+      currentDisplay += 4;
+   else if( mouseState & DrawState::Hover )
+      currentDisplay += 2;
+   
    switch( bgMode )
    {
    case Fill:
    {
-      dc->setFillColor(bgColor[currentState]);
+      dc->setFillColor(bgColor[currentDisplay]);
       dc->drawRect(size, VSTGUI::kDrawFilled);
    }
    break;
    case SVG:
    {
       // FIXME that painful waterfall for nulls. For now assuem they are there
-      auto b = bgBitmap[currentState];
+      auto b = bgBitmap[currentDisplay];
       if( b != nullptr )
       {
          VSTGUI::CPoint where(0,0);
@@ -87,7 +101,7 @@ void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRe
    {
       if( glyph != nullptr )
       {
-         glyph->updateWithGlyphColor(fgColor[currentState]);
+         glyph->updateWithGlyphColor(fgColor[currentDisplay]);
          VSTGUI::CPoint where(0,0);
          glyph->draw(dc, size, where, 0xff );
       }
@@ -97,7 +111,7 @@ void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRe
    {
       auto stringR = getViewSize(); 
       // dc->setFontColor(fgColor);
-      dc->setFontColor(fgColor[currentState]);
+      dc->setFontColor(fgColor[currentDisplay]);
       
       VSTGUI::SharedPointer<VSTGUI::CFontDesc> labelFont = new VSTGUI::CFontDesc(fgFont.c_str(), fgFontSize);
       dc->setFont(labelFont);
@@ -116,26 +130,21 @@ void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRe
 
 VSTGUI::CMouseEventResult CGlyphSwitch::onMouseDown (VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons)
 {
-   if( value > 0.5 )
-      currentState = PressOn;
-   else
-      currentState = PressOff;
+   setMousedRowAndCol(where);
+   mouseState |= DrawState::Press;
    invalid();
    return VSTGUI::kMouseEventHandled;
 }
 
 VSTGUI::CMouseEventResult CGlyphSwitch::onMouseUp (VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons)
 {
-   if( value > 0.5 )
-   {
-      value = 0;
-      currentState = HoverOff;
-   }
+   setMousedRowAndCol(where);
+   mouseState &= ~DrawState::Press;
+   if( isMulti() )
+      setMultiValue( mouseRow + mouseCol * cols );
    else
-   {
-      value = 1;
-      currentState = HoverOn;
-   }
+      setValue( value > 0.5 ? 0 : 1 );
+   
    if( listener )
       listener->valueChanged(this);
    
@@ -145,30 +154,49 @@ VSTGUI::CMouseEventResult CGlyphSwitch::onMouseUp (VSTGUI::CPoint& where, const 
 
 VSTGUI::CMouseEventResult CGlyphSwitch::onMouseEntered (VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons)
 {
-   if( value > 0 )
-      currentState = HoverOn;
-   else
-      currentState = HoverOff;
+   setMousedRowAndCol(where);
+   mouseState |= DrawState::Hover;
    invalid();
    return VSTGUI::kMouseEventHandled;
 }
 
 VSTGUI::CMouseEventResult CGlyphSwitch::onMouseExited (VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons)
 {
-   if( value > 0 )
-      currentState = On;
-   else
-      currentState = Off;
-   
+   mouseState &= ~DrawState::Hover;
    invalid();
    return VSTGUI::kMouseEventHandled;
 }
 
 VSTGUI::CMouseEventResult CGlyphSwitch::onMouseMoved(VSTGUI::CPoint &where, const VSTGUI::CButtonState &buttons)
 {
+   setMousedRowAndCol(where);
+   return VSTGUI::kMouseEventHandled;
+}
+
+void CGlyphSwitch::setMousedRowAndCol(VSTGUI::CPoint &where) {
    if( isMulti() )
    {
-      std::cout << "Handle multi-move" << std::endl;
+      auto size = getViewSize();
+      float sx0 = size.left;
+      float sy0 = size.top;
+      float dsx = size.getWidth() * 1.0 / cols;
+      float dsy = size.getHeight() * 1.0 / rows;
+      
+      for( int r=0; r<rows; ++r )
+         for( int c=0; c<cols; ++c )
+         {
+            auto x0 = sx0 + dsx * c;
+            auto y0 = sy0 + dsy * r;
+            VSTGUI::CRect subS(x0,y0,x0+dsx,y0+dsy);
+            if( subS.pointInside(where) )
+            {
+               if( r != mouseRow || c != mouseCol )
+                  invalid();
+               
+               mouseRow = r;
+               mouseCol = c;
+            }
+         }
+
    }
-   return VSTGUI::kMouseEventHandled;
 }

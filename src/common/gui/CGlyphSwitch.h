@@ -30,14 +30,22 @@ public:
    };
    BackgroundStyle bgStyle = DrawnBackground;
 
-   enum DrawState
+   // If you change this order then some of the math in drawSingleElement will break (the + 4 and +2 stuff)
+   enum DrawDisplays
    {
       Off, On,
       HoverOff, HoverOn,
       PressOff, PressOn,
       n_drawstates
    };
-   DrawState currentState = Off;
+
+
+   enum DrawState
+   {
+      Hover = 1,
+      Press = 2,
+   };
+   int mouseState = 0;
 
    enum FGMode {
       None,
@@ -89,6 +97,7 @@ public:
    }
 
    virtual void setValue(float f) override;
+   void setMultiValue( int i );
    
    void setBackgroundColor(DrawState ds, VSTGUI::CColor c) { bgColor[ds] = c; };
    void setForegroundColor(DrawState ds, VSTGUI::CColor c) { fgColor[ds] = c; };
@@ -111,6 +120,8 @@ public:
                                                      const VSTGUI::CButtonState &buttons) override;
    virtual VSTGUI::CMouseEventResult onMouseExited( VSTGUI::CPoint &where,
                                                      const VSTGUI::CButtonState &buttons) override;
+
+   void setMousedRowAndCol(VSTGUI::CPoint &where);
    
 private:
    CScalableBitmap *bgBitmap[n_drawstates];
@@ -121,6 +132,8 @@ private:
    int fgFontSize=11;
 
    int rows = 1, cols = 1;
+   int mouseRow = 0, mouseCol = 0;
+   int multiValue = 0;
    
    CLASS_METHODS( CGlyphSwitch, VSTGUI::CControl );
 };
