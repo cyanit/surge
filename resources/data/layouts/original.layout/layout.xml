@@ -87,6 +87,7 @@
     <component name="mod.button.scene" class="CModulationSourceButton">
     </component>
 
+    <!-- These will bite the dust in favor of the CMultiGlyph -->
     <component name="roundedmultiswitch" class="CStringMultiSwitch">
       <componentproperties border="rounded"
                            fontsize="10"
@@ -138,7 +139,28 @@
                            />
     </component>
     <component name="Glyph Unconfigured" class="CGlyphSwitch"/>
+
     <component name="60x19 Switch" class="CGlyphSwitch" width="60" height="19">
+      <componentproperties
+          rows="1"
+          cols="1"
+          
+          onfg="$switch.onfg"
+          offfg="$switch.offfg" 
+          hoveronfg="$switch.onfg"
+          hoverofffg="$switch.offfg" 
+          pressonfg="$switch.onfg"
+          pressofffg="$switch.offfg"
+          
+          offsvg="SVG/controlsbg/60x19_Switch_Off.svg"
+          hoveroffsvg="SVG/controlsbg/60x19_Switch_HoverOff.svg"
+          pressoffsvg="SVG/controlsbg/60x19_Switch_PressOff.svg"
+          onsvg="SVG/controlsbg/60x19_Switch_On.svg"
+          hoveronsvg="SVG/controlsbg/60x19_Switch_HoverOn.svg"
+          pressonsvg="SVG/controlsbg/60x19_Switch_PressOn.svg"/>
+    </component>
+
+    <component name="60x19 Multi" class="CGlyphSwitch" width="60">
       <componentproperties
           onfg="$switch.onfg"
           offfg="$switch.offfg" 
@@ -153,8 +175,6 @@
           onsvg="SVG/controlsbg/60x19_Switch_On.svg"
           hoveronsvg="SVG/controlsbg/60x19_Switch_HoverOn.svg"
           pressonsvg="SVG/controlsbg/60x19_Switch_PressOn.svg"/>
-
-      
     </component>
     
     <component name="Mute Emoji Switch" class="CSwitchControl" width="22" height="22">
@@ -193,9 +213,9 @@
                             choices="A|B" popup="false"/>
           </node>
         </layout>
-        <layout width="50" height="auto"  style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="ScMod">
-          <node guiid="scene.mode" component="roundedmultiswitch" width="40" height="50" xoff="5" yoff="5">
-            <nodeproperties rows="1" cols="3"
+        <layout width="60" height="auto"  style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="ScMod">
+          <node guiid="scene.mode" component="60x19 Multi" width="60" height="57">
+            <nodeproperties rows="3" cols="1"
                             choices="$single|$dual|$split"
                             popup="false"
                             /> 

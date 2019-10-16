@@ -87,18 +87,26 @@ public:
    void setBGColor(int which, VSTGUI::CColor c) {
       bgColor[which] = c;
    }
-   
+
    virtual void setValue(float f) override;
    
    void setBackgroundColor(DrawState ds, VSTGUI::CColor c) { bgColor[ds] = c; };
    void setForegroundColor(DrawState ds, VSTGUI::CColor c) { fgColor[ds] = c; };
 
+   void setRows(int r) { rows = r; }
+   void setCols(int c) { cols = c; }
+   bool isMulti() { return rows != 1 || cols != 1; }
+   
    virtual void draw( VSTGUI::CDrawContext *dc );
-
+   void drawSingleElement( VSTGUI::CDrawContext *dc, const VSTGUI::CRect &sz, int rEl, int cEl );
+      
+   
+   
    virtual VSTGUI::CMouseEventResult onMouseDown( VSTGUI::CPoint &where,
                                                   const VSTGUI::CButtonState &buttons) override;
    virtual VSTGUI::CMouseEventResult onMouseUp( VSTGUI::CPoint &where,
                                                   const VSTGUI::CButtonState &buttons) override;
+	virtual VSTGUI::CMouseEventResult onMouseMoved (VSTGUI::CPoint& where, const VSTGUI::CButtonState& buttons) override;
    virtual VSTGUI::CMouseEventResult onMouseEntered( VSTGUI::CPoint &where,
                                                      const VSTGUI::CButtonState &buttons) override;
    virtual VSTGUI::CMouseEventResult onMouseExited( VSTGUI::CPoint &where,
@@ -111,6 +119,8 @@ private:
 
    std::string fgText = "", fgFont="Lato";
    int fgFontSize=11;
+
+   int rows = 1, cols = 1;
    
    CLASS_METHODS( CGlyphSwitch, VSTGUI::CControl );
 };

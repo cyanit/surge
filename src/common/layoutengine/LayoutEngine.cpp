@@ -682,7 +682,7 @@ LayoutEngine::color_t LayoutEngine::colorFromColorMap(std::string name, std::str
          LayoutLog::warn() << "Requested invalid colormap entry '" << name << "'. Returning default of '" << hexDefault << "'" << std::endl;
       }
    }
-   else
+   else if(name.length() > 0 )
    {
       LayoutLog::error() << "Requested misformatted colormap entry '" << name << "'. Returning default of '" << hexDefault << "'" << std::endl;
    }

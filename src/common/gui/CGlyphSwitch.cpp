@@ -32,6 +32,30 @@ void CGlyphSwitch::draw(VSTGUI::CDrawContext *dc)
 {
    auto size = getViewSize();
 
+   if( ! isMulti() )
+   {
+      drawSingleElement(dc, size, 0, 0 );
+   }
+   else
+   {
+      float sx0 = size.left;
+      float sy0 = size.top;
+      float dsx = size.getWidth() * 1.0 / cols;
+      float dsy = size.getHeight() * 1.0 / rows;
+      
+      for( int r=0; r<rows; ++r )
+         for( int c=0; c<cols; ++c )
+         {
+            auto x0 = sx0 + dsx * c;
+            auto y0 = sy0 + dsy * r;
+            VSTGUI::CRect subS(x0,y0,x0+dsx,y0+dsy);
+            drawSingleElement(dc, subS, r, c);
+         }
+   }
+   
+}
+void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRect &size, int rEl, int cEl )
+{
    switch( bgMode )
    {
    case Fill:
@@ -137,5 +161,14 @@ VSTGUI::CMouseEventResult CGlyphSwitch::onMouseExited (VSTGUI::CPoint& where, co
       currentState = Off;
    
    invalid();
+   return VSTGUI::kMouseEventHandled;
+}
+
+VSTGUI::CMouseEventResult CGlyphSwitch::onMouseMoved(VSTGUI::CPoint &where, const VSTGUI::CButtonState &buttons)
+{
+   if( isMulti() )
+   {
+      std::cout << "Handle multi-move" << std::endl;
+   }
    return VSTGUI::kMouseEventHandled;
 }

@@ -295,6 +295,7 @@ SurgeStorage::SurgeStorage(std::string suppliedDataPath)
    {
       refresh_wtlist();
       refresh_patchlist();
+      std::cout << "Loaded patches from " << datapath << " and so on. Count is patch=" << patch_list.size() << " wt=" << wt_list.size() << std::endl;
    }
 #endif
    

@@ -198,6 +198,14 @@ void LayoutEngine::setupControlFactory()
          curr++;
       }
 
+      auto rows = std::max(1,std::atoi(props["rows"].c_str()));
+      auto cols = std::max(1,std::atoi(props["cols"].c_str()));
+      if( rows != 1 || cols != 1 )
+      {
+         res->setRows(rows);
+         res->setCols(cols);
+      }
+      
       return res;
    };
 
