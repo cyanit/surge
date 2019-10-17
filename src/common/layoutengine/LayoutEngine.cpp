@@ -410,7 +410,7 @@ LayoutElement* LayoutElement::fromXML(TiXmlElement* el, LayoutElement* parent, L
       res->marginx = 5;
       res->marginy = 5;
    }
-   
+
    // If I'm have a component:
    if (res->component != "")
    {
@@ -465,8 +465,6 @@ LayoutElement* LayoutElement::fromXML(TiXmlElement* el, LayoutElement* parent, L
    {
       res->properties[a->Name()] = a->Value();
    }
-
-   
 
    if (parent)
    {
@@ -619,6 +617,25 @@ void LayoutElement::generateLayoutControl(LayoutEngine* eng, bool recurse)
    lec->bgcolor = eng->colorFromColorMap(bgcolor, "#ff0000");
    lec->fgcolor = eng->colorFromColorMap(fgcolor, "#000000");
 
+   if( style == "svg" )
+   {
+      if( properties["svg"] != "" )
+      {
+         if( ! eng->loadSVGToBitmapStore(properties["svg"], width, height) )
+         {
+            LayoutLog::error() << "Unable to load svg '" << properties["svg"] << "' for container '" << label << "'" << std::endl;
+         }
+         else
+         {
+            lec->bgSVG = eng->bitmapStore->getLayoutBitmap(eng->layoutId, properties["svg"]);
+         }
+      }
+      else
+      {
+         LayoutLog::warn() << "Warning: No SVG specified for svg layout container '" << label << "'" << std::endl;
+      }
+   }
+   
    associatedContainer = lec;
 
    if (parent && parent->associatedContainer)

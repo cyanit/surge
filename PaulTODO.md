@@ -1,16 +1,12 @@
 Here's my sort of running todo as I think of it, in rough order
 
 * Glyph Switch
-  * All those colors exposed
-  * SVG Backgrounds per state
-  * Gradients
-* Multi-Glyph-Switch
+  * Multi-Glyph not just Multi-Text
+  * Kill the CMultiSwitch
+  * Also move the POLY switch over
 * Do we keep the Multi-StringSwitch (like AB and OSC select) or combine? Probably combine.
 * Pitch Bend Area
 * Labels and Fonts
-* Region SVG Backgrounds (both direct and rounded)
-* Rounded Region DropShadow
-* Gradient Colormaps
 * ctrlstyles in the xml
   * add ctrlstyle to the nodeproperties which can push onto p->ctrlstyle
   * Supress infowindow for scene (kNoPopup)

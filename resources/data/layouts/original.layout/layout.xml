@@ -374,7 +374,7 @@
           </layout>
           <layout height="100" width="auto" mode="hlist" style="blank" label="filtparent">
             <layout height="auto" width="auto" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 1"/>
-            <layout height="auto" width="auto" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt Mix"/>
+            <layout height="100" width="175" style="svg" svg="SVG/175x100_BG.svg" label="Filt Mix"/>
             <layout height="auto" width="auto" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 2"/>
           </layout>
           <layout height="auto" width="auto" mode="hlist" style="blank" label="envparent">

@@ -70,6 +70,11 @@ void LayoutEngineContainer::drawBackgroundRect(VSTGUI::CDrawContext* dc, const V
       }
       return;
    }
+   else if( style == "svg" && bgSVG != nullptr )
+   {
+      VSTGUI::CPoint where(0,0);
+      bgSVG->draw(dc, ud, where, 0xff );
+   }
    else
    {
       if (style != "" && style != "debug")

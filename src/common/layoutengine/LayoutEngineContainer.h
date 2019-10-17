@@ -1,4 +1,5 @@
 #include "vstgui/vstgui.h"
+#include "CScalableBitmap.h"
 
 namespace Surge
 {
@@ -18,6 +19,8 @@ public:
    VSTGUI::CColor bgcolor = VSTGUI::CColor(0, 255, 0);
    VSTGUI::CColor fgcolor = VSTGUI::CColor(0, 0, 0);
 
+   CScalableBitmap *bgSVG = nullptr;
+   
    CLASS_METHODS(LayoutEngineContainer, VSTGUI::CViewContainer)
 };
 
