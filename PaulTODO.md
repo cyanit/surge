@@ -15,7 +15,6 @@ Here's my sort of running todo as I think of it, in rough order
 * XML configured multi-switch rather than SVG configured multi-switch
   * properties for drawing and a few classes
   * Add a multi-text switch which encompasses toggle
-* Alternate switch SVG Mode (non-stacked; give a pair of SVGs)
 * Slider Parameterization and Work
   * Handle and BG SVGs
   * API for painting ticks on sliders; and sizing sliders

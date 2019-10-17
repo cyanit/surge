@@ -140,7 +140,7 @@
     </component>
     <component name="Glyph Unconfigured" class="CGlyphSwitch"/>
 
-    <component name="60x19 Switch" class="CGlyphSwitch" width="60" height="19">
+    <component name="60x18 Switch" class="CGlyphSwitch" width="60" height="18">
       <componentproperties
           rows="1"
           cols="1"
@@ -152,15 +152,15 @@
           pressonfg="$switch.onfg"
           pressofffg="$switch.offfg"
           
-          offsvg="SVG/controlsbg/60x19_Switch_Off.svg"
-          hoveroffsvg="SVG/controlsbg/60x19_Switch_HoverOff.svg"
-          pressoffsvg="SVG/controlsbg/60x19_Switch_PressOff.svg"
-          onsvg="SVG/controlsbg/60x19_Switch_On.svg"
-          hoveronsvg="SVG/controlsbg/60x19_Switch_HoverOn.svg"
-          pressonsvg="SVG/controlsbg/60x19_Switch_PressOn.svg"/>
+          offsvg="SVG/controlsbg/60x18_Switch_Off.svg"
+          hoveroffsvg="SVG/controlsbg/60x18_Switch_HoverOff.svg"
+          pressoffsvg="SVG/controlsbg/60x18_Switch_PressOff.svg"
+          onsvg="SVG/controlsbg/60x18_Switch_On.svg"
+          hoveronsvg="SVG/controlsbg/60x18_Switch_HoverOn.svg"
+          pressonsvg="SVG/controlsbg/60x18_Switch_PressOn.svg"/>
     </component>
 
-    <component name="60x19 Multi" class="CGlyphSwitch" width="60">
+    <component name="60x18 Multi" class="CGlyphSwitch" width="60">
       <componentproperties
           onfg="$switch.onfg"
           offfg="$switch.offfg" 
@@ -169,12 +169,12 @@
           pressonfg="$switch.onfg"
           pressofffg="$switch.offfg"
           
-          offsvg="SVG/controlsbg/60x19_Switch_Off.svg"
-          hoveroffsvg="SVG/controlsbg/60x19_Switch_HoverOff.svg"
-          pressoffsvg="SVG/controlsbg/60x19_Switch_PressOff.svg"
-          onsvg="SVG/controlsbg/60x19_Switch_On.svg"
-          hoveronsvg="SVG/controlsbg/60x19_Switch_HoverOn.svg"
-          pressonsvg="SVG/controlsbg/60x19_Switch_PressOn.svg"/>
+          offsvg="SVG/controlsbg/60x18_Switch_Off.svg"
+          hoveroffsvg="SVG/controlsbg/60x18_Switch_HoverOff.svg"
+          pressoffsvg="SVG/controlsbg/60x18_Switch_PressOff.svg"
+          onsvg="SVG/controlsbg/60x18_Switch_On.svg"
+          hoveronsvg="SVG/controlsbg/60x18_Switch_HoverOn.svg"
+          pressonsvg="SVG/controlsbg/60x18_Switch_PressOn.svg"/>
     </component>
     
     <component name="Mute Emoji Switch" class="CSwitchControl" width="22" height="22">
@@ -214,7 +214,7 @@
           </node>
         </layout>
         <layout width="60" height="auto"  style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="ScMod">
-          <node guiid="scene.mode" component="60x19 Multi" width="60" height="54">
+          <node guiid="scene.mode" component="60x18 Multi" width="60" height="54">
             <nodeproperties rows="3" cols="1"
                             choices="$single|$dual|$split"
                             popup="false"
@@ -251,11 +251,11 @@
               
               <layout width="auto" height="auto" mode="vlist" style="fill" bgcolor="$osc.ctrlsectionbg" label="osc.controls">
                 <layout width="auto" height="22" mode="hlist" style="blank">
-                  <node component="60x19 Switch" guiid="osc.keytrack">
+                  <node component="60x18 Switch" guiid="osc.keytrack">
                     <nodeproperties label="$keytrack"
                                     />
                   </node>
-                  <node component="60x19 Switch" guiid="osc.retrigger">
+                  <node component="60x18 Switch" guiid="osc.retrigger">
                     <nodeproperties label="$retrigger"
                                     />
                   </node>
