@@ -1,12 +1,5 @@
 Here's my sort of running todo as I think of it, in rough order
 
-* ctrlstyles in the xml
-  * add ctrlstyle to the nodeproperties which can push onto p->ctrlstyle
-  * Supress infowindow for scene (kNoPopup)
-  * The problem here is that kNoPopup is on the parameter not the control in current surge so
-    do I want layout engine to see the parameter; or surgeguieditor to ask the control. And if
-    it asks the control do I need a dynamic cast to get the value? cview has attributes; could I use those?
-* don't do kMeta or kEasy - separate those out
 * Glyph Switch
   * Multi-Glyph not just Multi-Text
   * Kill the CMultiSwitch
@@ -45,6 +38,7 @@ Here's my sort of running todo as I think of it, in rough order
 * Cleanup of bitmaps at close. Do they all get forgotten?
 * About Screen 
   * Lets do proper git ID at make time also
+* don't do kMeta or kEasy - separate those out
 
 * Knobs glorious knobs
 * Strings file
