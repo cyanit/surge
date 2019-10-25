@@ -176,7 +176,24 @@
           hoveronsvg="SVG/controlsbg/60x18_Switch_HoverOn.svg"
           pressonsvg="SVG/controlsbg/60x18_Switch_PressOn.svg"/>
     </component>
-    
+
+    <component name="60x12 Multi" class="CGlyphSwitch" width="60">
+      <componentproperties
+          onfg="$switch.onfg"
+          offfg="$switch.offfg" 
+          hoveronfg="$switch.onfg"
+          hoverofffg="$switch.offfg" 
+          pressonfg="$switch.onfg"
+          pressofffg="$switch.offfg"
+          
+          offsvg="SVG/controlsbg/60x12_Switch_Off.svg"
+          hoveroffsvg="SVG/controlsbg/60x12_Switch_HoverOff.svg"
+          pressoffsvg="SVG/controlsbg/60x12_Switch_PressOff.svg"
+          onsvg="SVG/controlsbg/60x12_Switch_On.svg"
+          hoveronsvg="SVG/controlsbg/60x12_Switch_HoverOn.svg"
+          pressonsvg="SVG/controlsbg/60x12_Switch_PressOn.svg"/>
+    </component>
+
     <component name="Mute Emoji Switch" class="CSwitchControl" width="22" height="22">
       <componentproperties subPixmaps="2"
                            svgPerState="true"
@@ -214,7 +231,7 @@
           </node>
         </layout>
         <layout width="60" height="auto"  style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="ScMod">
-          <node guiid="scene.mode" component="60x18 Multi" width="60" height="54">
+          <node guiid="scene.mode" component="60x12 Multi" width="60" height="36">
             <nodeproperties rows="3" cols="1"
                             choices="$single|$dual|$split"
                             popup="false"

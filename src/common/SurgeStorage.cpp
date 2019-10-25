@@ -226,7 +226,6 @@ SurgeStorage::SurgeStorage(std::string suppliedDataPath)
    {
       userDataPath = dotSurge;
    }
-   std::cout << "UserDataPath is " << userDataPath << std::endl;
   
 #elif WINDOWS
 #if TARGET_RACK
@@ -295,7 +294,6 @@ SurgeStorage::SurgeStorage(std::string suppliedDataPath)
    {
       refresh_wtlist();
       refresh_patchlist();
-      std::cout << "Loaded patches from " << datapath << " and so on. Count is patch=" << patch_list.size() << " wt=" << wt_list.size() << std::endl;
    }
 #endif
    
