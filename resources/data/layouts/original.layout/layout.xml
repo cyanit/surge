@@ -8,8 +8,17 @@
       <string name="single" value="SINGLE"/>
       <string name="dual" value="DUAL"/>
       <string name="split" value="SPLIT"/>
+
       <string name="keytrack" value="KeyTrack"/>
       <string name="retrigger" value="ReTrigger"/>
+
+      <string name="poly" value="POLY"/>
+      <string name="mono" value="MONO"/>
+      <string name="monost" value="MONO ST"/>
+      <string name="monofp" value="MONO FP"/>
+      <string name="monostfp" value="MONO ST+FP"/>
+      <string name="latch" value="LATCH"/>
+      
     </stringmap>
 
     <stringmap language="fr">
@@ -52,7 +61,11 @@
       <color name="switchsection.fg" value="#111111"/>
 
       <color name="switch.onfg" value="#ff9000"/>
-      <color name="switch.offfg" value="#aa9080"/>
+      <color name="switch.offfg" value="#ccaa99"/>
+      <color name="switch.hoveronfg" value="#ffC080"/>
+      <color name="switch.hoverofffg" value="#EECCAA"/>
+      <color name="switch.pressonfg" value="#ffC080"/>
+      <color name="switch.pressofffg" value="#EECCAA"/>
 
     </colormap>
   </colormaps>
@@ -111,10 +124,10 @@
           
           onfg="$switch.onfg"
           offfg="$switch.offfg" 
-          hoveronfg="$switch.onfg"
-          hoverofffg="$switch.offfg" 
-          pressonfg="$switch.onfg"
-          pressofffg="$switch.offfg"
+          hoveronfg="$switch.hoveronfg"
+          hoverofffg="$switch.hoverofffg" 
+          pressonfg="$switch.pressonfg"
+          pressofffg="$switch.pressofffg"
           
           offsvg="SVG/controlsbg/60x18_Switch_Off.svg"
           hoveroffsvg="SVG/controlsbg/60x18_Switch_HoverOff.svg"
@@ -124,16 +137,16 @@
           pressonsvg="SVG/controlsbg/60x18_Switch_PressOn.svg"/>
     </component>
 
-    <component name="60x18 Multi" class="CGlyphSwitch" width="60">
+    <component name="60x18 Multi" class="CGlyphSwitch">
       <componentproperties
           infopopup="false"
 
           onfg="$switch.onfg"
           offfg="$switch.offfg" 
-          hoveronfg="$switch.onfg"
-          hoverofffg="$switch.offfg" 
-          pressonfg="$switch.onfg"
-          pressofffg="$switch.offfg"
+          hoveronfg="$switch.hoveronfg"
+          hoverofffg="$switch.hoverofffg" 
+          pressonfg="$switch.pressonfg"
+          pressofffg="$switch.pressofffg"
           
           offsvg="SVG/controlsbg/60x18_Switch_Off.svg"
           hoveroffsvg="SVG/controlsbg/60x18_Switch_HoverOff.svg"
@@ -143,17 +156,17 @@
           pressonsvg="SVG/controlsbg/60x18_Switch_PressOn.svg"/>
     </component>
 
-    <component name="60x12 Multi" class="CGlyphSwitch" width="60">
+    <component name="60x12 Multi" class="CGlyphSwitch">
       <componentproperties
           fontsize="9"
           infopopup="false"
           
           onfg="$switch.onfg"
           offfg="$switch.offfg" 
-          hoveronfg="$switch.onfg"
-          hoverofffg="$switch.offfg" 
-          pressonfg="$switch.onfg"
-          pressofffg="$switch.offfg"
+          hoveronfg="$switch.hoveronfg"
+          hoverofffg="$switch.hoverofffg" 
+          pressonfg="$switch.pressonfg"
+          pressofffg="$switch.pressofffg"
           
           offsvg="SVG/controlsbg/60x12_Switch_Off.svg"
           hoveroffsvg="SVG/controlsbg/60x12_Switch_HoverOff.svg"
@@ -163,15 +176,15 @@
           pressonsvg="SVG/controlsbg/60x12_Switch_PressOn.svg"/>
     </component>
 
-    <component name="36x36 Multi" class="CGlyphSwitch" width="60">
+    <component name="36x36 Multi" class="CGlyphSwitch">
       <componentproperties
           infopopup="false"
           onfg="$switch.onfg"
           offfg="$switch.offfg" 
-          hoveronfg="$switch.onfg"
-          hoverofffg="$switch.offfg" 
-          pressonfg="$switch.onfg"
-          pressofffg="$switch.offfg"
+          hoveronfg="$switch.hoveronfg"
+          hoverofffg="$switch.hoverofffg" 
+          pressonfg="$switch.pressonfg"
+          pressofffg="$switch.pressofffg"
           
           offsvg="SVG/controlsbg/36x36_Switch_Off.svg"
           hoveroffsvg="SVG/controlsbg/36x36_Switch_HoverOff.svg"
@@ -284,13 +297,11 @@
         
         <layout width="225" height="auto" mode="vlist" style="blank" label="mixparent">
           <layout width="auto" height="200" label="Poly" style="roundedblock" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg">
-            <layout width="200" height="53" xoff="center" yoff="40" style="roundedblock" fgcolor="$switchsection.fg" bgcolor="$switchsection.bg">
-              <node guiid="scene.polymode" xoff="130" yoff="3" width="50" height="47" component="Single CHS2">
-                <nodeproperties subPixmaps="6"
-                                heightOfOneImage="47"
-                                rows="6"
+            <layout width="200" height="70" xoff="center" yoff="20" style="roundedblock" fgcolor="$switchsection.fg" bgcolor="$switchsection.bg">
+              <node guiid="scene.polymode" xoff="130" yoff="3" width="60" height="60" component="60x12 Multi">
+                <nodeproperties rows="6"
                                 cols="1"
-                                svg="SVG/PolyMode_00123.svg"
+                                choices="$poly|$mono|$monost|$monofp|$monostfp|$latch"
                                 />
               </node>
               <layout xoff="10" yoff="10" width="40" height="40" style="fill" bgcolor="#00ff00">

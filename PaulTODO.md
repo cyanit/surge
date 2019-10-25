@@ -2,10 +2,10 @@ Here's my sort of running todo as I think of it, in rough order
 
 * Glyph Switch
   * Multi-Glyph not just Multi-Text
-  * Also move the POLY switch over
   * Also move the octave and filter selectors over
-  * increase the contrast a bit
+  * Alignment of Text
 * Pitch Bend Area
+* Component property inheritance
 * Labels and Fonts
 * Move the CHSwitch2s
 * XML configured multi-switch rather than SVG configured multi-switch
@@ -32,6 +32,7 @@ Here's my sort of running todo as I think of it, in rough order
 * Patch Browser
 * What's left in legacy?
 * Why's it coredump if layout is missing?
+* Why's it coredump if layout is malformed
 * Font Controls
 * Second layout with stupid pet tricks
 * Cleanup of bitmaps at close. Do they all get forgotten?
