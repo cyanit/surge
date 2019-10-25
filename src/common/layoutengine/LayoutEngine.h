@@ -69,7 +69,6 @@ public:
    std::string layoutResource(std::string suffix)
    {
       auto res = layoutRoot + particularLayout + suffix;
-      LayoutLog::info() << "Layout Resource Request: '" << res << "'" << std::endl;
       return res;
    }
 

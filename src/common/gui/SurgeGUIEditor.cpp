@@ -996,6 +996,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
          case ct_bool_unipolar:
          case ct_bool_retrigger:
          case ct_bool_keytrack:
+         case ct_pitch_octave:
          {
             CControl *hsw = nullptr;
             if( p->hasLayoutEngineID )
@@ -1099,20 +1100,6 @@ void SurgeGUIEditor::openOrRecreateEditor()
                                           bitmapStore->getBitmap(IDB_FXBYPASS), nopoint, true);
             fxbypass_tag = p->id + start_paramtags;
             rect(2, 2, 133, 25);
-            rect.offset(p->posx, p->posy);
-            hsw->setMouseableArea(rect);
-            hsw->setValue(p->get_value_f01());
-            if(legacy != nullptr) legacy->addView(hsw);
-            nonmod_param[i] = hsw;
-         }
-         break;
-         case ct_pitch_octave:
-         {
-            CRect rect(0, 0, 96, 18);
-            rect.offset(p->posx, p->posy + 1);
-            CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 7, 18, 1, 7,
-                                          bitmapStore->getBitmap(IDB_OCTAVES), nopoint, true);
-            rect(1, 0, 91, 14);
             rect.offset(p->posx, p->posy);
             hsw->setMouseableArea(rect);
             hsw->setValue(p->get_value_f01());

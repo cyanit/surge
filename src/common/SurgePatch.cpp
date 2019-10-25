@@ -140,9 +140,8 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
 
       px = gui_col2_x;
       py = gui_mainsec_y;
-      a->push_back(scene[sc].octave.assign(p_id.next(), id_s++, "octave", "Octave", ct_pitch_octave,
-                                           px + 46, py + 1, sc_id, cg_GLOBAL, 0, false,
-                                           Surge::ParamConfig::kHorizontal | kNoPopup));
+      a->push_back(scene[sc].octave.assign(p_id.next(), id_s++, "octave", "Octave", "global.octave",
+                                           ct_pitch_octave, sc_id, cg_GLOBAL, 0, false ));
       py = gui_mainsec_slider_y;
       a->push_back(scene[sc].pitch.assign(p_id.next(), id_s++, "pitch", "Pitch", "global.pitch",
                                           ct_pitch_semi7bp, sc_id, cg_GLOBAL, 0, true));
@@ -161,9 +160,8 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
          a->push_back(scene[sc].osc[osc].type.assign(p_id.next(), id_s++, "type", "Type",
                                                      ct_osctype, px + 3, py + 1, sc_id, cg_OSC, osc,
                                                      false));
-         a->push_back(scene[sc].osc[osc].octave.assign(
-             p_id.next(), id_s++, "octave", "Octave", ct_pitch_octave, px - 3, py + 1, sc_id,
-             cg_OSC, osc, false, Surge::ParamConfig::kHorizontal | kNoPopup));
+         a->push_back(scene[sc].osc[osc].octave.assign(p_id.next(), id_s++, "octave", "Octave", "osc.octave",
+                                                       ct_pitch_octave, sc_id, cg_OSC, osc, false ));
          py = gui_mainsec_slider_y;
          a->push_back(scene[sc].osc[osc].pitch.assign(p_id.next(), id_s++, "pitch", "Pitch",
                                                       "osc.pitch", ct_pitch_semi7bp_absolutable,

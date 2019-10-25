@@ -16,7 +16,7 @@
       <string name="mono" value="MONO"/>
       <string name="monost" value="MONO ST"/>
       <string name="monofp" value="MONO FP"/>
-      <string name="monostfp" value="MONO ST+FP"/>
+      <string name="monostfp" value="MONO STFP"/>
       <string name="latch" value="LATCH"/>
       
     </stringmap>
@@ -67,6 +67,13 @@
       <color name="switch.pressonfg" value="#ffC080"/>
       <color name="switch.pressofffg" value="#EECCAA"/>
 
+      <color name="switch.untabbed.onfg" value="#0000000"/>
+      <color name="switch.untabbed.offfg" value="#ccaa99"/>
+      <color name="switch.untabbed.hoveronfg" value="#221000"/>
+      <color name="switch.untabbed.hoverofffg" value="#EECCAA"/>
+      <color name="switch.untabbed.pressonfg" value="#321000"/>
+      <color name="switch.untabbed.pressofffg" value="#EECCAA"/>
+
     </colormap>
   </colormaps>
 
@@ -114,8 +121,24 @@
                            svg="SVG/MuteSwitch_00134.svg"
                            />
     </component>
+    <!-- FIXME this bites the dust -->
     <component name="Glyph Unconfigured" class="CGlyphSwitch"/>
 
+    <!-- 
+    <component name="NxM Glyph Base"> 
+      <componentproperties
+          infopopup="false"
+          
+          onfg="$switch.onfg"
+          offfg="$switch.offfg" 
+          hoveronfg="$switch.hoveronfg"
+          hoverofffg="$switch.hoverofffg" 
+          pressonfg="$switch.pressonfg"
+          pressofffg="$switch.pressofffg"/>
+
+    </component>
+    -->
+    
     <component name="60x18 Switch" class="CGlyphSwitch" width="60" height="18">
       <componentproperties
           infopopup="false"
@@ -192,6 +215,25 @@
           onsvg="SVG/controlsbg/36x36_Switch_On.svg"
           hoveronsvg="SVG/controlsbg/36x36_Switch_HoverOn.svg"
           pressonsvg="SVG/controlsbg/36x36_Switch_PressOn.svg"/>
+
+    </component>
+
+    <component name="15x15 UnTabbed Multi" class="CGlyphSwitch">
+      <componentproperties
+          infopopup="false"
+          onfg="$switch.untabbed.onfg"
+          offfg="$switch.untabbed.offfg" 
+          hoveronfg="$switch.untabbed.hoveronfg"
+          hoverofffg="$switch.untabbed.hoverofffg" 
+          pressonfg="$switch.untabbed.pressonfg"
+          pressofffg="$switch.untabbed.pressofffg"
+          
+          offsvg="SVG/controlsbg/15x15_UnTabbed_Off.svg"
+          hoveroffsvg="SVG/controlsbg/15x15_UnTabbed_HoverOff.svg"
+          pressoffsvg="SVG/controlsbg/15x15_UnTabbed_PressOff.svg"
+          onsvg="SVG/controlsbg/15x15_UnTabbed_On.svg"
+          hoveronsvg="SVG/controlsbg/15x15_UnTabbed_HoverOn.svg"
+          pressonsvg="SVG/controlsbg/15x15_UnTabbed_PressOn.svg"/>
 
     </component>
 
@@ -279,6 +321,10 @@
                   </node>
 
                 </layout>
+                <node component="15x15 UnTabbed Multi" guiid="osc.octave" width="105" height="15">
+                  <nodeproperties rows="1" cols="7" fontsize="9" choices="-3|-2|-1|0|1|2|3"/>
+                </node>
+                  
                 <node component="hslider" guiid="osc.pitch"/><!-- Surge::ParamConfig::kHorizontal | kSemitone | sceasy));-->
                 <node component="hslider" guiid="osc.param0"/>
                 <node component="hslider" guiid="osc.param1"/>
@@ -312,7 +358,11 @@
             <node guiid="scene.oscdrift" xoff="center"   yoff="98" component="hslider.light"/>
             <node guiid="scene.noisecolor" xoff="center" yoff="120" component="hslider.light"/>
           </layout>
-          <layout width="auto" height="auto"  label="Scene" style="roundedlabel" fgcolor="$ctrl.fg" bgcolor="$ctrl.bg">
+          <layout width="auto" height="auto"  mode="vlist" label="Scene" style="roundedlabel" fgcolor="$ctrl.fg" bgcolor="$ctrl.bg">
+            <node component="15x15 UnTabbed Multi" guiid="global.octave" width="105" height="15">
+              <nodeproperties rows="1" cols="7" fontsize="9" choices="-3|-2|-1|0|1|2|3"/>
+            </node>
+
             <node component="hslider" guiid="global.pitch"/> <!-- Surge::ParamConfig::kHorizontal | kSemitone | sceasy -->
           </layout>
           <layout width="auto" mode="hlist" height="150" label="Mixer" style="roundedblock" fgcolor="$mixenv.fg" bgcolor="$mixenv.bg">

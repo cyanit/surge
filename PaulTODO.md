@@ -1,11 +1,12 @@
 Here's my sort of running todo as I think of it, in rough order
 
+* Component property single inheritance
 * Glyph Switch
   * Multi-Glyph not just Multi-Text
-  * Also move the octave and filter selectors over
+  * Move filter selectors over
   * Alignment of Text
+  * Mispaint on Single/Dial/Split
 * Pitch Bend Area
-* Component property inheritance
 * Labels and Fonts
 * Move the CHSwitch2s
 * XML configured multi-switch rather than SVG configured multi-switch
@@ -31,14 +32,23 @@ Here's my sort of running todo as I think of it, in rough order
 * FX routing and FX section
 * Patch Browser
 * What's left in legacy?
-* Why's it coredump if layout is missing?
-* Why's it coredump if layout is malformed
 * Font Controls
 * Second layout with stupid pet tricks
 * Cleanup of bitmaps at close. Do they all get forgotten?
 * About Screen 
   * Lets do proper git ID at make time also
 * don't do kMeta or kEasy - separate those out
+* Components on whom build never gets called
+
+
+* Bugs I haven't debugged yet I know about
+  * global octave < 0 clicks when switching in latch. Does it do it in surge proper too?
+  
+* Crashes
+  * If you misconfigure octave (param type etc) you get all sorts of blowups
+  * If you can't load an SVG and return a null you get a blowup
+  * Why's it coredump if layout is missing?
+  * Why's it coredump if layout is malformed
 
 * Knobs glorious knobs
 * Strings file

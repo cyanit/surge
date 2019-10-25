@@ -1,7 +1,7 @@
 # Make SVG Backgrounds
 
 
-def buildFor(w, h, outdir):
+def buildFor(w, h, outdir, tab=True, prefix="Switch"):
     for i in range(6):
 
         on = False
@@ -18,7 +18,7 @@ def buildFor(w, h, outdir):
         if(on):
             ons = "On"
 
-        name = "%dx%d_Switch_%s%s.svg" % (w, h, modes, ons)
+        name = "%dx%d_%s_%s%s.svg" % (w, h, prefix, modes, ons)
 
         res = "<!-- %s -->" % (name)
 
@@ -61,11 +61,16 @@ def buildFor(w, h, outdir):
         res = res + "  </defs>\n"
 
         res += "  <rect x=\"0\" y=\"0\" width=\"%d\" height=\"%d\" style=\"fill: url(#gradient-0);\"/>\n" % (w, h)
-        res += "  <rect x=\"5\" y=\"0\" width=\"2\" height=\"%d\" style=\"fill-rule: evenodd; paint-order: stroke; fill: rgb(0,0,0); \"/>\n" % (
-            h)
+        if(tab):
+            res += "  <rect x=\"5\" y=\"0\" width=\"2\" height=\"%d\" style=\"fill-rule: evenodd; paint-order: stroke; fill: rgb(0,0,0); \"/>\n" % (
+                h)
 
-        if(on):
-            res += "  <rect x=\"0\" y=\"0\" width=\"5\" height=\"%d\" style=\"fill: url(#gradient-1);\"/>\n" % (h)
+            if(on):
+                res += "  <rect x=\"0\" y=\"0\" width=\"5\" height=\"%d\" style=\"fill: url(#gradient-1);\"/>\n" % (h)
+        else:
+            if(on):
+                res += "  <rect x=\"0\" y=\"0\" width=\"%d\" height=\"%d\" style=\"fill: url(#gradient-1);\"/>\n" % (
+                    w, h)
 
         res = res + "</svg>\n"
 
@@ -77,3 +82,5 @@ buildFor(60, 18, "resources/data/layouts/original.layout/SVG/controlsbg")
 buildFor(60, 18, "resources/data/layouts/original.layout/SVG/controlsbg")
 buildFor(60, 12, "resources/data/layouts/original.layout/SVG/controlsbg")
 buildFor(36, 36, "resources/data/layouts/original.layout/SVG/controlsbg")
+buildFor(18, 18, "resources/data/layouts/original.layout/SVG/controlsbg", tab=False, prefix="UnTabbed")
+buildFor(15, 15, "resources/data/layouts/original.layout/SVG/controlsbg", tab=False, prefix="UnTabbed")
