@@ -1,5 +1,6 @@
 Here's my sort of running todo as I think of it, in rough order
 
+* Modulator Sliders move on over
 * Component property single inheritance
 * Glyph Switch
   * Multi-Glyph not just Multi-Text

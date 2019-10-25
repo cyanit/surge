@@ -18,6 +18,8 @@
       <string name="monofp" value="MONO FP"/>
       <string name="monostfp" value="MONO STFP"/>
       <string name="latch" value="LATCH"/>
+
+      <string name="unipolar" value="UniPolar"/>
       
     </stringmap>
 
@@ -121,8 +123,6 @@
                            svg="SVG/MuteSwitch_00134.svg"
                            />
     </component>
-    <!-- FIXME this bites the dust -->
-    <component name="Glyph Unconfigured" class="CGlyphSwitch"/>
 
     <!-- 
     <component name="NxM Glyph Base"> 
@@ -506,8 +506,8 @@
 
       </layout>
       <layout height="auto" width="auto" style="roundedlabel" bgcolor="$mod.bg" fgcolor="$mod.fg" label="Modulator">
-        <node component="Glyph Unconfigured" xoff="20" yoff="20" width="60" height="60" guiid="lfo.unipolar">
-          <nodeproperties glyph="SVG/filter/4pole_high_pass.svg"
+        <node component="60x18 Switch" xoff="20" yoff="20" guiid="lfo.unipolar">
+          <nodeproperties label="$unipolar" fontsize="9"
                           />
         </node>
       </layout>
