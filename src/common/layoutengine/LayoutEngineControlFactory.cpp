@@ -8,7 +8,6 @@
 #include "CSurgeSlider.h"
 #include "CSurgeKnob.h"
 #include "CSwitchControl.h"
-#include "CStringMultiSwitch.h"
 #include "CModulationSourceButton.h"
 
 namespace Surge
@@ -32,6 +31,8 @@ std::unordered_map<std::string, std::string> mergeProperties(std::unordered_map<
 
 void LayoutEngine::setupControlFactory()
 {
+   // FIXME - buckets of refactoring here like the props setup and always call the exit thing
+   
    controlFactory["CHSwitch2"] = [this](const guiid_t& guiid, VSTGUI::IControlListener* listener,
                                         long tag, SurgeGUIEditor* unused, LayoutElement* p) {
       auto comp = components[p->component];
@@ -287,84 +288,15 @@ void LayoutEngine::setupControlFactory()
                                  &editor->synth->storage);
 
 #if 0        
-        oscdisplay->setBGColor( this->colorFromColorMap(comp->properties["bg"], "#000000" ) );
-        oscdisplay->setFGcolor( this->colorFromColorMap(comp->properties["fg"], "#ffff90" ) );
-        oscdisplay->setRuleColor( this->colorFromColorMap(comp->properties["rule"], "#ccccaa0" ) );
+      oscdisplay->setBGColor( this->colorFromColorMap(comp->properties["bg"], "#000000" ) );
+      oscdisplay->setFGcolor( this->colorFromColorMap(comp->properties["fg"], "#ffff90" ) );
+      oscdisplay->setRuleColor( this->colorFromColorMap(comp->properties["rule"], "#ccccaa0" ) );
 #endif
+      // FIXME
+      // commonFactoryMethods(oscdisplay, props);
       return oscdisplay;
    };
 
-   controlFactory["CStringMultiSwitch"] = [this](const guiid_t& guiid,
-                                                 VSTGUI::IControlListener *listener,
-                                                 long tag,
-                                                 SurgeGUIEditor *editor,
-                                                 LayoutElement *p) {
-      auto pprops = p->properties;
-      auto comp = components[p->component];
-      auto props = Surge::mergeProperties(comp->properties, pprops);
-
-      LayoutLog::error() << "Deprecated CStringMultiSwitch used for '" << guiid << "'" << std::endl;
-      
-      point_t nopoint(0, 0);
-      rect_t rect(0, 0, p->width, p->height);
-
-      rect.offset(p->xoff, p->yoff);
-      auto res = new CStringMultiSwitch(rect, listener, tag);
-
-      int r = std::max(std::atoi(props["rows"].c_str()), 1);
-      int c = std::max(std::atoi(props["cols"].c_str()), 1);
-
-      std::string bs = props["border"];
-      if( bs == "rounded" )
-         res->setBorderStyle(CStringMultiSwitch::RoundedRect);
-
-      res->bgcolor = this->colorFromColorMap(props["bgcolor"], "#ffffff" );
-      res->fontcolor = this->colorFromColorMap(props["fontcolor"], "#000000" );
-      res->selectcolor = this->colorFromColorMap(props["selectcolor"], "#ff0000" );
-      if( props["selectfontcolor"].length() > 0 )
-         res->selectfontcolor = this->colorFromColorMap(props["selectfontcolor"], "#000000" );
-      else
-         res->selectfontcolor = res->fontcolor;
-      
-      res->depresscolor = this->colorFromColorMap(props["depresscolor"], "#aaaaaa" );
-      res->hovercolor = this->colorFromColorMap(props["hovercolor"], "#aaaabb" );
-      res->bordercolor = this->colorFromColorMap(props["bordercolor"], "#cccccc" );
-
-      int fs = std::atoi(props["fontsize"].c_str());
-      if( fs == 0 ) fs = 10;
-      res->fontsize = fs;
-      
-      
-      res->setRows(r);
-      res->setCols(c);
-
-      auto sl = props["choices"];
-      std::vector<std::string> ch;
-      int pos;
-      while( (pos = sl.find( "|" )) != std::string::npos )
-      {
-         auto first = sl.substr(0,pos);
-         auto rest = sl.substr(pos+1);
-         ch.push_back(first);
-         sl = rest;
-      }
-      ch.push_back(sl);
-      std::vector<std::string> finalCh;
-      for( auto q : ch )
-      {
-         if( q.c_str()[0] == '$' )
-         {
-            finalCh.push_back(stringFromStringMap(q));
-         }
-         else
-         {
-            finalCh.push_back(q);
-         }
-      }
-      res->setChoiceLabels(finalCh);
-
-      return res;
-   };
 }
 
 void LayoutEngine::commonFactoryMethods(LayoutEngine::control_t *control, std::unordered_map<std::string, std::string> &props) {

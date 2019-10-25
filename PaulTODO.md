@@ -2,7 +2,6 @@ Here's my sort of running todo as I think of it, in rough order
 
 * Glyph Switch
   * Multi-Glyph not just Multi-Text
-  * Kill the CMultiSwitch
   * Also move the POLY switch over
   * Also move the octave and filter selectors over
   * increase the contrast a bit

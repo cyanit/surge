@@ -51,18 +51,6 @@
       <color name="switchsection.bg" value="#000000"/>
       <color name="switchsection.fg" value="#111111"/>
 
-      <color name="roundedmulti.bg" value="#ddddee"/>
-      <color name="roundedmulti.font" value="#000000"/>
-      <color name="roundedmulti.select" value="#ff9000"/>
-      <color name="roundedmulti.border" value="#228822"/>
-
-      <color name="darkmulti.bg" value="#000000"/>
-      <color name="darkmulti.depress" value="#331100"/>
-      <color name="darkmulti.font" value="#ff9000"/>
-      <color name="darkmulti.select" value="#ff9000"/>
-      <color name="darkmulti.selectfont" value="#000000"/>
-      <color name="darkmulti.border" value="#331100"/>
-
       <color name="switch.onfg" value="#ff9000"/>
       <color name="switch.offfg" value="#aa9080"/>
 
@@ -85,31 +73,6 @@
     </component>
 
     <component name="mod.button.scene" class="CModulationSourceButton">
-    </component>
-
-    <!-- These will bite the dust in favor of the CMultiGlyph -->
-    <component name="roundedmultiswitch" class="CStringMultiSwitch">
-      <componentproperties border="rounded"
-                           fontsize="10"
-                           bgcolor="$roundedmulti.bg"
-                           fontcolor="$roundedmulti.font"
-                           selectfontcolor="$roundedmulti.selectfont"
-                           selectcolor="$roundedmulti.select"
-                           depresscolor="$roundedmulti.depress"
-                           hovercolor="$roundedmulti.hover"
-                           bordercolor="$roundedmulti.border"/>
-    </component>
-
-    <component name="darkmultiswitch" class="CStringMultiSwitch">
-      <componentproperties border="rounded"
-                           fontsize="10"
-                           bgcolor="$darkmulti.bg"
-                           fontcolor="$darkmulti.font"
-                           selectfontcolor="$darkmulti.selectfont"
-                           selectcolor="$darkmulti.select"
-                           depresscolor="$darkmulti.depress"
-                           hovercolor="$darkmulti.hover"
-                           bordercolor="$darkmulti.border"/>
     </component>
 
     <component name="Single CHS2" class="CHSwitch2">
@@ -276,8 +239,8 @@
         <layout width="250" height="auto" style="blank" mode="vlist" label="oparent">
           <layout width="auto" height="auto" label="oscparent" mode="hlist" style="blank">
             <layout width="auto" height="auto" label="OSEL" mode="hlist" style="labelblock" fgcolor="$osc.wavsectionfg" bgcolor="$osc.wavsectionbg">
-              <node guiid="osc.switch" component="darkmultiswitch" width="auto" height="auto">
-                <nodeproperties rows="1" cols="6" fontsize="24"
+              <node guiid="osc.switch" component="36x36 Multi" width="36" height="216">
+                <nodeproperties rows="6" cols="1" fontsize="24"
                                 choices="1|2|3|4|5|6"/>
 
               </node>

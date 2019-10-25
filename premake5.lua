@@ -217,7 +217,6 @@ function plugincommon()
         "src/common/gui/CSurgeSlider.cpp",
         "src/common/gui/CSurgeVuMeter.cpp",
         "src/common/gui/CSwitchControl.cpp",
-        "src/common/gui/CStringMultiSwitch.cpp",
         "src/common/gui/PopupEditorDialog.cpp",
         "src/common/gui/SurgeBitmaps.cpp",
         "src/common/gui/SurgeGUIEditor.cpp",
