@@ -77,6 +77,7 @@ public:
    bool parseLayout();
    void buildNodeMapFrom(LayoutElement*);
    void setupControlFactory();
+   void commonFactoryMethods(control_t *control, std::unordered_map<std::string, std::string> &props);
 
    int layoutId = 12374; // FIXME - have a unique ID
 

@@ -5,9 +5,9 @@
     <!-- right now this isn't quite supported but I want the data model to allow internationalization -->
     <stringmap language="en">
       <string name="oscillator" value="Oscillator"/>
-      <string name="single" value="Single"/>
-      <string name="dual" value="Dual"/>
-      <string name="split" value="Split"/>
+      <string name="single" value="SINGLE"/>
+      <string name="dual" value="DUAL"/>
+      <string name="split" value="SPLIT"/>
       <string name="keytrack" value="KeyTrack"/>
       <string name="retrigger" value="ReTrigger"/>
     </stringmap>
@@ -142,6 +142,7 @@
 
     <component name="60x18 Switch" class="CGlyphSwitch" width="60" height="18">
       <componentproperties
+          infopopup="false"
           rows="1"
           cols="1"
           
@@ -162,6 +163,8 @@
 
     <component name="60x18 Multi" class="CGlyphSwitch" width="60">
       <componentproperties
+          infopopup="false"
+
           onfg="$switch.onfg"
           offfg="$switch.offfg" 
           hoveronfg="$switch.onfg"
@@ -179,6 +182,9 @@
 
     <component name="60x12 Multi" class="CGlyphSwitch" width="60">
       <componentproperties
+          fontsize="9"
+          infopopup="false"
+          
           onfg="$switch.onfg"
           offfg="$switch.offfg" 
           hoveronfg="$switch.onfg"
@@ -192,6 +198,25 @@
           onsvg="SVG/controlsbg/60x12_Switch_On.svg"
           hoveronsvg="SVG/controlsbg/60x12_Switch_HoverOn.svg"
           pressonsvg="SVG/controlsbg/60x12_Switch_PressOn.svg"/>
+    </component>
+
+    <component name="36x36 Multi" class="CGlyphSwitch" width="60">
+      <componentproperties
+          infopopup="false"
+          onfg="$switch.onfg"
+          offfg="$switch.offfg" 
+          hoveronfg="$switch.onfg"
+          hoverofffg="$switch.offfg" 
+          pressonfg="$switch.onfg"
+          pressofffg="$switch.offfg"
+          
+          offsvg="SVG/controlsbg/36x36_Switch_Off.svg"
+          hoveroffsvg="SVG/controlsbg/36x36_Switch_HoverOff.svg"
+          pressoffsvg="SVG/controlsbg/36x36_Switch_PressOff.svg"
+          onsvg="SVG/controlsbg/36x36_Switch_On.svg"
+          hoveronsvg="SVG/controlsbg/36x36_Switch_HoverOn.svg"
+          pressonsvg="SVG/controlsbg/36x36_Switch_PressOn.svg"/>
+
     </component>
 
     <component name="Mute Emoji Switch" class="CSwitchControl" width="22" height="22">
@@ -225,8 +250,8 @@
     <layout xoff="0" yoff="0" width="1000" height="auto" mode="vlist" label="side" style="blank">
       <layout height="60" mode="hlist" width="auto" style="blank" label="top">
         <layout width="100" height="auto" style="labelblock" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Scene">
-          <node guiid="scene.AB" component="roundedmultiswitch" width="90" height="50" xoff="5" yoff="5">
-            <nodeproperties rows="2" cols="1" fontsize="24"
+          <node guiid="scene.AB" component="36x36 Multi" width="72" height="36" xoff="5" yoff="5">
+            <nodeproperties rows="1" cols="2" fontsize="24"
                             choices="A|B" popup="false"/>
           </node>
         </layout>

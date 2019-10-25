@@ -61,7 +61,7 @@ void CGlyphSwitch::draw(VSTGUI::CDrawContext *dc)
 }
 void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRect &size, int r, int c )
 {
-   bool isOn = isMulti() ? ( r + c * cols == multiValue ) : value > 0.5;
+   bool isOn = isMulti() ? ( r + c * rows == multiValue ) : value > 0.5;
    int currentDisplay = DrawDisplays::Off;
    if( isOn ) currentDisplay = DrawDisplays::On;
 
@@ -118,7 +118,7 @@ void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRe
 
       if( isMulti() )
       {
-         dc->drawString(choiceLabels[r + c * cols].c_str(), stringR, VSTGUI::kCenterText, true);
+         dc->drawString(choiceLabels[r + c * rows].c_str(), stringR, VSTGUI::kCenterText, true);
       }
       else
       {
@@ -148,7 +148,7 @@ VSTGUI::CMouseEventResult CGlyphSwitch::onMouseUp (VSTGUI::CPoint& where, const 
    setMousedRowAndCol(where);
    mouseState &= ~DrawState::Press;
    if( isMulti() )
-      setMultiValue( mouseRow + mouseCol * cols );
+      setMultiValue( mouseRow + mouseCol * rows );
    else
       setValue( value > 0.5 ? 0 : 1 );
    

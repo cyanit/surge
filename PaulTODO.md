@@ -1,16 +1,20 @@
 Here's my sort of running todo as I think of it, in rough order
 
+* ctrlstyles in the xml
+  * add ctrlstyle to the nodeproperties which can push onto p->ctrlstyle
+  * Supress infowindow for scene (kNoPopup)
+  * The problem here is that kNoPopup is on the parameter not the control in current surge so
+    do I want layout engine to see the parameter; or surgeguieditor to ask the control. And if
+    it asks the control do I need a dynamic cast to get the value? cview has attributes; could I use those?
+* don't do kMeta or kEasy - separate those out
 * Glyph Switch
   * Multi-Glyph not just Multi-Text
   * Kill the CMultiSwitch
   * Also move the POLY switch over
-* Do we keep the Multi-StringSwitch (like AB and OSC select) or combine? Probably combine.
+  * Also move the octave and filter selectors over
+  * increase the contrast a bit
 * Pitch Bend Area
 * Labels and Fonts
-* ctrlstyles in the xml
-  * add ctrlstyle to the nodeproperties which can push onto p->ctrlstyle
-  * Supress infowindow for scene (kNoPopup)
-  * don't do kMeta or kEasy - separate those out
 * Move the CHSwitch2s
 * XML configured multi-switch rather than SVG configured multi-switch
   * properties for drawing and a few classes

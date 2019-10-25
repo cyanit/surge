@@ -82,6 +82,9 @@ public:
       fgFont = fontName;
       fgFontSize = fontSize;
    }
+
+   void setFont( std::string fontName ) { fgFont = fontName; }
+   void setFontSize( int fs ) { fgFontSize = fs; }
    
    void setGlyphBitmap(CScalableBitmap *b) {
       fgMode = Glyph;

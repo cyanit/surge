@@ -234,6 +234,13 @@ void LayoutEngine::setupControlFactory()
          curr++;
       }
 
+      if( props["fontsize"] != "" )
+         res->setFontSize( std::atoi(props["fontsize"].c_str()) );
+
+      if( props["font"] != "" )
+         res->setFont( props["font"] );
+
+      this->commonFactoryMethods(res, props);
       return res;
    };
 
@@ -360,4 +367,8 @@ void LayoutEngine::setupControlFactory()
    };
 }
 
+void LayoutEngine::commonFactoryMethods(LayoutEngine::control_t *control, std::unordered_map<std::string, std::string> &props) {
+   // FIXME do something here
+}
+   
 }
