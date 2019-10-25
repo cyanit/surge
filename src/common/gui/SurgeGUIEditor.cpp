@@ -1003,6 +1003,19 @@ void SurgeGUIEditor::openOrRecreateEditor()
                hsw = layout->addLayoutControl(p->layoutEngineID, this, p->id + start_paramtags, this);
                if( hsw )
                   hsw->setValue(p->get_value_f01());
+
+               bool bprop;
+               if( hsw->getAttribute(Surge::LayoutEngine::kSurgeShowPopup, bprop) )
+               {
+                  if( ! bprop ) // explicitly don't show the popup
+                  {
+                     p->ctrlstyle |= kNoPopup;
+                  }
+                  else
+                  {
+                     p->ctrlstyle &= ~kNoPopup;
+                  }
+               }
                // hsw->setMouseableArea(rect);
                // SetMouseableArea??
             }

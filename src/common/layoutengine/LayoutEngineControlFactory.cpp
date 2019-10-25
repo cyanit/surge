@@ -368,7 +368,10 @@ void LayoutEngine::setupControlFactory()
 }
 
 void LayoutEngine::commonFactoryMethods(LayoutEngine::control_t *control, std::unordered_map<std::string, std::string> &props) {
-   // FIXME do something here
+   if( props["infopopup"] == "false" )
+   {
+      control->setAttribute(LayoutEngine::kSurgeShowPopup, false);
+   }
 }
    
 }

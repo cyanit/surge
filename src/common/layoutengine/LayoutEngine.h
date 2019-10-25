@@ -40,6 +40,8 @@ public:
        const guiid_t&, VSTGUI::IControlListener*, long, SurgeGUIEditor*, LayoutElement*)>
        controlGenerator_t;
 
+   static const VSTGUI::CViewAttributeID kSurgeShowPopup = 'snpo';
+   
    /*
    ** We have a collection of containers where we can generate a set whenever we want
    */
