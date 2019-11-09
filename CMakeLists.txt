@@ -60,6 +60,7 @@ set(SURGE_COMMON_INCLUDES
     libs/
     libs/filesystem
     libs/xml
+    libs/catch2
     libs/strnatcmp
     libs/catch2
     src/common

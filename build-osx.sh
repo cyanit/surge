@@ -128,7 +128,6 @@ run_premake()
         echo
         $SURGE_PREMAKE xcode4
     fi 
-
     touch Surge.xcworkspace/premake-stamp
 }
 

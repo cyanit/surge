@@ -40,7 +40,7 @@ if (os.istarget("macosx")) then
     flags { "StaticRuntime" }
     vectorextensions "SSE2"
 
-    systemversion "10.11"
+    systemversion "10.9"
     
     defines
     {
@@ -66,8 +66,8 @@ if (os.istarget("macosx")) then
         "-Wno-inconsistent-missing-override"   -- Surge was written before this was even a keyword! We do need to fix this though
         }
     links { "c++" }
-    buildoptions { "-mmacosx-version-min=10.11" }
-    linkoptions { "-mmacosx-version-min=10.11" }
+    buildoptions { "-mmacosx-version-min=10.9" }
+    linkoptions { "-mmacosx-version-min=10.9" }
 
     platforms { "x64" }
 
