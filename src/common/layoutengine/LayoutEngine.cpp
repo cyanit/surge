@@ -93,6 +93,14 @@ bool LayoutEngine::parseLayout()
             this->components[comp->name].reset(comp);
          }
       }
+
+      /*
+      ** Resolve component parent relationships here if they are in XML
+      */
+      for( auto &c : this->components )
+      {
+         c.second->resolveParent(this);
+      }
    }
 
    TiXmlElement* layout = TINYXML_SAFE_TO_ELEMENT(surgeskin->FirstChild("layout"));
@@ -855,6 +863,39 @@ LayoutComponent* LayoutComponent::fromXML(TiXmlElement* e)
    return res;
 }
 
+void LayoutComponent::resolveParent(LayoutEngine *eng)
+{
+   if( hasResolvedParent )
+      return;
+   std::cout << "Resolving component" << name << " / " << classN << std::endl;
+   hasResolvedParent = true;
+
+   auto pclass = eng->components.find(classN);
+   if( pclass == eng->components.end() )
+   {
+      auto fclass = eng->controlFactory.find(classN);
+      if( fclass == eng->controlFactory.end() )
+      {
+         LayoutLog::error() << "Error. Component '" << name << "' refers to unknown class '" << classN << "'" << std::endl;
+      }
+   }
+   else
+   {
+      // Basically I become my parents class and adopt their properties, but adopt
+      // those properties under me.
+      auto pcomp = pclass->second;
+      // but first my parent needs to be resolved
+      pcomp->resolveParent(eng);
+      classN = pcomp->classN;
+      auto pcopy = pcomp->properties;
+      for( auto p : properties )
+      {
+         pcopy[p.first] = p.second;
+      }
+      properties = pcopy;
+   }
+}
+
 void LayoutLibrary::initialize(SurgeStorage *storage)
 {
    // FIXME - implement this somewhat tedious code
@@ -912,6 +953,8 @@ void LayoutLibrary::initialize(SurgeStorage *storage)
       }
    }
 }
+
+
 
 std::vector<std::string> LayoutLibrary::availbleLayouts;
 

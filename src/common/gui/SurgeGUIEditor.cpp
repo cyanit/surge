@@ -287,17 +287,10 @@ void SurgeGUIEditor::idle()
 
             for (int i = 1; i < n_modsources; i++)
             {
-<<<<<<< HEAD
                if (gui_modsrc[i])
                   ((CModulationSourceButton*)gui_modsrc[i])
                       ->update_rt_vals(synth->isActiveModulation(ptag, (modsources)i), 0,
                                        synth->isModsourceUsed((modsources)i));
-=======
-               if( gui_modsrc[i] )
-                  ((CModulationSourceButton*)gui_modsrc[i])
-                     ->update_rt_vals(synth->isActiveModulation(ptag, (modsources)i), 0,
-                                      synth->isModsourceUsed((modsources)i));
->>>>>>> master
             }
             synth->storage.CS_ModRouting.leave();
          }
@@ -307,15 +300,9 @@ void SurgeGUIEditor::idle()
          synth->storage.CS_ModRouting.enter();
          for (int i = 1; i < n_modsources; i++)
          {
-<<<<<<< HEAD
             if (gui_modsrc[i])
                ((CModulationSourceButton*)gui_modsrc[i])
                    ->update_rt_vals(false, 0, synth->isModsourceUsed((modsources)i));
-=======
-            if( gui_modsrc[i] )
-               ((CModulationSourceButton*)gui_modsrc[i])
-                  ->update_rt_vals(false, 0, synth->isModsourceUsed((modsources)i));
->>>>>>> master
          }
          synth->storage.CS_ModRouting.leave();
       }
@@ -338,11 +325,7 @@ void SurgeGUIEditor::idle()
 #endif
          for (int i = 1; i < n_modsources; i++)
          {
-<<<<<<< HEAD
             if (gui_modsrc[i])
-=======
-            if( gui_modsrc[i] )
->>>>>>> master
                ((CModulationSourceButton*)gui_modsrc[i])->setblink(blinkstate);
          }
          blinkstate = !blinkstate;
@@ -757,8 +740,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
    }
 
    int rws = 15;
-   /* This loop bound is 1.6.* valid ONLY */
-   for (int k = 1; k < /* n_modsources */ ms_releasevelocity; k++)
+   for (int k = 1; k <  n_modsources; k++)
    {
       modsources ms = (modsources)k;
 

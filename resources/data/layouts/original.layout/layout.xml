@@ -138,58 +138,38 @@
 
     </component>
     -->
+
+    <component name="Dark Glyph" class="CGlyphSwitch">
+      <componentproperties
+          infopopup="false"
+          onfg="$switch.onfg"
+          offfg="$switch.offfg" 
+          hoveronfg="$switch.hoveronfg"
+          hoverofffg="$switch.hoverofffg" 
+          pressonfg="$switch.pressonfg"
+          pressofffg="$switch.pressofffg"/>
+    </component>
     
-    <component name="60x18 Switch" class="CGlyphSwitch" width="60" height="18">
+    <component name="60x18 Multi" class="Dark Glyph">
       <componentproperties
-          infopopup="false"
+          offsvg="SVG/controlsbg/60x18_Switch_Off.svg"
+          hoveroffsvg="SVG/controlsbg/60x18_Switch_HoverOff.svg"
+          pressoffsvg="SVG/controlsbg/60x18_Switch_PressOff.svg"
+          onsvg="SVG/controlsbg/60x18_Switch_On.svg"
+          hoveronsvg="SVG/controlsbg/60x18_Switch_HoverOn.svg"
+          pressonsvg="SVG/controlsbg/60x18_Switch_PressOn.svg"/>
+    </component>
+
+    <component name="60x18 Switch" class="60x18 Multi" width="60" height="18">
+      <componentproperties
           rows="1"
-          cols="1"
-          
-          onfg="$switch.onfg"
-          offfg="$switch.offfg" 
-          hoveronfg="$switch.hoveronfg"
-          hoverofffg="$switch.hoverofffg" 
-          pressonfg="$switch.pressonfg"
-          pressofffg="$switch.pressofffg"
-          
-          offsvg="SVG/controlsbg/60x18_Switch_Off.svg"
-          hoveroffsvg="SVG/controlsbg/60x18_Switch_HoverOff.svg"
-          pressoffsvg="SVG/controlsbg/60x18_Switch_PressOff.svg"
-          onsvg="SVG/controlsbg/60x18_Switch_On.svg"
-          hoveronsvg="SVG/controlsbg/60x18_Switch_HoverOn.svg"
-          pressonsvg="SVG/controlsbg/60x18_Switch_PressOn.svg"/>
+          cols="1"/>
     </component>
 
-    <component name="60x18 Multi" class="CGlyphSwitch">
-      <componentproperties
-          infopopup="false"
-
-          onfg="$switch.onfg"
-          offfg="$switch.offfg" 
-          hoveronfg="$switch.hoveronfg"
-          hoverofffg="$switch.hoverofffg" 
-          pressonfg="$switch.pressonfg"
-          pressofffg="$switch.pressofffg"
-          
-          offsvg="SVG/controlsbg/60x18_Switch_Off.svg"
-          hoveroffsvg="SVG/controlsbg/60x18_Switch_HoverOff.svg"
-          pressoffsvg="SVG/controlsbg/60x18_Switch_PressOff.svg"
-          onsvg="SVG/controlsbg/60x18_Switch_On.svg"
-          hoveronsvg="SVG/controlsbg/60x18_Switch_HoverOn.svg"
-          pressonsvg="SVG/controlsbg/60x18_Switch_PressOn.svg"/>
-    </component>
-
-    <component name="60x12 Multi" class="CGlyphSwitch">
+    <component name="60x12 Multi" class="Dark Glyph">
       <componentproperties
           fontsize="9"
           infopopup="false"
-          
-          onfg="$switch.onfg"
-          offfg="$switch.offfg" 
-          hoveronfg="$switch.hoveronfg"
-          hoverofffg="$switch.hoverofffg" 
-          pressonfg="$switch.pressonfg"
-          pressofffg="$switch.pressofffg"
           
           offsvg="SVG/controlsbg/60x12_Switch_Off.svg"
           hoveroffsvg="SVG/controlsbg/60x12_Switch_HoverOff.svg"
@@ -199,16 +179,8 @@
           pressonsvg="SVG/controlsbg/60x12_Switch_PressOn.svg"/>
     </component>
 
-    <component name="36x36 Multi" class="CGlyphSwitch">
+    <component name="36x36 Multi" class="Dark Glyph">
       <componentproperties
-          infopopup="false"
-          onfg="$switch.onfg"
-          offfg="$switch.offfg" 
-          hoveronfg="$switch.hoveronfg"
-          hoverofffg="$switch.hoverofffg" 
-          pressonfg="$switch.pressonfg"
-          pressofffg="$switch.pressofffg"
-          
           offsvg="SVG/controlsbg/36x36_Switch_Off.svg"
           hoveroffsvg="SVG/controlsbg/36x36_Switch_HoverOff.svg"
           pressoffsvg="SVG/controlsbg/36x36_Switch_PressOff.svg"
@@ -234,7 +206,6 @@
           onsvg="SVG/controlsbg/15x15_UnTabbed_On.svg"
           hoveronsvg="SVG/controlsbg/15x15_UnTabbed_HoverOn.svg"
           pressonsvg="SVG/controlsbg/15x15_UnTabbed_PressOn.svg"/>
-
     </component>
 
     <component name="Mute Emoji Switch" class="CSwitchControl" width="22" height="22">

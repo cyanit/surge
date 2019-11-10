@@ -186,6 +186,9 @@ public:
    int height = 0;
    std::unordered_map<std::string, std::string> properties;
 
+   bool hasResolvedParent = false;
+   void resolveParent(LayoutEngine *eng);
+   
    static LayoutComponent* fromXML(TiXmlElement* e);
 };
 
