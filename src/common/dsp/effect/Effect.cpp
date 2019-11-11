@@ -246,9 +246,11 @@ template <int v> void ChorusEffect<v>::init()
    for (int i = 0; i < v; i++)
    {
       time[i].setRate(0.001);
+      timeR[i].setRate(0.001);
       float x = i;
       x /= (float)(v - 1);
       lfophase[i] = x;
+      lfophaseR[i] = x; // + 0.07;
       x = 2.f * x - 1.f;
       voicepan[i][0] = sqrt(0.5 - 0.5 * x) * gainscale;
       voicepan[i][1] = sqrt(0.5 + 0.5 * x) * gainscale;
@@ -281,9 +283,28 @@ template <int v> void ChorusEffect<v>::setvars(bool init)
          lfophase[i] += rate;
          if (lfophase[i] > 1)
             lfophase[i] -= 1;
+         lfophaseR[i] += rate;
+         if (lfophaseR[i] > 1)
+            lfophaseR[i] -= 1;
+
+         auto lfophasespread = 0; // *f[8];
+         auto phaseL = lfophase[i]  + lfophasespread * 0.5f;
+         if( phaseL > 1 ) phaseL -= 1;
+         
+         auto phaseR = lfophaseR[i] - lfophasespread * 0.5f;
+         if( phaseR < 0 ) phaseR += 1;
+         
          // float lfoout = 0.5*lookup_waveshape_warp(3,4.f*lfophase[i]-2.f) * *f[2];
-         float lfoout = (2.f * fabs(2.f * lfophase[i] - 1.f) - 1.f) * *f[2];
+         float lfoout = (2.f * fabs(2.f * phaseL - 1.f) - 1.f) * *f[2];
          time[i].newValue(samplerate * tm * (1 + lfoout));
+
+         auto lfooutR = (2.f * fabs(2.f * phaseR - 1.f) - 1.f) * *f[2];
+         if( false && i == 0 )
+         {
+            std::cout << "S=" << lfophasespread << " L " << lfoout << " PL=" << phaseL << " ll=" << lfophase[i];
+            std::cout << " R " << lfooutR << " PR=" << phaseR << " ll=" << lfophaseR[i] << std::endl;
+         }
+         timeR[i].newValue(samplerate * tm * (1 + lfooutR));
       }
 
       hp.coeff_HP(hp.calc_omega(*f[4] * (1.f / 12.f)), 0.707);
@@ -325,6 +346,21 @@ template <int v> void ChorusEffect<v>::process(float* dataL, float* dataR)
              vo, _mm_mul_ps(_mm_load_ps(&sinctable1X[sinc + 8]), _mm_loadu_ps(&buffer[rp + 8])));
 
          L = _mm_add_ps(L, _mm_mul_ps(vo, voicepanL4[j]));
+
+         // And do the right time
+         timeR[j].process();
+         vtime = timeR[j].v;
+         i_dtime = max(BLOCK_SIZE, min((int)vtime, max_delay_length - FIRipol_N - 1));
+         rp = ((wpos - i_dtime + k) - FIRipol_N) & (max_delay_length - 1);
+         sinc = FIRipol_N *
+                    limit_range((int)(FIRipol_M * (float(i_dtime + 1) - vtime)), 0, FIRipol_M - 1);
+
+         vo = _mm_mul_ps(_mm_load_ps(&sinctable1X[sinc]), _mm_loadu_ps(&buffer[rp]));
+         vo = _mm_add_ps(
+             vo, _mm_mul_ps(_mm_load_ps(&sinctable1X[sinc + 4]), _mm_loadu_ps(&buffer[rp + 4])));
+         vo = _mm_add_ps(
+             vo, _mm_mul_ps(_mm_load_ps(&sinctable1X[sinc + 8]), _mm_loadu_ps(&buffer[rp + 8])));
+
          R = _mm_add_ps(R, _mm_mul_ps(vo, voicepanR4[j]));
       }
       L = sum_ps_to_ss(L);
@@ -400,14 +436,27 @@ template <int v> void ChorusEffect<v>::init_ctrltypes()
    fxdata->p[7].set_name("Width");
    fxdata->p[7].set_type(ct_decibel_narrow);
 
+   // New for modulation
+   fxdata->p[8].set_name("LFO Stereo Phase");
+   fxdata->p[8].set_type(ct_phase_degrees);
+   fxdata->p[9].set_name("LFO Stereo Drift");
+   fxdata->p[9].set_type(ct_percent); // fixme add a range
+   fxdata->p[10].set_name("LFO Shape" );
+   fxdata->p[10].set_type(ct_percent);
+
+   
    fxdata->p[0].posy_offset = 1;
    fxdata->p[1].posy_offset = 3;
    fxdata->p[2].posy_offset = 3;
-   fxdata->p[3].posy_offset = 5;
-   fxdata->p[4].posy_offset = 7;
-   fxdata->p[5].posy_offset = 7;
-   fxdata->p[6].posy_offset = 9;
-   fxdata->p[7].posy_offset = 9;
+   fxdata->p[3].posy_offset = 11;
+   fxdata->p[4].posy_offset = 13;
+   fxdata->p[5].posy_offset = 13;
+   fxdata->p[6].posy_offset = 15;
+   fxdata->p[7].posy_offset = 15;
+
+   fxdata->p[8].posy_offset = -7;
+   fxdata->p[9].posy_offset = -7;
+   fxdata->p[10].posy_offset = -7;
 }
 template <int v> const char* ChorusEffect<v>::group_label(int id)
 {
@@ -435,11 +484,11 @@ template <int v> int ChorusEffect<v>::group_label_ypos(int id)
    case 1:
       return 5;
    case 2:
-      return 11;
+      return 17;
    case 3:
-      return 15;
-   case 4:
       return 21;
+   case 4:
+      return 27;
    }
    return 0;
 }

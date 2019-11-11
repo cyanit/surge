@@ -94,6 +94,7 @@ enum ctrltypes
    ct_countedset_percent, // what % through a counted set are you
    ct_vocoder_bandcount,
    ct_distortion_waveshape,
+   ct_phase_degrees,
    num_ctrltypes,
 };
 

@@ -607,6 +607,12 @@ void Parameter::set_type(int ctrltype)
       valtype = vt_float;
       val_default.f = 0;
       break;
+   case ct_phase_degrees:
+      val_min.f = 0;
+      val_max.f = 1;
+      valtype = vt_float;
+      val_default.f = 0;
+      break;
    default:
    case ct_none:
       sprintf(dispname, "-");
@@ -936,6 +942,9 @@ void Parameter::get_display(char* txt, bool external, float ef)
       case ct_percent:
       case ct_percent_bidirectional:
          sprintf(txt, "%.1f %c", f * 100.f, '%');
+         break;
+      case ct_phase_degrees:
+         sprintf( txt, "%.1f deg", f * 360.f );
          break;
       case ct_countedset_percent:
          if (user_data == nullptr)

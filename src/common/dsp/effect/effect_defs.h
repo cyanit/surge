@@ -85,12 +85,12 @@ public:
    virtual int group_label_ypos(int id) override;
 
 private:
-   lag<float, true> time[v];
+   lag<float, true> time[v], timeR[v];
    float voicepan[v][2];
    float envf;
    int wpos;
    BiquadFilter lp, hp;
-   double lfophase[v];
+   double lfophase[v], lfophaseR[v];
 };
 
 class FreqshiftEffect : public Effect
