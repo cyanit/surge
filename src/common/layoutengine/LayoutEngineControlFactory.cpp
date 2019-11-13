@@ -192,9 +192,25 @@ void LayoutEngine::setupControlFactory()
             cn++;
          }
       }
+      else if( comp->array_properties.find( "glyphchoices" ) != comp->array_properties.end() )
+      {
+         auto gc = comp->array_properties["glyphchoices"];
+         res->setGlyphChoiceCount(gc.size());
+         int i=0;
+         for( auto glyph : gc )
+         {
+            auto glyphtag = glyph + "." + guiid;
+            if( this->loadSVGToBitmapStore(glyph, glyphtag) )
+            {
+               bitmapStore->getLayoutBitmap(this->layoutId, glyphtag)->setGlyphMode(true);
+               res->setGlyphChoiceBitmap(i, bitmapStore->getLayoutBitmap(this->layoutId, glyphtag));
+            }
+            ++i;
+         }
+      }
       else
       {
-         // LayoutLog::warn() << "No glyph, label, or choices for CGlyphSwitch '" << guiid << "'" << std::endl;
+         LayoutLog::warn() << "No glyph, label, or choices or glyphchoices for CGlyphSwitch '" << guiid << "'" << std::endl;
       }
 
       auto fgkeys = { "offfg", "onfg", "hoverofffg", "hoveronfg", "pressofffg", "pressonfg" };

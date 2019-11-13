@@ -858,6 +858,45 @@ LayoutComponent* LayoutComponent::fromXML(TiXmlElement* e)
       {
          res->properties[a->Name()] = a->Value();
       }
+      // Handle children
+      for( auto k = cprops->FirstChild(); k; k = k->NextSibling())
+      {
+         auto* lkid = TINYXML_SAFE_TO_ELEMENT(k);
+         if (lkid && strcmp(lkid->Value(), "array") == 0)
+         {
+            const char* n = lkid->Attribute("name");
+            std::string aname;
+            if( n )
+            {
+               aname = n;
+            }
+            else
+            {
+               LayoutLog::error() << "Array property lacks name in component " << name << std::endl;
+               name = "error";
+            }
+            
+            // Get the name attribute
+            std::vector<std::string> values;
+            // Traverse the children looking for values
+            for( auto ek = lkid->FirstChild(); ek; ek = ek->NextSibling())
+            {
+               auto *lek = TINYXML_SAFE_TO_ELEMENT(ek);
+               if( lek && strcmp(lek->Value(), "element") == 0 )
+               {
+                  const char* v = lek->Attribute("value");
+                  if( v )
+                     values.push_back(v);
+                  else
+                  {
+                     LayoutLog::error() << "Array element #" << values.size() << " doesn't have value attribute" << std::endl;
+                     values.push_back( "error" );
+                  }
+               }
+            }
+            res->array_properties[aname] = values;
+         }
+      }
    }
 
    return res;
@@ -867,7 +906,7 @@ void LayoutComponent::resolveParent(LayoutEngine *eng)
 {
    if( hasResolvedParent )
       return;
-   std::cout << "Resolving component" << name << " / " << classN << std::endl;
+
    hasResolvedParent = true;
 
    auto pclass = eng->components.find(classN);
@@ -893,6 +932,13 @@ void LayoutComponent::resolveParent(LayoutEngine *eng)
          pcopy[p.first] = p.second;
       }
       properties = pcopy;
+
+      auto apcopy = pcomp->array_properties;
+      for( auto p : array_properties )
+      {
+         apcopy[p.first] = p.second;
+      }
+      array_properties = apcopy;
    }
 }
 

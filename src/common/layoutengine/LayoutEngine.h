@@ -97,7 +97,7 @@ public:
    bool loadSVGToBitmapStore(std::string svg, float w=0, float h=0) {
       return loadSVGToBitmapStore(svg,svg,w,h);
    }
-   bool loadSVGToBitmapStore(std::string svg, std::string svgtag, float w, float h);
+   bool loadSVGToBitmapStore(std::string svg, std::string svgtag, float w=0, float h=0);
 };
 
 class LayoutElement
@@ -185,7 +185,8 @@ public:
    int width = 0;
    int height = 0;
    std::unordered_map<std::string, std::string> properties;
-
+   std::unordered_map<std::string, std::vector<std::string>> array_properties;
+   
    bool hasResolvedParent = false;
    void resolveParent(LayoutEngine *eng);
    

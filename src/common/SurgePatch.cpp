@@ -366,9 +366,12 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
          px = gui_col3_x + gui_sec_width * 2 * f;
          py = gui_mainsec_y;
 
+         char fp[256];
+         sprintf(fp, "filters.filter%d.type", f );
          a->push_back(scene[sc].filterunit[f].type.assign(
-             p_id.next(), id_s++, "type", "Filter Type", ct_filtertype, px - 2, py + 1, sc_id,
-             cg_FILTER, f, false, Surge::ParamConfig::kHorizontal));
+                         p_id.next(), id_s++, "type", "Filter Type", fp,
+                         ct_filtertype,  sc_id, cg_FILTER, f, false));
+         
          a->push_back(scene[sc].filterunit[f].subtype.assign(
              p_id.next(), id_s++, "subtype", "Filter Subtype", ct_filtersubtype, px - 3, py + 1,
              sc_id, cg_FILTER, f, false, Surge::ParamConfig::kHorizontal));

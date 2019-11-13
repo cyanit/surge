@@ -107,6 +107,16 @@ void CGlyphSwitch::drawSingleElement(VSTGUI::CDrawContext *dc, const VSTGUI::CRe
       }
    }
    break;
+   case GlyphChoice:
+   {
+      if( glyphChoices[r + c * rows] != nullptr )
+      {
+         glyphChoices[r + c * rows]->updateWithGlyphColor(fgColor[currentDisplay]);
+         VSTGUI::CPoint where(0,0);
+         glyphChoices[r + c * rows]->draw(dc, size, where, 0xff );
+      }
+   }
+   break;
    case Text:
    {
       auto stringR = size;

@@ -918,20 +918,6 @@ void SurgeGUIEditor::openOrRecreateEditor()
 
          switch (p->ctrltype)
          {
-         case ct_filtertype:
-         {
-            CRect rect(0, 0, 129, 18);
-            rect.offset(p->posx - 2, p->posy + 1);
-            CControl* hsw = new CHSwitch2(rect, this, p->id + start_paramtags, 10, 18, 1, 10,
-                                          bitmapStore->getBitmap(IDB_FILTERBUTTONS), nopoint, true);
-            rect(3, 0, 124, 14);
-            rect.offset(p->posx, p->posy);
-            hsw->setMouseableArea(rect);
-            hsw->setValue(p->get_value_f01());
-            if(legacy != nullptr) legacy->addView(hsw);
-            nonmod_param[i] = hsw;
-         }
-         break;
          case ct_filtersubtype:
          {
             CRect rect(0, 0, 12, 18);
@@ -1021,6 +1007,7 @@ void SurgeGUIEditor::openOrRecreateEditor()
          case ct_bool_retrigger:
          case ct_bool_keytrack:
          case ct_pitch_octave:
+         case ct_filtertype:
          {
             CControl *hsw = nullptr;
             if( p->hasLayoutEngineID )

@@ -82,5 +82,7 @@ buildFor(60, 18, "resources/data/layouts/original.layout/SVG/controlsbg")
 buildFor(60, 18, "resources/data/layouts/original.layout/SVG/controlsbg")
 buildFor(60, 12, "resources/data/layouts/original.layout/SVG/controlsbg")
 buildFor(36, 36, "resources/data/layouts/original.layout/SVG/controlsbg")
+
+buildFor(20, 20, "resources/data/layouts/original.layout/SVG/controlsbg", tab=False, prefix="UnTabbed")
 buildFor(18, 18, "resources/data/layouts/original.layout/SVG/controlsbg", tab=False, prefix="UnTabbed")
 buildFor(15, 15, "resources/data/layouts/original.layout/SVG/controlsbg", tab=False, prefix="UnTabbed")

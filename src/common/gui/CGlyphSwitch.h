@@ -50,6 +50,7 @@ public:
    enum FGMode {
       None,
       Glyph,
+      GlyphChoice,
       Text
    };
    FGMode fgMode = FGMode::None;
@@ -92,6 +93,23 @@ public:
          glyph->forget();
       glyph = b;
       glyph->remember();
+   }
+
+   void setGlyphChoiceCount(int i) {
+      fgMode = GlyphChoice;
+      for( auto *p : glyphChoices )
+         if( p )
+            p->forget();
+      glyphChoices.clear();
+      glyphChoices.resize(i, nullptr);
+   }
+   
+   void setGlyphChoiceBitmap(int i, CScalableBitmap *b) {
+      fgMode = GlyphChoice;
+      if( glyphChoices[i] )
+         glyphChoices[i]->forget();
+      glyphChoices[i] = b;
+      glyphChoices[i]->remember();
    }
 
    void setBGBitmap(int which, CScalableBitmap *b) {
@@ -140,6 +158,8 @@ private:
    CScalableBitmap *bgBitmap[n_drawstates];
    VSTGUI::CColor bgColor[n_drawstates], fgColor[n_drawstates];
    CScalableBitmap *glyph = nullptr;
+   std::vector<CScalableBitmap *> glyphChoices;
+   
    std::vector<std::string> choiceLabels;
    
    std::string fgText = "", fgFont="Lato";

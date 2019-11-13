@@ -208,6 +208,41 @@
           pressonsvg="SVG/controlsbg/15x15_UnTabbed_PressOn.svg"/>
     </component>
 
+    <component name="20x20 UnTabbed Multi" class="CGlyphSwitch">
+      <componentproperties
+          infopopup="false"
+          onfg="$switch.untabbed.onfg"
+          offfg="$switch.untabbed.offfg" 
+          hoveronfg="$switch.untabbed.hoveronfg"
+          hoverofffg="$switch.untabbed.hoverofffg" 
+          pressonfg="$switch.untabbed.pressonfg"
+          pressofffg="$switch.untabbed.pressofffg"
+          
+          offsvg="SVG/controlsbg/20x20_UnTabbed_Off.svg"
+          hoveroffsvg="SVG/controlsbg/20x20_UnTabbed_HoverOff.svg"
+          pressoffsvg="SVG/controlsbg/20x20_UnTabbed_PressOff.svg"
+          onsvg="SVG/controlsbg/20x20_UnTabbed_On.svg"
+          hoveronsvg="SVG/controlsbg/20x20_UnTabbed_HoverOn.svg"
+          pressonsvg="SVG/controlsbg/20x20_UnTabbed_PressOn.svg"/>
+    </component>
+
+    <component name="Filter Selector" class="15x15 UnTabbed Multi" width="150" height="15">
+      <componentproperties rows="1" cols="10">
+        <array name="glyphchoices">
+          <element value="SVG/filter/no_filter.svg"/>
+          <element value="SVG/filter/low_pass.svg"/>
+          <element value="SVG/filter/4pole_low_pass.svg"/>
+          <element value="SVG/filter/low_pass_again.svg"/>
+          <element value="SVG/filter/high_pass.svg"/>
+          <element value="SVG/filter/4pole_high_pass.svg"/>
+          <element value="SVG/filter/bell.svg"/>
+          <element value="SVG/filter/notch.svg"/>
+          <element value="SVG/filter/comb.svg"/>
+          <element value="SVG/filter/sample_and_hold.svg"/>
+        </array>
+      </componentproperties>
+    </component>
+    
     <component name="Mute Emoji Switch" class="CSwitchControl" width="22" height="22">
       <componentproperties subPixmaps="2"
                            svgPerState="true"
@@ -410,9 +445,13 @@
             <layout height="auto" width="auto" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Output"/>
           </layout>
           <layout height="100" width="auto" mode="hlist" style="blank" label="filtparent">
-            <layout height="auto" width="auto" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 1"/>
+            <layout height="auto" width="auto" mode="vlist" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 1">
+              <node guiid="filters.filter0.type" component="Filter Selector"/>
+            </layout>
             <layout height="100" width="175" style="svg" svg="SVG/175x100_BG.svg" label="Filt Mix"/>
-            <layout height="auto" width="auto" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 2"/>
+            <layout height="auto" width="auto" mode="vlist" style="roundedlabel" bgcolor="$ctrl.bg" fgcolor="$ctrl.fg" label="Filt 2">
+              <node guiid="filters.filter1.type" component="Filter Selector"/>
+            </layout>
           </layout>
           <layout height="auto" width="auto" mode="hlist" style="blank" label="envparent">
             <layout height="auto" width="auto" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="KeyTrack"/>

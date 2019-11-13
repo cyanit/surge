@@ -1,17 +1,14 @@
 Here's my sort of running todo as I think of it, in rough order
 
-* Modulator Sliders move on over
-* Glyph Switch
-  * Multi-Glyph not just Multi-Text
-  * Move filter selectors over
-  * Alignment of Text
-  * Mispaint on Single/Dial/Split
 * Pitch Bend Area
 * Labels and Fonts
-* Move the CHSwitch2s
-* XML configured multi-switch rather than SVG configured multi-switch
-  * properties for drawing and a few classes
-  * Add a multi-text switch which encompasses toggle
+* Move the CHSwitch2s as is for now
+  * FM routing
+  * Filter config
+* Move the LFO section over
+* Modulator Sliders move on over
+* Glyph Switch
+  * Alignment of Text (MONO STFP?)
 * Slider Parameterization and Work
   * Handle and BG SVGs
   * API for painting ticks on sliders; and sizing sliders
@@ -21,7 +18,6 @@ Here's my sort of running todo as I think of it, in rough order
   * LayoutDir to '.layout'
   * Scan for Layouts in the userpath and factorypath
   * Menu to swap layouts
-* Move the LFO section over
 * Finish the Scene and Patch section
   * What to do about the patch browser
 * Finish OSC Section
