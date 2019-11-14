@@ -14,6 +14,8 @@ Here's my sort of running todo as I think of it, in rough order
   * API for painting ticks on sliders; and sizing sliders
   * SVG for slider handles
 * Modulation Button Properties for Colors exposed
+  * including hover, background blink, font, etc...
+* VU Meter and VU Meter Optimization for Background
 * Find and swap layouts
   * LayoutDir to '.layout'
   * Scan for Layouts in the userpath and factorypath

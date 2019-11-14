@@ -200,9 +200,9 @@ SurgePatch::SurgePatch(SurgeStorage* storage)
                                               ct_fmconfig, gui_col3_x + 3, gui_topbar + 25, sc_id,
                                               cg_GLOBAL, 0, false));
       a->push_back(scene[sc].fm_depth.assign(
-          p_id.next(), id_s++, "fm_depth", "FM Depth", ct_decibel_fmdepth, gui_col3_x,
-          gui_uppersec_y + gui_hfader_dist * 4, sc_id, cg_GLOBAL, 0, true,
-          Surge::ParamConfig::kHorizontal | kWhite | sceasy));
+                      p_id.next(), id_s++, "fm_depth", "FM Depth", "fm.depth",
+                      ct_decibel_fmdepth, sc_id, cg_GLOBAL, 0, true ));
+
 
       a->push_back(scene[sc].drift.assign(p_id.next(), id_s++, "drift", "Osc Drift", "scene.oscdrift",
                                           ct_percent, sc_id, cg_GLOBAL, 0, true ));

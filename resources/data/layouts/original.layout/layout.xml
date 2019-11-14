@@ -440,7 +440,9 @@
 
         <layout width="auto" height="auto" mode="vlist" style="blank" label="midparent">
           <layout height="150" width="auto" mode="hlist" style="blank" label="ofoparent">
-            <layout height="auto" width="auto" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="FM"/>
+            <layout height="auto" width="auto" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="FM">
+              <node guiid="fm.depth" xoff="center"   yoff="20" component="hslider.light"/>
+            </layout>
             <layout height="auto" width="auto" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Filter Cfg"/>
             <layout height="auto" width="auto" style="roundedlabel" bgcolor="$mixenv.bg" fgcolor="$mixenv.fg" label="Output"/>
           </layout>
