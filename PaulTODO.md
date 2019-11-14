@@ -35,7 +35,7 @@ Here's my sort of running todo as I think of it, in rough order
   * Lets do proper git ID at make time also
 * don't do kMeta or kEasy - separate those out
 * Components on whom build never gets called
-
+* VST2 doesn't delete instance else it crashes. I think it is because the LOE is deleted out of order. Check on Linux.
 
 * Bugs I haven't debugged yet I know about
   * global octave < 0 clicks when switching in latch. Does it do it in surge proper too?

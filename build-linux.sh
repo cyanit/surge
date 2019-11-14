@@ -313,8 +313,8 @@ if [ -z "$option_debug" ]; then
     dest_headless_name="Surge-Headless"
 else
     config="config=debug_x64"
-    vst2_src_path="target/vst2/Debug/Surge-Debug.so"
-    vst3_src_path="target/vst3/Debug/Surge-Debug.so"
+    vst2_src_path="target/vst2/Debug/Surge++-Debug.so"
+    vst3_src_path="target/vst3/Debug/Surge++-Debug.so"
     lv2_bundle_name="Surge.lv2"
     lv2_src_path="target/lv2/Debug/$lv2_bundle_name"
     headless_src_path="target/headless/Debug/Surge-Debug"
