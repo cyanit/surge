@@ -1,5 +1,5 @@
-#include "LayoutEngine.h"
 #include "SurgeGUIEditor.h"
+#include "LayoutEngine.h"
 #include "CScalableBitmap.h"
 #include "CHSwitch2.h"
 #include "COscillatorDisplay.h"

@@ -1,6 +1,6 @@
-#include "CScalableBitmap.h"
 #include "SurgeGUIEditor.h"
 #include "LayoutEngine.h"
+#include "CScalableBitmap.h"
 #include <iostream>
 #include "LayoutEngineContainer.h"
 #include "LayoutLog.h"

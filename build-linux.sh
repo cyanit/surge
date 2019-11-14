@@ -3,6 +3,8 @@
 # build-linux.sh is the master script we use to control the multi-step build
 # processes.
 
+set -o xtrace
+
 help_message()
 {
     cat << EOHELP
@@ -302,12 +304,12 @@ fi
 
 if [ -z "$option_debug" ]; then
     config="config=release_x64"
-    vst2_src_path="target/vst2/Release/Surge.so"
+    vst2_src_path="target/vst2/Release/Surge++.so"
     vst3_src_path="products/Surge++.vst3"
-    lv2_bundle_name="Surge.lv2"
+    lv2_bundle_name="Surge++.lv2"
     lv2_src_path="target/lv2/Release/$lv2_bundle_name"
     headless_src_path="target/headless/Release/Surge"
-    dest_plugin_name="Surge.so"
+    dest_plugin_name="Surge++.so"
     dest_headless_name="Surge-Headless"
 else
     config="config=debug_x64"
